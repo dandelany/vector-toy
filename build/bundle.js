@@ -107,7 +107,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: #e0e0e0;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #333;\n}\n", ""]);
+	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #f0f0f0;\n}\n", ""]);
 	
 	// exports
 
@@ -20179,8 +20179,9 @@
 	                y: [-5, 5]
 	            },
 	            //color: function(x, y, t) { return `rgb(${t*5}, ${t*4}, ${t*3})`; }
+	            //color: function(x, y, t) { return 'red'; },
 	            color: function color(x, y, t) {
-	                return 'red';
+	                return 'rgb(10, ' + t * 40 % 255 + ', ' + t * 54 % 255 + ')';
 	            },
 	            particleCount: 1000,
 	            fadeAmount: 1
@@ -20238,11 +20239,6 @@
 	                            onValidChange: this._onUpdateState.bind(this, 'particleCount')
 	                        })
 	                    )
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    this.state.vx(0, 0, 1)
 	                )
 	            );
 	        }
@@ -73425,7 +73421,6 @@
 	    left: 0,
 	    width: '100%',
 	    height: '100%',
-	    backgroundColor: 'red',
 	    zIndex: -1
 	};
 	var makeWallpaper = function makeWallpaper(ComposedComponent) {

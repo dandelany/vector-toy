@@ -71,7 +71,8 @@ export default class App extends React.Component {
                 y: [-5, 5]
             },
             //color: function(x, y, t) { return `rgb(${t*5}, ${t*4}, ${t*3})`; }
-            color: function(x, y, t) { return 'red'; },
+            //color: function(x, y, t) { return 'red'; },
+            color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
             particleCount: 1000,
             fadeAmount: 1
         };
@@ -117,7 +118,6 @@ export default class App extends React.Component {
                     }} />
                 </div>
             </div>
-            <div>{this.state.vx(0, 0, 1)}</div>
         </div>;
     }
 }
