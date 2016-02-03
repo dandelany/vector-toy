@@ -10,8 +10,8 @@ module.exports = {
     ],
     output: {
         path: path.join(__dirname, 'build'),
-        filename: 'bundle.js',
-        publicPath: '/build/'
+        filename: 'bundle.js'
+        //publicPath: '/build/'
     },
     devtool: 'source-map',
     plugins: [
