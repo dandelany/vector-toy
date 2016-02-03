@@ -73881,7 +73881,7 @@
 	            var xDomain = scale.x.domain();
 	            var yDomain = scale.y.domain();
 	
-	            this._fadeOut();
+	            //this._fadeOut();
 	            //this._fadeOutSimple();
 	
 	            for (var i = 0; i < x.length; i++) {

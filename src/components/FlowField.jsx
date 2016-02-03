@@ -193,7 +193,7 @@ export default class FlowField extends React.Component {
         const xDomain = scale.x.domain();
         const yDomain = scale.y.domain();
 
-        this._fadeOut();
+        //this._fadeOut();
         //this._fadeOutSimple();
 
         for (var i = 0; i < x.length; i++) {
