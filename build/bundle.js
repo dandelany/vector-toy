@@ -20100,7 +20100,7 @@
 	            // todo: see how slow this is, move to FlowField so it's only done once for all functions
 	            this._timed = function (func) {
 	                return function (x, y) {
-	                    return func(x, y, (new Date().getTime() - startTime) / 1000);
+	                    return func(x, y, (new Date().getTime() - startTime) / 1000, _d2.default);
 	                    //return func(newX, newY, (new Date().getTime() - startTime) / 1000);
 	                };
 	            };
@@ -20188,8 +20188,8 @@
 	            //color: function(x, y, t) { return `rgb(${t*5}, ${t*4}, ${t*3})`; }
 	            //color: function(x, y, t) { return 'red'; },
 	            //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
-	            color: function color(x, y, t) {
-	                return window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(y));
+	            color: function color(x, y, t, d3) {
+	                return d3.hsl(x * t, Math.abs(y * 20), Math.abs(y));
 	            },
 	            //color: function(x, y, t) { window.d3.hsl(x*20, Math.abs(y*20), Math.abs(y)) },
 	            particleCount: 1000,
@@ -20223,19 +20223,19 @@
 	                    null,
 	                    _react2.default.createElement(_FunctionInput2.default, {
 	                        value: this.state.vx,
-	                        funcParams: ['x', 'y', 't'],
+	                        funcParams: ['x', 'y', 't', 'd3'],
 	                        onValidChange: this._onUpdateState.bind(this, 'vx'),
 	                        checkValid: checkValidVectorFunc
 	                    }),
 	                    _react2.default.createElement(_FunctionInput2.default, {
 	                        value: this.state.vy,
-	                        funcParams: ['x', 'y', 't'],
+	                        funcParams: ['x', 'y', 't', 'd3'],
 	                        onValidChange: this._onUpdateState.bind(this, 'vy'),
 	                        checkValid: checkValidVectorFunc
 	                    }),
 	                    _react2.default.createElement(_FunctionInput2.default, {
 	                        value: this.state.color,
-	                        funcParams: ['x', 'y', 't'],
+	                        funcParams: ['x', 'y', 't', 'd3'],
 	                        onValidChange: this._onUpdateState.bind(this, 'color'),
 	                        checkValid: checkValidColorFunc
 	                    }),
