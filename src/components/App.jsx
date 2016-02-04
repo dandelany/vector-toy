@@ -18,16 +18,15 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
         vx: React.PropTypes.function,
         vy: React.PropTypes.function,
         color: React.PropTypes.function,
-        particleCount: React.PropTypes.number
+        particleCount: React.PropTypes.number,
+        fadeAmount: React.PropTypes.number
     };
     static defaultProps = {
         width: 800,
         height: 600,
         domain: {x: [-10, 10], y: [-10, 10]},
         vx: _.identity,
-        vy: _.identity,
-        color: () => 'black',
-        particleCount: 1000
+        vy: _.identity
     };
 
     componentWillMount() {
@@ -36,12 +35,17 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
         // todo: see how slow this is, move to FlowField so it's only done once for all functions
         this._timed = (func) => ((x, y) => {
             return func(x, y, (new Date().getTime() - startTime) / 1000);
-
             //return func(newX, newY, (new Date().getTime() - startTime) / 1000);
         });
     }
     render() {
-        const {width, height, domain, vx, vy, color, particleCount} = this.props;
+        const {width, height, domain, vx, vy, color, particleCount, fadeAmount} = this.props;
+
+        const dpiMult = (window.devicePixelRatio >= 2) ? 2 : 1;
+        //const width = this.props.width * dpiMult;
+        //const height = this.props.height * dpiMult;
+        const style = (dpiMult === 2) ?
+            {transform: 'scale(0.5) translate(-50% -50%)'} : {};
 
         return <div>
             <XYPlot
@@ -50,10 +54,11 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
                 showGrid={false} showTicks={false}
             >
                 <FlowField {...{
+                    particleCount, fadeAmount, useSimpleFade: true,
+                    lineWidth: 2,
                     vx: this._timed(vx),
                     vy: this._timed(vy),
-                    color: this._timed(color),
-                    particleCount
+                    color: color ? this._timed(color) : undefined
                 }} />
             </XYPlot>
         </div>;
@@ -74,9 +79,11 @@ export default class App extends React.Component {
             },
             //color: function(x, y, t) { return `rgb(${t*5}, ${t*4}, ${t*3})`; }
             //color: function(x, y, t) { return 'red'; },
-            color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
+            //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
+            color: (x, y, t) => d3.hsl(x*20, Math.abs(y*20), Math.abs(y)),
             particleCount: 1000,
-            fadeAmount: 1
+            //fadeAmount: 1
+            fadeAmount: 0
         };
     }
 
@@ -88,12 +95,12 @@ export default class App extends React.Component {
     }
 
     render() {
-        const {vx, vy, color, particleCount, domain} = this.state;
         return <div>
             {/* this.renderVectorField() */}
-            <VectorWallpaper {...{
-                vx, vy, color, particleCount, domain
-            }} />
+            <VectorWallpaper
+                {..._.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount'])}
+                useDPI={true}
+            />
             <div>
                 <FunctionInput {...{
                     value: this.state.vx,
@@ -120,6 +127,12 @@ export default class App extends React.Component {
                     <NumberInput {...{
                         value: this.state.particleCount,
                         onValidChange: this._onChangeNumberState.bind(this, 'particleCount')
+                    }} />
+                </div>
+                <div>
+                    <NumberInput {...{
+                        value: this.state.fadeAmount,
+                        onValidChange: this._onChangeNumberState.bind(this, 'fadeAmount')
                     }} />
                 </div>
             </div>

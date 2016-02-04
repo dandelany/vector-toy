@@ -89,49 +89,64 @@ function trimParticles(particles, limit) {
 
 export default class FlowField extends React.Component {
     static propTypes = {
+        data: React.PropTypes.arrayOf(React.PropTypes.array),
+        xBins: React.PropTypes.arrayOf(React.PropTypes.array),
+        yBins: React.PropTypes.arrayOf(React.PropTypes.array),
         vx: React.PropTypes.function,
         vy: React.PropTypes.function,
         color: React.PropTypes.function,
-        particleCount: React.PropTypes.number
+        particleCount: React.PropTypes.number,
+        lineWidth: React.PropTypes.number,
+
+        // positive integer representing how fast the trails fade out
+        // fadeAmount 0 disables fade entirely,
+        fadeAmount: React.PropTypes.number,
+
+        // pass useSimpleFade = true to use the simpler/faster color fade out method
+        // which has the downsides of leaving particle trails and no alpha
+        useSimpleFade: React.PropTypes.bool,
+        simpleFadeColor: React.PropTypes.string,
+
+        // expected to be rendered inside a Reactochart XYPlot, which will pass these props
+        scale: React.PropTypes.obj,
+        scaleWidth: React.PropTypes.number,
+        scaleHeight: React.PropTypes.number
     };
     static defaultProps = {
-        color: () => 'black',
+        color: () => randomGray(),
         width: 500,
         height: 500,
         particleCount: 300,
-        fadeAmount: 1
+        lineWidth: 0.7,
+        fadeAmount: 2,
+        useSimpleFade: false,
+        simpleFadeColor: "rgba(255, 255, 255, 0.05)"
     };
 
-    constructor(props) {
-        super(props);
-        this._redraw = this._redraw.bind(this);
-    }
-    componentWillMount() {}
     componentDidMount() {
-        const {scale, particleCount} = this.props;
-        const xDomain = scale.x.domain();
-        const yDomain = scale.y.domain();
+        const {particleCount, color, useSimpleFade, simpleFadeColor} = this.props;
 
-        const particles = initParticles(xDomain, yDomain, particleCount);
+        const {ctx, getVector, xDomain, yDomain} = this._initFlow(this.props);
+        const particles = initParticles(xDomain, yDomain, particleCount, color);
 
-        let {ctx, getVector} = this._initFlow(this.props);
-
-        //ctx = ReactDOM.findDOMNode(this.refs.canvas).getContext("2d");
-        ctx.fillStyle = "rgba(255, 255, 255, 0.05)"; // for simple fade out
-        ctx.lineWidth = 0.7;
-        ctx.strokeStyle = "#393099"; // html color code
+        if(useSimpleFade) ctx.fillStyle = simpleFadeColor;
+        ctx.lineWidth = this.props.lineWidth;
         ctx.globalCompositeOperation = "source-over";
 
-        Object.assign(this, {particles, ctx, getVector});
+        const startTime = new Date().getTime();
+        const lastFrameTime = startTime;
+        const curFrame = 1;
+
+        Object.assign(this, {particles, ctx, getVector, xDomain, yDomain, startTime, curFrame, lastFrameTime});
 
         // draw loop
-        //const delay = 30; // ms per timestep
-        //d3.timer(() => { this.redraw(); }, delay);
+        //d3.timer(() => { this.redraw(); }, 30);
         this._redraw();
     }
     componentWillReceiveProps(newProps) {
         Object.assign(this, this._initFlow(newProps));
 
+        // update number of particles without restarting from scratch
         const newCount = newProps.particleCount;
         const oldCount = this.props.particleCount;
         if(newCount != oldCount) {
@@ -149,8 +164,9 @@ export default class FlowField extends React.Component {
     }
 
     _initFlow(props) {
-        // cache a few things upfront, so we don't do them on every redraw call
-        const {data, vx, vy, scale, xBins, yBins} = props;
+        // cache a few things upfront, so we don't do them in every redraw call
+        const ctx = ReactDOM.findDOMNode(this.refs.canvas).getContext("2d");
+        const {data, scale, vx, vy, xBins, yBins} = props;
         const xDomain = scale.x.domain();
         const yDomain = scale.y.domain();
 
@@ -161,9 +177,7 @@ export default class FlowField extends React.Component {
             // create a vector function from it which interpolates between the grid points
             (xVal, yVal) => interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins);
 
-        let ctx = ReactDOM.findDOMNode(this.refs.canvas).getContext("2d");
-
-        return {ctx, getVector};
+        return {ctx, getVector, xDomain, yDomain};
     }
     _fadeOutSimple() {
         // simple fade out by drawing transparent (fillStyle) white rectangle on top every frame
@@ -172,8 +186,6 @@ export default class FlowField extends React.Component {
     }
     _fadeOut() {
         // more complicated alpha fade for real transparency - but slower
-        if(!this.props.fadeAmount) return;
-
         const image = this.ctx.getImageData(0, 0, this.props.scaleWidth, this.props.scaleHeight);
         const imageData = image.data;
         if(imageData) {
@@ -184,8 +196,8 @@ export default class FlowField extends React.Component {
             this.ctx.putImageData(image, 0, 0);
         }
     }
-    _redraw() {
-        const {data, scale, vx, vy, xBins, yBins} = this.props;
+    _redraw = () => {
+        const {scale, fadeAmount, useSimpleFade} = this.props;
         const {ctx, particles, getVector} = this;
         const {x, y, color, age} = particles;
         const getColor = this.props.color;
@@ -193,8 +205,8 @@ export default class FlowField extends React.Component {
         const xDomain = scale.x.domain();
         const yDomain = scale.y.domain();
 
-        this._fadeOut();
-        //this._fadeOutSimple();
+        if(fadeAmount)
+            useSimpleFade ? this._fadeOutSimple() : this._fadeOut();
 
         const rX = (x, y) => y * Math.cos(x);
         const rY = (x, y) => x * Math.cos(y);
@@ -227,8 +239,17 @@ export default class FlowField extends React.Component {
             }
         }
 
+        if(!(this.curFrame % 20)) {
+            const currentTime = new Date().getTime();
+            const dTime = currentTime - this.lastFrameTime;
+            const fps = 1 / (dTime / (20 * 1000));
+            console.log(fps, 'fps');
+            this.lastFrameTime = currentTime;
+        }
+        this.curFrame++;
+
         requestAnimationFrame(this._redraw);
-    }
+    };
 
     render() {
         const {margin, scaleWidth, scaleHeight} = this.props;

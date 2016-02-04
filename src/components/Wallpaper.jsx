@@ -2,6 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Layer from 'react-layer';
 
+function getWindowSize(useDPI = false) {
+    // is2x for double resolution retina displays
+    const dpiMult = (useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
+    return {
+        width: window.innerWidth * dpiMult,
+        height: window.innerHeight * dpiMult
+    };
+}
+
 const defaultStyle = {
     position: 'fixed',
     top: 0,
@@ -11,12 +20,12 @@ const defaultStyle = {
     zIndex: -1
 };
 const makeWallpaper = (ComposedComponent) => class extends React.Component {
-    constructor() {
-        super();
-        this.state = {
-            width: window.innerWidth,
-            height: window.innerHeight
-        };
+    static defaultProps = {
+        useDPI: true
+    };
+    constructor(props) {
+        super(props);
+        this.state = getWindowSize(props.useDPI);
         this._throttledUpdateSize =  _.throttle(this._updateSize.bind(this), 30);
     }
 
@@ -34,13 +43,23 @@ const makeWallpaper = (ComposedComponent) => class extends React.Component {
     }
 
     _updateSize() {
-        this.setState({width: window.innerWidth, height: window.innerHeight});
+        this.setState(this.getWindowSize(this.props.useDPI));
     }
     _renderLayer() {
         if (!this._layer) {
+            //const {width, height} = this.state;
+            //const {is2x} = this.props;
+            const dpiMult = (this.props.useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
+            const style2x = (dpiMult === 2) ? {transform: 'scale(0.5) translate(-50%, -50%)'} : {};
+            const style = Object.assign({}, defaultStyle, style2x);
+            //const style = defaultStyle;
+
             this._layer = new Layer(document.body, () => {
-                return <div style={defaultStyle}>
-                    <ComposedComponent {...this.props} {...{width: this.state.width, height: this.state.height}} />
+                return <div style={style}>
+                    <ComposedComponent
+                        {...this.props}
+                        {...getWindowSize(this.props.useDPI)}
+                    />
                 </div>;
             });
         }
