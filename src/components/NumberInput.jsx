@@ -22,7 +22,7 @@ export default class NumberInput extends React.Component {
         };
     }
 
-    // since we're tracking what's displayed in the input (inputValue) separately from the true state value,
+    // since we're tracking what's displayed in the input (inputValue) separately from the true props value,
     // we have to update inputValue state manually when receiving new props
     componentWillReceiveProps(nextProps) {
         // Check if the new value prop is actually a different *Number* (not just a different string),
