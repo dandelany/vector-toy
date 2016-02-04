@@ -20099,7 +20099,6 @@
 	            this._timed = function (func) {
 	                return function (x, y) {
 	                    return func(x, y, (new Date().getTime() - startTime) / 1000);
-	
 	                    //return func(newX, newY, (new Date().getTime() - startTime) / 1000);
 	                };
 	            };
@@ -20115,6 +20114,12 @@
 	            var vy = _props.vy;
 	            var color = _props.color;
 	            var particleCount = _props.particleCount;
+	            var fadeAmount = _props.fadeAmount;
+	
+	            var dpiMult = window.devicePixelRatio >= 2 ? 2 : 1;
+	            //const width = this.props.width * dpiMult;
+	            //const height = this.props.height * dpiMult;
+	            var style = dpiMult === 2 ? { transform: 'scale(0.5) translate(-50% -50%)' } : {};
 	
 	            return _react2.default.createElement(
 	                'div',
@@ -20126,10 +20131,11 @@
 	                        showGrid: false, showTicks: false
 	                    }),
 	                    _react2.default.createElement(_FlowField2.default, {
+	                        particleCount: particleCount, fadeAmount: fadeAmount, useSimpleFade: true,
+	                        lineWidth: 2,
 	                        vx: this._timed(vx),
 	                        vy: this._timed(vy),
-	                        color: this._timed(color),
-	                        particleCount: particleCount
+	                        color: color ? this._timed(color) : undefined
 	                    })
 	                )
 	            );
@@ -20144,17 +20150,14 @@
 	    vx: _react2.default.PropTypes.function,
 	    vy: _react2.default.PropTypes.function,
 	    color: _react2.default.PropTypes.function,
-	    particleCount: _react2.default.PropTypes.number
+	    particleCount: _react2.default.PropTypes.number,
+	    fadeAmount: _react2.default.PropTypes.number
 	}, _class.defaultProps = {
 	    width: 800,
 	    height: 600,
 	    domain: { x: [-10, 10], y: [-10, 10] },
 	    vx: _lodash2.default.identity,
-	    vy: _lodash2.default.identity,
-	    color: function color() {
-	        return 'black';
-	    },
-	    particleCount: 1000
+	    vy: _lodash2.default.identity
 	}, _temp));
 	
 	var App = function (_React$Component2) {
@@ -20182,11 +20185,13 @@
 	            },
 	            //color: function(x, y, t) { return `rgb(${t*5}, ${t*4}, ${t*3})`; }
 	            //color: function(x, y, t) { return 'red'; },
+	            //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
 	            color: function color(x, y, t) {
-	                return 'rgb(10, ' + t * 40 % 255 + ', ' + t * 54 % 255 + ')';
+	                return _d2.default.hsl(x * 20, Math.abs(y * 20), Math.abs(y));
 	            },
 	            particleCount: 1000,
-	            fadeAmount: 1
+	            //fadeAmount: 1
+	            fadeAmount: 0
 	        };
 	        return _this2;
 	    }
@@ -20204,19 +20209,12 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _state = this.state;
-	            var vx = _state.vx;
-	            var vy = _state.vy;
-	            var color = _state.color;
-	            var particleCount = _state.particleCount;
-	            var domain = _state.domain;
-	
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(VectorWallpaper, {
-	                    vx: vx, vy: vy, color: color, particleCount: particleCount, domain: domain
-	                }),
+	                _react2.default.createElement(VectorWallpaper, _extends({}, _lodash2.default.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount']), {
+	                    useDPI: true
+	                })),
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
@@ -20244,6 +20242,14 @@
 	                        _react2.default.createElement(_NumberInput2.default, {
 	                            value: this.state.particleCount,
 	                            onValidChange: this._onChangeNumberState.bind(this, 'particleCount')
+	                        })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _react2.default.createElement(_NumberInput2.default, {
+	                            value: this.state.fadeAmount,
+	                            onValidChange: this._onChangeNumberState.bind(this, 'fadeAmount')
 	                        })
 	                    )
 	                )
@@ -73422,6 +73428,17 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	function getWindowSize() {
+	    var useDPI = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+	
+	    // is2x for double resolution retina displays
+	    var dpiMult = useDPI && window.devicePixelRatio >= 2 ? 2 : 1;
+	    return {
+	        width: window.innerWidth * dpiMult,
+	        height: window.innerHeight * dpiMult
+	    };
+	}
+	
 	var defaultStyle = {
 	    position: 'fixed',
 	    top: 0,
@@ -73431,18 +73448,17 @@
 	    zIndex: -1
 	};
 	var makeWallpaper = function makeWallpaper(ComposedComponent) {
-	    return function (_React$Component) {
+	    var _class, _temp;
+	
+	    return _temp = _class = function (_React$Component) {
 	        _inherits(_class, _React$Component);
 	
-	        function _class() {
+	        function _class(props) {
 	            _classCallCheck(this, _class);
 	
-	            var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(_class).call(this));
+	            var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(_class).call(this, props));
 	
-	            _this.state = {
-	                width: window.innerWidth,
-	                height: window.innerHeight
-	            };
+	            _this.state = getWindowSize(props.useDPI);
 	            _this._throttledUpdateSize = _.throttle(_this._updateSize.bind(_this), 30);
 	            return _this;
 	        }
@@ -73468,7 +73484,7 @@
 	        }, {
 	            key: '_updateSize',
 	            value: function _updateSize() {
-	                this.setState({ width: window.innerWidth, height: window.innerHeight });
+	                this.setState(this.getWindowSize(this.props.useDPI));
 	            }
 	        }, {
 	            key: '_renderLayer',
@@ -73476,13 +73492,22 @@
 	                var _this2 = this;
 	
 	                if (!this._layer) {
-	                    this._layer = new _reactLayer2.default(document.body, function () {
-	                        return _react2.default.createElement(
-	                            'div',
-	                            { style: defaultStyle },
-	                            _react2.default.createElement(ComposedComponent, _extends({}, _this2.props, { width: _this2.state.width, height: _this2.state.height }))
-	                        );
-	                    });
+	                    (function () {
+	                        //const {width, height} = this.state;
+	                        //const {is2x} = this.props;
+	                        var dpiMult = _this2.props.useDPI && window.devicePixelRatio >= 2 ? 2 : 1;
+	                        var style2x = dpiMult === 2 ? { transform: 'scale(0.5) translate(-50%, -50%)' } : {};
+	                        var style = Object.assign({}, defaultStyle, style2x);
+	                        //const style = defaultStyle;
+	
+	                        _this2._layer = new _reactLayer2.default(document.body, function () {
+	                            return _react2.default.createElement(
+	                                'div',
+	                                { style: style },
+	                                _react2.default.createElement(ComposedComponent, _extends({}, _this2.props, getWindowSize(_this2.props.useDPI)))
+	                            );
+	                        });
+	                    })();
 	                }
 	
 	                this._layer.render();
@@ -73495,7 +73520,9 @@
 	        }]);
 	
 	        return _class;
-	    }(_react2.default.Component);
+	    }(_react2.default.Component), _class.defaultProps = {
+	        useDPI: true
+	    }, _temp;
 	};
 	
 	exports.default = makeWallpaper;
@@ -73744,152 +73771,37 @@
 	var FlowField = function (_React$Component) {
 	    _inherits(FlowField, _React$Component);
 	
-	    function FlowField(props) {
+	    function FlowField() {
+	        var _Object$getPrototypeO;
+	
+	        var _temp, _this, _ret;
+	
 	        _classCallCheck(this, FlowField);
 	
-	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(FlowField).call(this, props));
-	
-	        _this._redraw = _this._redraw.bind(_this);
-	        return _this;
-	    }
-	
-	    _createClass(FlowField, [{
-	        key: 'componentWillMount',
-	        value: function componentWillMount() {}
-	    }, {
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            var _props = this.props;
-	            var scale = _props.scale;
-	            var particleCount = _props.particleCount;
-	
-	            var xDomain = scale.x.domain();
-	            var yDomain = scale.y.domain();
-	
-	            var particles = initParticles(xDomain, yDomain, particleCount);
-	
-	            var _initFlow2 = this._initFlow(this.props);
-	
-	            var ctx = _initFlow2.ctx;
-	            var getVector = _initFlow2.getVector;
-	
-	            //ctx = ReactDOM.findDOMNode(this.refs.canvas).getContext("2d");
-	
-	            ctx.fillStyle = "rgba(255, 255, 255, 0.05)"; // for simple fade out
-	            ctx.lineWidth = 0.7;
-	            ctx.strokeStyle = "#393099"; // html color code
-	            ctx.globalCompositeOperation = "source-over";
-	
-	            Object.assign(this, { particles: particles, ctx: ctx, getVector: getVector });
-	
-	            // draw loop
-	            //const delay = 30; // ms per timestep
-	            //d3.timer(() => { this.redraw(); }, delay);
-	            this._redraw();
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
 	        }
-	    }, {
-	        key: 'componentWillReceiveProps',
-	        value: function componentWillReceiveProps(newProps) {
-	            var _this2 = this;
 	
-	            Object.assign(this, this._initFlow(newProps));
-	
-	            var newCount = newProps.particleCount;
-	            var oldCount = this.props.particleCount;
-	            if (newCount != oldCount) {
-	                (function () {
-	                    var xDomain = _this2.props.scale.x.domain();
-	                    var yDomain = _this2.props.scale.y.domain();
-	                    newCount > oldCount ? _lodash2.default.times(newCount - oldCount, function () {
-	                        addParticle(_this2.particles, xDomain, yDomain, _this2.props.color);
-	                    }) : trimParticles(_this2.particles, newCount);
-	                })();
-	            }
-	        }
-	    }, {
-	        key: 'shouldComponentUpdate',
-	        value: function shouldComponentUpdate() {
-	            return false;
-	        }
-	    }, {
-	        key: '_initFlow',
-	        value: function _initFlow(props) {
-	            var _this3 = this;
-	
-	            // cache a few things upfront, so we don't do them on every redraw call
-	            var data = props.data;
-	            var vx = props.vx;
-	            var vy = props.vy;
-	            var scale = props.scale;
-	            var xBins = props.xBins;
-	            var yBins = props.yBins;
-	
-	            var xDomain = scale.x.domain();
-	            var yDomain = scale.y.domain();
-	
-	            var getVector = _lodash2.default.every([vx, vy], _lodash2.default.isFunction) ?
-	            // if vector functions are provided, use them to generate flow
-	            function (xVal, yVal) {
-	                return [vx(xVal, yVal, _this3.props), vy(xVal, yVal, _this3.props)];
-	            } :
-	            // if a grid of vector data is provided,
-	            // create a vector function from it which interpolates between the grid points
-	            function (xVal, yVal) {
-	                return interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins);
-	            };
-	
-	            var ctx = _reactDom2.default.findDOMNode(this.refs.canvas).getContext("2d");
-	
-	            return { ctx: ctx, getVector: getVector };
-	        }
-	    }, {
-	        key: '_fadeOutSimple',
-	        value: function _fadeOutSimple() {
-	            // simple fade out by drawing transparent (fillStyle) white rectangle on top every frame
-	            // fast but doesn't fade lines all the way, doesn't work with transparent background
-	            this.ctx.fillRect(0, 0, this.props.scaleWidth, this.props.scaleHeight);
-	        }
-	    }, {
-	        key: '_fadeOut',
-	        value: function _fadeOut() {
-	            // more complicated alpha fade for real transparency - but slower
-	            if (!this.props.fadeAmount) return;
-	
-	            var image = this.ctx.getImageData(0, 0, this.props.scaleWidth, this.props.scaleHeight);
-	            var imageData = image.data;
-	            if (imageData) {
-	                var len = imageData.length;
-	                for (var pI = 3; pI < len; pI += 4) {
-	                    imageData[pI] -= this.props.fadeAmount;
-	                }
-	                this.ctx.putImageData(image, 0, 0);
-	            }
-	        }
-	    }, {
-	        key: '_redraw',
-	        value: function _redraw() {
-	            var _props2 = this.props;
-	            var data = _props2.data;
-	            var scale = _props2.scale;
-	            var vx = _props2.vx;
-	            var vy = _props2.vy;
-	            var xBins = _props2.xBins;
-	            var yBins = _props2.yBins;
-	            var ctx = this.ctx;
-	            var particles = this.particles;
-	            var getVector = this.getVector;
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(FlowField)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this._redraw = function () {
+	            var _this$props = _this.props;
+	            var scale = _this$props.scale;
+	            var fadeAmount = _this$props.fadeAmount;
+	            var useSimpleFade = _this$props.useSimpleFade;
+	            var _this2 = _this;
+	            var ctx = _this2.ctx;
+	            var particles = _this2.particles;
+	            var getVector = _this2.getVector;
 	            var x = particles.x;
 	            var y = particles.y;
 	            var color = particles.color;
 	            var age = particles.age;
 	
-	            var getColor = this.props.color;
+	            var getColor = _this.props.color;
 	
 	            var xDomain = scale.x.domain();
 	            var yDomain = scale.y.domain();
 	
-	            this._fadeOut();
-	            //this._fadeOutSimple();
+	            if (fadeAmount) useSimpleFade ? _this._fadeOutSimple() : _this._fadeOut();
 	
 	            var rX = function rX(x, y) {
 	                return y * Math.cos(x);
@@ -73926,15 +73838,134 @@
 	                }
 	            }
 	
-	            requestAnimationFrame(this._redraw);
+	            if (!(_this.curFrame % 20)) {
+	                var currentTime = new Date().getTime();
+	                var dTime = currentTime - _this.lastFrameTime;
+	                var fps = 1 / (dTime / (20 * 1000));
+	                console.log(fps, 'fps');
+	                _this.lastFrameTime = currentTime;
+	            }
+	            _this.curFrame++;
+	
+	            requestAnimationFrame(_this._redraw);
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+	
+	    _createClass(FlowField, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            var _props = this.props;
+	            var particleCount = _props.particleCount;
+	            var color = _props.color;
+	            var useSimpleFade = _props.useSimpleFade;
+	            var simpleFadeColor = _props.simpleFadeColor;
+	
+	            var _initFlow2 = this._initFlow(this.props);
+	
+	            var ctx = _initFlow2.ctx;
+	            var getVector = _initFlow2.getVector;
+	            var xDomain = _initFlow2.xDomain;
+	            var yDomain = _initFlow2.yDomain;
+	
+	            var particles = initParticles(xDomain, yDomain, particleCount, color);
+	
+	            if (useSimpleFade) ctx.fillStyle = simpleFadeColor;
+	            ctx.lineWidth = this.props.lineWidth;
+	            ctx.globalCompositeOperation = "source-over";
+	
+	            var startTime = new Date().getTime();
+	            var lastFrameTime = startTime;
+	            var curFrame = 1;
+	
+	            Object.assign(this, { particles: particles, ctx: ctx, getVector: getVector, xDomain: xDomain, yDomain: yDomain, startTime: startTime, curFrame: curFrame, lastFrameTime: lastFrameTime });
+	
+	            // draw loop
+	            //d3.timer(() => { this.redraw(); }, 30);
+	            this._redraw();
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(newProps) {
+	            var _this3 = this;
+	
+	            Object.assign(this, this._initFlow(newProps));
+	
+	            // update number of particles without restarting from scratch
+	            var newCount = newProps.particleCount;
+	            var oldCount = this.props.particleCount;
+	            if (newCount != oldCount) {
+	                (function () {
+	                    var xDomain = _this3.props.scale.x.domain();
+	                    var yDomain = _this3.props.scale.y.domain();
+	                    newCount > oldCount ? _lodash2.default.times(newCount - oldCount, function () {
+	                        addParticle(_this3.particles, xDomain, yDomain, _this3.props.color);
+	                    }) : trimParticles(_this3.particles, newCount);
+	                })();
+	            }
+	        }
+	    }, {
+	        key: 'shouldComponentUpdate',
+	        value: function shouldComponentUpdate() {
+	            return false;
+	        }
+	    }, {
+	        key: '_initFlow',
+	        value: function _initFlow(props) {
+	            var _this4 = this;
+	
+	            // cache a few things upfront, so we don't do them in every redraw call
+	            var ctx = _reactDom2.default.findDOMNode(this.refs.canvas).getContext("2d");
+	            var data = props.data;
+	            var scale = props.scale;
+	            var vx = props.vx;
+	            var vy = props.vy;
+	            var xBins = props.xBins;
+	            var yBins = props.yBins;
+	
+	            var xDomain = scale.x.domain();
+	            var yDomain = scale.y.domain();
+	
+	            var getVector = _lodash2.default.every([vx, vy], _lodash2.default.isFunction) ?
+	            // if vector functions are provided, use them to generate flow
+	            function (xVal, yVal) {
+	                return [vx(xVal, yVal, _this4.props), vy(xVal, yVal, _this4.props)];
+	            } :
+	            // if a grid of vector data is provided,
+	            // create a vector function from it which interpolates between the grid points
+	            function (xVal, yVal) {
+	                return interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins);
+	            };
+	
+	            return { ctx: ctx, getVector: getVector, xDomain: xDomain, yDomain: yDomain };
+	        }
+	    }, {
+	        key: '_fadeOutSimple',
+	        value: function _fadeOutSimple() {
+	            // simple fade out by drawing transparent (fillStyle) white rectangle on top every frame
+	            // fast but doesn't fade lines all the way, doesn't work with transparent background
+	            this.ctx.fillRect(0, 0, this.props.scaleWidth, this.props.scaleHeight);
+	        }
+	    }, {
+	        key: '_fadeOut',
+	        value: function _fadeOut() {
+	            // more complicated alpha fade for real transparency - but slower
+	            var image = this.ctx.getImageData(0, 0, this.props.scaleWidth, this.props.scaleHeight);
+	            var imageData = image.data;
+	            if (imageData) {
+	                var len = imageData.length;
+	                for (var pI = 3; pI < len; pI += 4) {
+	                    imageData[pI] -= this.props.fadeAmount;
+	                }
+	                this.ctx.putImageData(image, 0, 0);
+	            }
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _props3 = this.props;
-	            var margin = _props3.margin;
-	            var scaleWidth = _props3.scaleWidth;
-	            var scaleHeight = _props3.scaleHeight;
+	            var _props2 = this.props;
+	            var margin = _props2.margin;
+	            var scaleWidth = _props2.scaleWidth;
+	            var scaleHeight = _props2.scaleHeight;
 	
 	            return _react2.default.createElement(
 	                'g',
@@ -73958,19 +73989,40 @@
 	}(_react2.default.Component);
 	
 	FlowField.propTypes = {
+	    data: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.array),
+	    xBins: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.array),
+	    yBins: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.array),
 	    vx: _react2.default.PropTypes.function,
 	    vy: _react2.default.PropTypes.function,
 	    color: _react2.default.PropTypes.function,
-	    particleCount: _react2.default.PropTypes.number
+	    particleCount: _react2.default.PropTypes.number,
+	    lineWidth: _react2.default.PropTypes.number,
+	
+	    // positive integer representing how fast the trails fade out
+	    // fadeAmount 0 disables fade entirely,
+	    fadeAmount: _react2.default.PropTypes.number,
+	
+	    // pass useSimpleFade = true to use the simpler/faster color fade out method
+	    // which has the downsides of leaving particle trails and no alpha
+	    useSimpleFade: _react2.default.PropTypes.bool,
+	    simpleFadeColor: _react2.default.PropTypes.string,
+	
+	    // expected to be rendered inside a Reactochart XYPlot, which will pass these props
+	    scale: _react2.default.PropTypes.obj,
+	    scaleWidth: _react2.default.PropTypes.number,
+	    scaleHeight: _react2.default.PropTypes.number
 	};
 	FlowField.defaultProps = {
 	    color: function color() {
-	        return 'black';
+	        return randomGray();
 	    },
 	    width: 500,
 	    height: 500,
 	    particleCount: 300,
-	    fadeAmount: 1
+	    lineWidth: 0.7,
+	    fadeAmount: 2,
+	    useSimpleFade: false,
+	    simpleFadeColor: "rgba(255, 255, 255, 0.05)"
 	};
 	exports.default = FlowField;
 	;
@@ -74152,12 +74204,12 @@
 	
 	        _this.state = {
 	            inputValue: props.value,
-	            isValid: _lodash2.default.isFinite(props.value)
+	            isValid: _lodash2.default.isFinite(Number(props.value))
 	        };
 	        return _this;
 	    }
 	
-	    // since we're tracking what's displayed in the input (inputValue) separately from the true state value,
+	    // since we're tracking what's displayed in the input (inputValue) separately from the true props value,
 	    // we have to update inputValue state manually when receiving new props
 	
 	    _createClass(NumberInput, [{
