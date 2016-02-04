@@ -107,7 +107,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #f0f0f0;\n}\n", ""]);
+	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #292929;\n}\n.control-panel {\n  position: fixed;\n  background: #494949;\n  color: #f0f0f0;\n  width: 100%;\n  left: 0;\n  bottom: 0%;\n}\n.control-panel .function-input,\n.control-panel .number-input {\n  display: inline-block;\n  padding: 10px;\n}\n", ""]);
 	
 	// exports
 
@@ -20029,13 +20029,11 @@
 
 	'use strict';
 	
+	var _class, _temp;
+	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _class, _temp;
-	
-	//import VectorGrid from 'components/VectorGrid';
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
@@ -20081,10 +20079,80 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	//import VectorGrid from 'components/VectorGrid';
+	
 	window.d3 = _d2.default;
 	
-	var VectorWallpaper = (0, _Wallpaper2.default)((_temp = _class = function (_React$Component) {
-	    _inherits(VectorContainer, _React$Component);
+	var optionPropTypes = {
+	    domain: _react2.default.PropTypes.objectOf({ x: _react2.default.PropTypes.array, y: _react2.default.PropTypes.array }),
+	    vx: _react2.default.PropTypes.function,
+	    vy: _react2.default.PropTypes.function,
+	    color: _react2.default.PropTypes.function,
+	    particleCount: _react2.default.PropTypes.number,
+	    fadeAmount: _react2.default.PropTypes.number
+	};
+	
+	var App = function (_React$Component) {
+	    _inherits(App, _React$Component);
+	
+	    function App(props) {
+	        _classCallCheck(this, App);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
+	
+	        var aspectRatio = window ? window.innerWidth / window.innerHeight : 1.75;
+	
+	        _this.state = {
+	            vx: function vx(x, y) {
+	                return (Math.cos(x) + Math.cos(y)) * 10;
+	            },
+	            vy: function vy(x, y) {
+	                return (Math.sin(y) + Math.cos(x)) * 10;
+	            },
+	            domain: {
+	                x: [-5, 5].map(function (n) {
+	                    return n * aspectRatio;
+	                }),
+	                y: [-5, 5]
+	            },
+	            //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
+	            color: function color(x, y, t) {
+	                return window.d3.hsl(x * t, Math.abs(Math.sin(y)), Math.abs(Math.sin(y * 1.4)) - 0.3).toString();
+	            },
+	            //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(Math.sin(y))).toString(),
+	            //return window.d3.lab(Math.abs(x*10), y*10, 0).toString();
+	            particleCount: 1000,
+	            fadeAmount: 0
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(App, [{
+	        key: '_onChangeOption',
+	        value: function _onChangeOption(key, event, value) {
+	            this.setState(_defineProperty({}, key, value));
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var options = _lodash2.default.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount']);
+	
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(VectorWallpaper, _extends({ useDPI: true }, options)),
+	                _react2.default.createElement(ControlPanel, _extends({ onChangeOption: this._onChangeOption.bind(this) }, options))
+	            );
+	        }
+	    }]);
+	
+	    return App;
+	}(_react2.default.Component);
+	
+	exports.default = App;
+	
+	var VectorWallpaper = (0, _Wallpaper2.default)((_temp = _class = function (_React$Component2) {
+	    _inherits(VectorContainer, _React$Component2);
 	
 	    function VectorContainer() {
 	        _classCallCheck(this, VectorContainer);
@@ -20101,7 +20169,6 @@
 	            this._timed = function (func) {
 	                return function (x, y) {
 	                    return func(x, y, (new Date().getTime() - startTime) / 1000);
-	                    //return func(newX, newY, (new Date().getTime() - startTime) / 1000);
 	                };
 	            };
 	        }
@@ -20118,11 +20185,6 @@
 	            var particleCount = _props.particleCount;
 	            var fadeAmount = _props.fadeAmount;
 	
-	            var dpiMult = window.devicePixelRatio >= 2 ? 2 : 1;
-	            //const width = this.props.width * dpiMult;
-	            //const height = this.props.height * dpiMult;
-	            var style = dpiMult === 2 ? { transform: 'scale(0.5) translate(-50% -50%)' } : {};
-	
 	            return _react2.default.createElement(
 	                'div',
 	                null,
@@ -20133,7 +20195,8 @@
 	                        showGrid: false, showTicks: false
 	                    }),
 	                    _react2.default.createElement(_FlowField2.default, {
-	                        particleCount: particleCount, fadeAmount: fadeAmount, useSimpleFade: true,
+	                        particleCount: particleCount, fadeAmount: fadeAmount,
+	                        useSimpleFade: true,
 	                        lineWidth: 2,
 	                        vx: this._timed(vx),
 	                        vy: this._timed(vy),
@@ -20145,16 +20208,10 @@
 	    }]);
 	
 	    return VectorContainer;
-	}(_react2.default.Component), _class.propTypes = {
+	}(_react2.default.Component), _class.propTypes = _lodash2.default.assign({}, optionPropTypes, {
 	    width: _react2.default.PropTypes.number,
-	    height: _react2.default.PropTypes.number,
-	    domain: _react2.default.PropTypes.objectOf({ x: _react2.default.PropTypes.array, y: _react2.default.PropTypes.array }),
-	    vx: _react2.default.PropTypes.function,
-	    vy: _react2.default.PropTypes.function,
-	    color: _react2.default.PropTypes.function,
-	    particleCount: _react2.default.PropTypes.number,
-	    fadeAmount: _react2.default.PropTypes.number
-	}, _class.defaultProps = {
+	    height: _react2.default.PropTypes.number
+	}), _class.defaultProps = {
 	    width: 800,
 	    height: 600,
 	    domain: { x: [-10, 10], y: [-10, 10] },
@@ -20162,113 +20219,72 @@
 	    vy: _lodash2.default.identity
 	}, _temp));
 	
-	var App = function (_React$Component2) {
-	    _inherits(App, _React$Component2);
+	var ControlPanel = function (_React$Component3) {
+	    _inherits(ControlPanel, _React$Component3);
 	
-	    function App(props) {
-	        _classCallCheck(this, App);
+	    function ControlPanel() {
+	        _classCallCheck(this, ControlPanel);
 	
-	        var _this2 = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
-	
-	        var aspectRatio = window ? window.innerWidth / window.innerHeight : 1.75;
-	
-	        _this2.state = {
-	            vx: function vx(x, y) {
-	                return (Math.cos(x) + Math.cos(y)) * 10;
-	            },
-	            vy: function vy(x, y) {
-	                return (Math.sin(y) + Math.cos(x)) * 10;
-	            },
-	            domain: {
-	                x: [-5, 5].map(function (n) {
-	                    return n * aspectRatio;
-	                }),
-	                y: [-5, 5]
-	            },
-	            //color: function(x, y, t) { return `rgb(${t*5}, ${t*4}, ${t*3})`; }
-	            //color: function(x, y, t) { return 'red'; },
-	            //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
-	            color: function color(x, y, t) {
-	                return window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(y)).toString();
-	            },
-	            //color: function(x, y, t) { window.d3.hsl(x*20, Math.abs(y*20), Math.abs(y)) },
-	            particleCount: 1000,
-	            //fadeAmount: 1
-	            fadeAmount: 0
-	        };
-	        return _this2;
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(ControlPanel).apply(this, arguments));
 	    }
 	
-	    _createClass(App, [{
-	        key: '_onUpdateState',
-	        value: function _onUpdateState(key, value) {
-	            this.setState(_defineProperty({}, key, value));
-	        }
-	    }, {
-	        key: '_onChangeNumberState',
-	        value: function _onChangeNumberState(key, event, value) {
-	            this.setState(_defineProperty({}, key, value));
-	        }
-	    }, {
+	    _createClass(ControlPanel, [{
 	        key: 'render',
 	        value: function render() {
+	            var onChangeOption = this.props.onChangeOption;
+	
 	            return _react2.default.createElement(
 	                'div',
-	                null,
-	                _react2.default.createElement(VectorWallpaper, _extends({}, _lodash2.default.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount']), {
-	                    useDPI: true
-	                })),
-	                _react2.default.createElement(
-	                    'div',
-	                    null,
-	                    _react2.default.createElement(
+	                { className: 'control-panel' },
+	                _react2.default.createElement(_FunctionInput2.default, {
+	                    label: "X velocity",
+	                    value: this.props.vx,
+	                    funcParams: ['x', 'y', 't'],
+	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vx'),
+	                    checkValid: checkValidVectorFunc
+	                }),
+	                _react2.default.createElement(_FunctionInput2.default, {
+	                    label: "Y velocity",
+	                    value: this.props.vy,
+	                    funcParams: ['x', 'y', 't'],
+	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vy'),
+	                    checkValid: checkValidVectorFunc
+	                }),
+	                _react2.default.createElement(_FunctionInput2.default, {
+	                    label: "Color",
+	                    value: this.props.color,
+	                    funcParams: ['x', 'y', 't'],
+	                    onValidChange: _lodash2.default.partial(onChangeOption, 'color'),
+	                    checkValid: checkValidColorFunc
+	                }),
+	                _react2.default.createElement(_NumberInput2.default, {
+	                    label: _react2.default.createElement(
 	                        'div',
 	                        null,
-	                        _d2.default.hsl(50, 50, .5).toString()
+	                        'Particle count'
 	                    ),
-	                    _react2.default.createElement(_FunctionInput2.default, {
-	                        value: this.state.vx,
-	                        funcParams: ['x', 'y', 't'],
-	                        onValidChange: this._onUpdateState.bind(this, 'vx'),
-	                        checkValid: checkValidVectorFunc
-	                    }),
-	                    _react2.default.createElement(_FunctionInput2.default, {
-	                        value: this.state.vy,
-	                        funcParams: ['x', 'y', 't'],
-	                        onValidChange: this._onUpdateState.bind(this, 'vy'),
-	                        checkValid: checkValidVectorFunc
-	                    }),
-	                    _react2.default.createElement(_FunctionInput2.default, {
-	                        value: this.state.color,
-	                        funcParams: ['x', 'y', 't'],
-	                        onValidChange: this._onUpdateState.bind(this, 'color'),
-	                        checkValid: checkValidColorFunc
-	                    }),
-	                    _react2.default.createElement(
+	                    value: this.props.particleCount,
+	                    onValidChange: _lodash2.default.partial(onChangeOption, 'particleCount')
+	                }),
+	                _react2.default.createElement(_NumberInput2.default, {
+	                    label: _react2.default.createElement(
 	                        'div',
 	                        null,
-	                        _react2.default.createElement(_NumberInput2.default, {
-	                            value: this.state.particleCount,
-	                            onValidChange: this._onChangeNumberState.bind(this, 'particleCount')
-	                        })
+	                        'Fade amount'
 	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement(_NumberInput2.default, {
-	                            value: this.state.fadeAmount,
-	                            onValidChange: this._onChangeNumberState.bind(this, 'fadeAmount')
-	                        })
-	                    )
-	                )
+	                    value: this.props.fadeAmount,
+	                    onValidChange: _lodash2.default.partial(onChangeOption, 'fadeAmount')
+	                })
 	            );
 	        }
 	    }]);
 	
-	    return App;
+	    return ControlPanel;
 	}(_react2.default.Component);
 	
-	exports.default = App;
+	ControlPanel.propTypes = _lodash2.default.assign({}, optionPropTypes, {
+	    onChangeOption: _react2.default.PropTypes.func
+	});
 	
 	function checkValidVectorFunc(func) {
 	    return _lodash2.default.isFinite(func(0, 0, 1));
@@ -73502,7 +73518,7 @@
 	        }, {
 	            key: '_updateSize',
 	            value: function _updateSize() {
-	                this.setState(this.getWindowSize(this.props.useDPI));
+	                this.setState(getWindowSize(this.props.useDPI));
 	            }
 	        }, {
 	            key: '_renderLayer',
@@ -73514,8 +73530,11 @@
 	                        //const {width, height} = this.state;
 	                        //const {is2x} = this.props;
 	                        var dpiMult = _this2.props.useDPI && window.devicePixelRatio >= 2 ? 2 : 1;
-	                        var style2x = dpiMult === 2 ? { transform: 'scale(0.5) translate(-50%, -50%)' } : {};
-	                        var style = Object.assign({}, defaultStyle, style2x);
+	                        var style2x = dpiMult === 2 ? {
+	                            transform: 'scale(0.5) translate(-50%, -50%)',
+	                            WebkitTransform: 'scale(0.5) translate(-50%, -50%)'
+	                        } : {};
+	                        var style = _.assign({}, defaultStyle, style2x);
 	                        //const style = defaultStyle;
 	
 	                        _this2._layer = new _reactLayer2.default(document.body, function () {
@@ -73860,7 +73879,7 @@
 	                var currentTime = new Date().getTime();
 	                var dTime = currentTime - _this.lastFrameTime;
 	                var fps = 1 / (dTime / (20 * 1000));
-	                console.log(fps, 'fps');
+	                //console.log(fps, 'fps');
 	                _this.lastFrameTime = currentTime;
 	            }
 	            _this.curFrame++;
@@ -73895,7 +73914,7 @@
 	            var lastFrameTime = startTime;
 	            var curFrame = 1;
 	
-	            Object.assign(this, { particles: particles, ctx: ctx, getVector: getVector, xDomain: xDomain, yDomain: yDomain, startTime: startTime, curFrame: curFrame, lastFrameTime: lastFrameTime });
+	            _lodash2.default.assign(this, { particles: particles, ctx: ctx, getVector: getVector, xDomain: xDomain, yDomain: yDomain, startTime: startTime, curFrame: curFrame, lastFrameTime: lastFrameTime });
 	
 	            // draw loop
 	            //d3.timer(() => { this.redraw(); }, 30);
@@ -73906,7 +73925,7 @@
 	        value: function componentWillReceiveProps(newProps) {
 	            var _this3 = this;
 	
-	            Object.assign(this, this._initFlow(newProps));
+	            _lodash2.default.assign(this, this._initFlow(newProps));
 	
 	            // update number of particles without restarting from scratch
 	            var newCount = newProps.particleCount;
@@ -74143,7 +74162,7 @@
 	            // ...but only call callback to change app state if it's a valid function
 	            // note: setState is asynchronous so do this in callback to ensure state has updated
 	            console.log('valid change');
-	            if (isValid) this.props.onValidChange(funcValue);
+	            if (isValid) this.props.onValidChange(event, funcValue);
 	        });
 	    },
 	    render: function render() {
@@ -74158,9 +74177,9 @@
 	            _react2.default.createElement(
 	                'div',
 	                { className: 'function-signature' },
-	                'f(',
+	                '(',
 	                this.props.funcParams.join(', '),
-	                ')'
+	                ') =>'
 	            ),
 	            _react2.default.createElement('textarea', { value: this.state.inputValue, onChange: this.onChange })
 	        );

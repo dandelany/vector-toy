@@ -137,14 +137,14 @@ export default class FlowField extends React.Component {
         const lastFrameTime = startTime;
         const curFrame = 1;
 
-        Object.assign(this, {particles, ctx, getVector, xDomain, yDomain, startTime, curFrame, lastFrameTime});
+        _.assign(this, {particles, ctx, getVector, xDomain, yDomain, startTime, curFrame, lastFrameTime});
 
         // draw loop
         //d3.timer(() => { this.redraw(); }, 30);
         this._redraw();
     }
     componentWillReceiveProps(newProps) {
-        Object.assign(this, this._initFlow(newProps));
+        _.assign(this, this._initFlow(newProps));
 
         // update number of particles without restarting from scratch
         const newCount = newProps.particleCount;
@@ -243,7 +243,7 @@ export default class FlowField extends React.Component {
             const currentTime = new Date().getTime();
             const dTime = currentTime - this.lastFrameTime;
             const fps = 1 / (dTime / (20 * 1000));
-            console.log(fps, 'fps');
+            //console.log(fps, 'fps');
             this.lastFrameTime = currentTime;
         }
         this.curFrame++;

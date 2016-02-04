@@ -12,17 +12,56 @@ import NumberInput from 'components/NumberInput';
 
 window.d3 = d3;
 
+const optionPropTypes = {
+    domain: React.PropTypes.objectOf({x: React.PropTypes.array, y: React.PropTypes.array}),
+    vx: React.PropTypes.function,
+    vy: React.PropTypes.function,
+    color: React.PropTypes.function,
+    particleCount: React.PropTypes.number,
+    fadeAmount: React.PropTypes.number
+};
+
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        const aspectRatio = window ? (window.innerWidth / window.innerHeight) : 1.75;
+
+        this.state = {
+            vx: function(x, y) { return ((Math.cos(x) + Math.cos(y)) * 10); },
+            vy: function(x, y) { return ((Math.sin(y) + Math.cos(x)) * 10); },
+            domain: {
+                x: [-5, 5].map((n) => n * aspectRatio),
+                y: [-5, 5]
+            },
+            //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
+            color: (x, y, t) => window.d3.hsl(x * t, Math.abs(Math.sin(y)), Math.abs(Math.sin(y*1.4)) - 0.3).toString(),
+            //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(Math.sin(y))).toString(),
+            //return window.d3.lab(Math.abs(x*10), y*10, 0).toString();
+            particleCount: 1000,
+            fadeAmount: 0
+        };
+    }
+
+    _onChangeOption(key, event, value) {
+        this.setState({[key]: value});
+    }
+
+    render() {
+        const options = _.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount']);
+
+        return <div>
+            <VectorWallpaper useDPI={true} {...options} />
+            <ControlPanel onChangeOption={this._onChangeOption.bind(this)} {...options} />
+        </div>;
+    }
+}
+
+
 const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Component {
-    static propTypes = {
+    static propTypes = _.assign({}, optionPropTypes, {
         width: React.PropTypes.number,
-        height: React.PropTypes.number,
-        domain: React.PropTypes.objectOf({x: React.PropTypes.array, y: React.PropTypes.array}),
-        vx: React.PropTypes.function,
-        vy: React.PropTypes.function,
-        color: React.PropTypes.function,
-        particleCount: React.PropTypes.number,
-        fadeAmount: React.PropTypes.number
-    };
+        height: React.PropTypes.number
+    });
     static defaultProps = {
         width: 800,
         height: 600,
@@ -37,17 +76,10 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
         // todo: see how slow this is, move to FlowField so it's only done once for all functions
         this._timed = (func) => ((x, y) => {
             return func(x, y, (new Date().getTime() - startTime) / 1000);
-            //return func(newX, newY, (new Date().getTime() - startTime) / 1000);
         });
     }
     render() {
         const {width, height, domain, vx, vy, color, particleCount, fadeAmount} = this.props;
-
-        const dpiMult = (window.devicePixelRatio >= 2) ? 2 : 1;
-        //const width = this.props.width * dpiMult;
-        //const height = this.props.height * dpiMult;
-        const style = (dpiMult === 2) ?
-            {transform: 'scale(0.5) translate(-50% -50%)'} : {};
 
         return <div>
             <XYPlot
@@ -56,7 +88,8 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
                 showGrid={false} showTicks={false}
             >
                 <FlowField {...{
-                    particleCount, fadeAmount, useSimpleFade: true,
+                    particleCount, fadeAmount,
+                    useSimpleFade: true,
                     lineWidth: 2,
                     vx: this._timed(vx),
                     vy: this._timed(vy),
@@ -67,84 +100,52 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
     }
 });
 
-export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-        const aspectRatio = window ? (window.innerWidth / window.innerHeight) : 1.75;
-
-        this.state = {
-            vx: function(x, y) { return ((Math.cos(x) + Math.cos(y)) * 10); },
-            vy: function(x, y) { return ((Math.sin(y) + Math.cos(x)) * 10); },
-            domain: {
-                x: [-5, 5].map((n) => n * aspectRatio),
-                y: [-5, 5]
-            },
-            //color: function(x, y, t) { return `rgb(${t*5}, ${t*4}, ${t*3})`; }
-            //color: function(x, y, t) { return 'red'; },
-            //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
-            color: (x, y, t) => window.d3.hsl(x*t, Math.abs(y*20), Math.abs(y)).toString(),
-            //color: function(x, y, t) { window.d3.hsl(x*20, Math.abs(y*20), Math.abs(y)) },
-            particleCount: 1000,
-            //fadeAmount: 1
-            fadeAmount: 0
-        };
-    }
-
-    _onUpdateState(key, value) {
-        this.setState({[key]: value});
-    }
-    _onChangeNumberState(key, event, value) {
-        this.setState({[key]: value});
-    }
-
+class ControlPanel extends React.Component {
+    static propTypes = _.assign({}, optionPropTypes, {
+        onChangeOption: React.PropTypes.func
+    });
     render() {
-        return <div>
-            {/* this.renderVectorField() */}
-            <VectorWallpaper
-                {..._.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount'])}
-                useDPI={true}
-            />
-            <div>
-                <div>
-                    {d3.hsl(50,50,.5).toString()}
-                </div>
-                <FunctionInput {...{
-                    value: this.state.vx,
-                    funcParams: ['x', 'y', 't'],
-                    onValidChange: this._onUpdateState.bind(this, 'vx'),
-                    checkValid: checkValidVectorFunc
-                }} />
+        const {onChangeOption} = this.props;
+        return <div className="control-panel">
+            <FunctionInput {...{
+                label: "X velocity",
+                value: this.props.vx,
+                funcParams: ['x', 'y', 't'],
+                onValidChange: _.partial(onChangeOption, 'vx'),
+                checkValid: checkValidVectorFunc
+            }} />
 
-                <FunctionInput {...{
-                    value: this.state.vy,
-                    funcParams: ['x', 'y', 't'],
-                    onValidChange: this._onUpdateState.bind(this, 'vy'),
-                    checkValid: checkValidVectorFunc
-                }} />
+            <FunctionInput {...{
+                label: "Y velocity",
+                value: this.props.vy,
+                funcParams: ['x', 'y', 't'],
+                onValidChange: _.partial(onChangeOption, 'vy'),
+                checkValid: checkValidVectorFunc
+            }} />
 
-                <FunctionInput {...{
-                    value: this.state.color,
-                    funcParams: ['x', 'y', 't'],
-                    onValidChange: this._onUpdateState.bind(this, 'color'),
-                    checkValid: checkValidColorFunc
-                }} />
+            <FunctionInput {...{
+                label: "Color",
+                value: this.props.color,
+                funcParams: ['x', 'y', 't'],
+                onValidChange: _.partial(onChangeOption, 'color'),
+                checkValid: checkValidColorFunc
+            }} />
 
-                <div>
-                    <NumberInput {...{
-                        value: this.state.particleCount,
-                        onValidChange: this._onChangeNumberState.bind(this, 'particleCount')
-                    }} />
-                </div>
-                <div>
-                    <NumberInput {...{
-                        value: this.state.fadeAmount,
-                        onValidChange: this._onChangeNumberState.bind(this, 'fadeAmount')
-                    }} />
-                </div>
-            </div>
-        </div>;
+            <NumberInput {...{
+                label: <div>Particle count</div>,
+                value: this.props.particleCount,
+                onValidChange: _.partial(onChangeOption, 'particleCount')
+            }} />
+
+            <NumberInput {...{
+                label: <div>Fade amount</div>,
+                value: this.props.fadeAmount,
+                onValidChange: _.partial(onChangeOption, 'fadeAmount')
+            }} />
+        </div>
     }
 }
+
 
 function checkValidVectorFunc(func) {
     return _.isFinite(func(0, 0, 1));

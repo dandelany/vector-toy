@@ -43,15 +43,18 @@ const makeWallpaper = (ComposedComponent) => class extends React.Component {
     }
 
     _updateSize() {
-        this.setState(this.getWindowSize(this.props.useDPI));
+        this.setState(getWindowSize(this.props.useDPI));
     }
     _renderLayer() {
         if (!this._layer) {
             //const {width, height} = this.state;
             //const {is2x} = this.props;
             const dpiMult = (this.props.useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
-            const style2x = (dpiMult === 2) ? {transform: 'scale(0.5) translate(-50%, -50%)'} : {};
-            const style = Object.assign({}, defaultStyle, style2x);
+            const style2x = (dpiMult === 2) ? {
+                transform: 'scale(0.5) translate(-50%, -50%)',
+                WebkitTransform: 'scale(0.5) translate(-50%, -50%)'
+            } : {};
+            const style = _.assign({}, defaultStyle, style2x);
             //const style = defaultStyle;
 
             this._layer = new Layer(document.body, () => {

@@ -72,7 +72,7 @@ const FunctionInput = React.createClass({
             // ...but only call callback to change app state if it's a valid function
             // note: setState is asynchronous so do this in callback to ensure state has updated
             console.log('valid change');
-            if(isValid) this.props.onValidChange(funcValue);
+            if(isValid) this.props.onValidChange(event, funcValue);
         });
     },
     render: function() {
@@ -82,7 +82,7 @@ const FunctionInput = React.createClass({
                     {this.props.label}
                 </div>
                 <div className="function-signature">
-                    f({this.props.funcParams.join(', ')})
+                    ({this.props.funcParams.join(', ')}) =>
                 </div>
                 <textarea value={this.state.inputValue} onChange={this.onChange} />
             </div>
