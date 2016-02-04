@@ -82,7 +82,7 @@ export default class App extends React.Component {
             //color: function(x, y, t) { return `rgb(${t*5}, ${t*4}, ${t*3})`; }
             //color: function(x, y, t) { return 'red'; },
             //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
-            color: (x, y, t) => window.d3.hsl(x*t, Math.abs(y*20), Math.abs(y)).rgb(),
+            color: (x, y, t) => window.d3.hsl(x*t, Math.abs(y*20), Math.abs(y)).toString(),
             //color: function(x, y, t) { window.d3.hsl(x*20, Math.abs(y*20), Math.abs(y)) },
             particleCount: 1000,
             //fadeAmount: 1
@@ -105,6 +105,9 @@ export default class App extends React.Component {
                 useDPI={true}
             />
             <div>
+                <div>
+                    {d3.hsl(50,50,.5).toString()}
+                </div>
                 <FunctionInput {...{
                     value: this.state.vx,
                     funcParams: ['x', 'y', 't'],

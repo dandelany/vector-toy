@@ -20189,7 +20189,7 @@
 	            //color: function(x, y, t) { return 'red'; },
 	            //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
 	            color: function color(x, y, t) {
-	                return window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(y)).rgb();
+	                return window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(y)).toString();
 	            },
 	            //color: function(x, y, t) { window.d3.hsl(x*20, Math.abs(y*20), Math.abs(y)) },
 	            particleCount: 1000,
@@ -20221,6 +20221,11 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    null,
+	                    _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        _d2.default.hsl(50, 50, .5).toString()
+	                    ),
 	                    _react2.default.createElement(_FunctionInput2.default, {
 	                        value: this.state.vx,
 	                        funcParams: ['x', 'y', 't'],
