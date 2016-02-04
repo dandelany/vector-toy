@@ -20187,8 +20187,9 @@
 	            //color: function(x, y, t) { return 'red'; },
 	            //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
 	            color: function color(x, y, t) {
-	                return _d2.default.hsl(x * 20, Math.abs(y * 20), Math.abs(y));
+	                return window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(y));
 	            },
+	            //color: function(x, y, t) { window.d3.hsl(x*20, Math.abs(y*20), Math.abs(y)) },
 	            particleCount: 1000,
 	            //fadeAmount: 1
 	            fadeAmount: 0
@@ -20269,6 +20270,16 @@
 	    // hard to check valid color, just make sure it doesn't barf
 	    func(0, 0, 1);
 	    return true;
+	}
+	
+	function unwrapFuncStr(funcStr) {
+	    var funcBeginRegEx = /^\s*function\s*\w*\(([\w,\s]*[\n\/\*]*)\)\s*\{[\s\n]*/;
+	    var funcEndRegEx = /\s*}\s*$/; // ' } '
+	    // peel the "function() {}" wrapper off of a function string (to make an 'internal function string')
+	    return funcStr.replace(funcBeginRegEx, '').replace(funcEndRegEx, '');
+	}
+	function ensureFunc(funcStr, params) {
+	    return _lodash2.default.isString(funcStr) ? 0 : 0;
 	}
 
 /***/ },

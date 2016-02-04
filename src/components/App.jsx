@@ -1,4 +1,5 @@
 import React from 'react';
+
 import d3 from 'd3';
 import _ from 'lodash';
 import {XYPlot} from 'reactochart';
@@ -80,7 +81,8 @@ export default class App extends React.Component {
             //color: function(x, y, t) { return `rgb(${t*5}, ${t*4}, ${t*3})`; }
             //color: function(x, y, t) { return 'red'; },
             //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
-            color: (x, y, t) => d3.hsl(x*20, Math.abs(y*20), Math.abs(y)),
+            color: (x, y, t) => window.d3.hsl(x*t, Math.abs(y*20), Math.abs(y)),
+            //color: function(x, y, t) { window.d3.hsl(x*20, Math.abs(y*20), Math.abs(y)) },
             particleCount: 1000,
             //fadeAmount: 1
             fadeAmount: 0
@@ -147,4 +149,14 @@ function checkValidColorFunc(func) {
     // hard to check valid color, just make sure it doesn't barf
     func(0, 0, 1);
     return true;
+}
+
+function unwrapFuncStr(funcStr) {
+    const funcBeginRegEx =  /^\s*function\s*\w*\(([\w,\s]*[\n\/\*]*)\)\s*\{[\s\n]*/;
+    const funcEndRegEx = /\s*}\s*$/; // ' } '
+    // peel the "function() {}" wrapper off of a function string (to make an 'internal function string')
+    return funcStr.replace(funcBeginRegEx, '').replace(funcEndRegEx, '')
+}
+function ensureFunc(funcStr, params) {
+    return _.isString(funcStr) ? 0 : 0;
 }
