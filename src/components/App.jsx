@@ -36,7 +36,7 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
         // creates wrapped versions of vector functions with extra param: time since start
         // todo: see how slow this is, move to FlowField so it's only done once for all functions
         this._timed = (func) => ((x, y) => {
-            return func(x, y, (new Date().getTime() - startTime) / 1000, d3);
+            return func(x, y, (new Date().getTime() - startTime) / 1000);
             //return func(newX, newY, (new Date().getTime() - startTime) / 1000);
         });
     }
@@ -82,7 +82,7 @@ export default class App extends React.Component {
             //color: function(x, y, t) { return `rgb(${t*5}, ${t*4}, ${t*3})`; }
             //color: function(x, y, t) { return 'red'; },
             //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
-            color: (x, y, t, d3) => d3.hsl(x*t, Math.abs(y*20), Math.abs(y)),
+            color: (x, y, t) => window.d3.hsl(x*t, Math.abs(y*20), Math.abs(y)).rgb(),
             //color: function(x, y, t) { window.d3.hsl(x*20, Math.abs(y*20), Math.abs(y)) },
             particleCount: 1000,
             //fadeAmount: 1
@@ -107,21 +107,21 @@ export default class App extends React.Component {
             <div>
                 <FunctionInput {...{
                     value: this.state.vx,
-                    funcParams: ['x', 'y', 't', 'd3'],
+                    funcParams: ['x', 'y', 't'],
                     onValidChange: this._onUpdateState.bind(this, 'vx'),
                     checkValid: checkValidVectorFunc
                 }} />
 
                 <FunctionInput {...{
                     value: this.state.vy,
-                    funcParams: ['x', 'y', 't', 'd3'],
+                    funcParams: ['x', 'y', 't'],
                     onValidChange: this._onUpdateState.bind(this, 'vy'),
                     checkValid: checkValidVectorFunc
                 }} />
 
                 <FunctionInput {...{
                     value: this.state.color,
-                    funcParams: ['x', 'y', 't', 'd3'],
+                    funcParams: ['x', 'y', 't'],
                     onValidChange: this._onUpdateState.bind(this, 'color'),
                     checkValid: checkValidColorFunc
                 }} />
