@@ -47,7 +47,7 @@ export default class NumberInput extends React.Component {
         const isValid = _.isFinite(numberValue);
 
         // allow input text to contain whatever value you type in, good or bad...
-        this.setState({inputValue: inputValue, isValid: isValid}, () => {
+        this.setState({inputValue, isValid}, () => {
             // call the onChange callback for any change, valid or otherwise, with the event and string
             this.props.onChange(event, inputValue);
             // ... but only call onValidChange if it's really a Number, and pass the valid number
