@@ -20099,6 +20099,8 @@
 	            this._timed = function (func) {
 	                return function (x, y) {
 	                    return func(x, y, (new Date().getTime() - startTime) / 1000);
+	
+	                    //return func(newX, newY, (new Date().getTime() - startTime) / 1000);
 	                };
 	            };
 	        }
@@ -20191,8 +20193,13 @@
 	
 	    _createClass(App, [{
 	        key: '_onUpdateState',
-	        value: function _onUpdateState(key, newFunc) {
-	            this.setState(_defineProperty({}, key, newFunc));
+	        value: function _onUpdateState(key, value) {
+	            this.setState(_defineProperty({}, key, value));
+	        }
+	    }, {
+	        key: '_onChangeNumberState',
+	        value: function _onChangeNumberState(key, event, value) {
+	            this.setState(_defineProperty({}, key, value));
 	        }
 	    }, {
 	        key: 'render',
@@ -20236,7 +20243,7 @@
 	                        null,
 	                        _react2.default.createElement(_NumberInput2.default, {
 	                            value: this.state.particleCount,
-	                            onValidChange: this._onUpdateState.bind(this, 'particleCount')
+	                            onValidChange: this._onChangeNumberState.bind(this, 'particleCount')
 	                        })
 	                    )
 	                )
@@ -73881,17 +73888,29 @@
 	            var xDomain = scale.x.domain();
 	            var yDomain = scale.y.domain();
 	
-	            //this._fadeOut();
+	            this._fadeOut();
 	            //this._fadeOutSimple();
 	
+	            var rX = function rX(x, y) {
+	                return y * Math.cos(x);
+	            };
+	            var rY = function rY(x, y) {
+	                return x * Math.cos(y);
+	            };
+	
+	            //console.log(rX(x[1], y[1]));
 	            for (var i = 0; i < x.length; i++) {
 	                var dr = getVector(x[i], y[i]);
 	
 	                ctx.strokeStyle = color[i];
 	                ctx.beginPath();
 	                ctx.moveTo(scale.x(x[i]), scale.y(y[i])); // start point of path
+	                //ctx.moveTo(scale.x(rY(x[i], y[i])), scale.y(rX(x[i], y[i]))); // start point of path
 	                // simlutaneously draw line to end point & increment position
 	                ctx.lineTo(scale.x(x[i] += dr[0] * dt), scale.y(y[i] += dr[1] * dt));
+	                //x[i] += dr[0] * dt;
+	                //y[i] += dr[1] * dt;
+	                //ctx.lineTo(scale.x(rY(x[i], y[i])), scale.y(rX(x[i], y[i])));
 	                ctx.stroke();
 	
 	                // increment age of each curve, restart if maxAge is reached
@@ -74086,48 +74105,110 @@
 
 	'use strict';
 	
-	var _ = __webpack_require__(167),
-	    React = __webpack_require__(7);
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var NumberInput = React.createClass({
-	    displayName: 'NumberInput',
-	
-	    getInitialState: function getInitialState() {
-	        return { inputValue: '' };
-	    },
-	    // since we're tracking what's displayed in the input (inputValue) separately from the true state value,
-	    // we have to update inputValue state manually when receiving new props
-	    componentWillMount: function componentWillMount() {
-	        this.setState({ inputValue: this.props.value, isValid: true });
-	    },
-	    componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
-	        var isSameNumberAsInputValue = Number(nextProps.value) === Number(this.state.inputValue);
-	        if (!isSameNumberAsInputValue) this.setState({ inputValue: nextProps.value, isValid: true });
-	    },
-	
-	    onChange: function onChange(event) {
-	        var inputValue = event.target.value,
-	            numberValue = Number(inputValue),
-	            isValid = !_.isNaN(numberValue);
-	
-	        // allow input text to contain whatever value you type in, good or bad...
-	        this.setState({ inputValue: inputValue, isValid: isValid }, function () {
-	            // ... but only call callback to change app state if it's really a Number
-	            if (isValid) this.props.onValidChange(numberValue);
-	            // note setState is asynchronous so we do this in callback to ensure state has updated
-	        });
-	    },
-	    render: function render() {
-	        return React.createElement(
-	            'label',
-	            { className: 'number-input' },
-	            this.props.label,
-	            React.createElement('input', { type: 'text', value: this.state.inputValue, onChange: this.onChange })
-	        );
-	    }
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
 	
-	module.exports = NumberInput;
+	var _lodash = __webpack_require__(167);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _react = __webpack_require__(7);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var NumberInput = function (_React$Component) {
+	    _inherits(NumberInput, _React$Component);
+	
+	    function NumberInput(props) {
+	        _classCallCheck(this, NumberInput);
+	
+	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(NumberInput).call(this, props));
+	
+	        _this._onChange = function (event) {
+	            var inputValue = event.target.value;
+	            var numberValue = Number(inputValue);
+	            var isValid = _lodash2.default.isFinite(numberValue);
+	
+	            // allow input text to contain whatever value you type in, good or bad...
+	            _this.setState({ inputValue: inputValue, isValid: isValid }, function () {
+	                // call the onChange callback for any change, valid or otherwise, with the event and string
+	                _this.props.onChange(event, inputValue);
+	                // ... but only call onValidChange if it's really a Number, and pass the valid number
+	                if (isValid) _this.props.onValidChange(event, numberValue);
+	                // note setState is asynchronous so we do this in callback to ensure state has updated
+	            });
+	        };
+	
+	        _this.state = {
+	            inputValue: props.value,
+	            isValid: _lodash2.default.isFinite(props.value)
+	        };
+	        return _this;
+	    }
+	
+	    // since we're tracking what's displayed in the input (inputValue) separately from the true state value,
+	    // we have to update inputValue state manually when receiving new props
+	
+	    _createClass(NumberInput, [{
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(nextProps) {
+	            // Check if the new value prop is actually a different *Number* (not just a different string),
+	            // and only update the state if so. This avoids the situation of:
+	
+	            // 1. this.state.inputValue is "0"
+	            // 2. user types "." so the inputValue becomes "0."
+	            // 3. onChange calls parent's onValidChange callback, passing Number("0.") [which is 0] to parent
+	            // 4. parent updates its state to 0, triggering a re-render
+	            // 5. this receives new props, and this.props.value is 0, so the input text gets updated to "0"
+	            // 6. therefore the user cannot type "0." because it will always get 'corrected' to the new true state, "0"
+	
+	            // This check stops the update in #5 because Number("0.") === Number("0")
+	
+	            var isSameNumberAsInputValue = Number(nextProps.value) === Number(this.state.inputValue);
+	            if (!isSameNumberAsInputValue) this.setState({ inputValue: nextProps.value, isValid: true });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'span',
+	                { className: 'number-input number-input-' + (this.state.isValid ? 'valid' : 'invalid') },
+	                _react2.default.createElement(
+	                    'label',
+	                    null,
+	                    this.props.label,
+	                    _react2.default.createElement('input', { type: 'text', value: this.state.inputValue, onChange: this._onChange })
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return NumberInput;
+	}(_react2.default.Component);
+	
+	NumberInput.propTypes = {
+	    value: _react2.default.PropTypes.oneOfType([_react2.default.PropTypes.number, _react2.default.PropTypes.string]),
+	    label: _react2.default.PropTypes.node,
+	    onChange: _react2.default.PropTypes.func,
+	    onValidChange: _react2.default.PropTypes.func
+	};
+	NumberInput.defaultProps = {
+	    value: 0,
+	    onChange: _lodash2.default.noop,
+	    onValidChange: _lodash2.default.noop
+	};
+	exports.default = NumberInput;
 
 /***/ }
 /******/ ]);

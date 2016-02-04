@@ -36,6 +36,8 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
         // todo: see how slow this is, move to FlowField so it's only done once for all functions
         this._timed = (func) => ((x, y) => {
             return func(x, y, (new Date().getTime() - startTime) / 1000);
+
+            //return func(newX, newY, (new Date().getTime() - startTime) / 1000);
         });
     }
     render() {
@@ -78,8 +80,11 @@ export default class App extends React.Component {
         };
     }
 
-    _onUpdateState(key, newFunc) {
-        this.setState({[key]: newFunc});
+    _onUpdateState(key, value) {
+        this.setState({[key]: value});
+    }
+    _onChangeNumberState(key, event, value) {
+        this.setState({[key]: value});
     }
 
     render() {
@@ -114,7 +119,7 @@ export default class App extends React.Component {
                 <div>
                     <NumberInput {...{
                         value: this.state.particleCount,
-                        onValidChange: this._onUpdateState.bind(this, 'particleCount')
+                        onValidChange: this._onChangeNumberState.bind(this, 'particleCount')
                     }} />
                 </div>
             </div>

@@ -193,17 +193,25 @@ export default class FlowField extends React.Component {
         const xDomain = scale.x.domain();
         const yDomain = scale.y.domain();
 
-        //this._fadeOut();
+        this._fadeOut();
         //this._fadeOutSimple();
 
+        const rX = (x, y) => y * Math.cos(x);
+        const rY = (x, y) => x * Math.cos(y);
+
+        //console.log(rX(x[1], y[1]));
         for (var i = 0; i < x.length; i++) {
             const dr = getVector(x[i], y[i]);
 
             ctx.strokeStyle = color[i];
             ctx.beginPath();
             ctx.moveTo(scale.x(x[i]), scale.y(y[i])); // start point of path
+            //ctx.moveTo(scale.x(rY(x[i], y[i])), scale.y(rX(x[i], y[i]))); // start point of path
             // simlutaneously draw line to end point & increment position
             ctx.lineTo(scale.x(x[i] += dr[0] * dt), scale.y(y[i] += dr[1] * dt));
+            //x[i] += dr[0] * dt;
+            //y[i] += dr[1] * dt;
+            //ctx.lineTo(scale.x(rY(x[i], y[i])), scale.y(rX(x[i], y[i])));
             ctx.stroke();
 
             // increment age of each curve, restart if maxAge is reached
