@@ -10,6 +10,7 @@ import FlowField from 'components/FlowField';
 import FunctionInput from 'components/FunctionInput';
 import NumberInput from 'components/NumberInput';
 
+window.d3 = d3;
 
 const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Component {
     static propTypes = {
