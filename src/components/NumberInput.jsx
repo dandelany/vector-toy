@@ -18,7 +18,7 @@ export default class NumberInput extends React.Component {
         super(props);
         this.state = {
             inputValue: props.value,
-            isValid: _.isFinite(props.value)
+            isValid: _.isFinite(Number(props.value))
         };
     }
 
