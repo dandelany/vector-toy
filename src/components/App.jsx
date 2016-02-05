@@ -18,7 +18,8 @@ const optionPropTypes = {
     vy: React.PropTypes.function,
     color: React.PropTypes.function,
     particleCount: React.PropTypes.number,
-    fadeAmount: React.PropTypes.number
+    fadeAmount: React.PropTypes.number,
+    lineWidth: React.PropTypes.number
 };
 
 export default class App extends React.Component {
@@ -38,7 +39,8 @@ export default class App extends React.Component {
             //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(Math.sin(y))).toString(),
             //return window.d3.lab(Math.abs(x*10), y*10, 0).toString();
             particleCount: 1000,
-            fadeAmount: 0
+            fadeAmount: 0,
+            lineWidth: 1
         };
     }
 
@@ -47,7 +49,7 @@ export default class App extends React.Component {
     }
 
     render() {
-        const options = _.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount']);
+        const options = _.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount', 'lineWidth']);
 
         return <div>
             <VectorWallpaper useDPI={true} {...options} />
@@ -79,7 +81,7 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
         });
     }
     render() {
-        const {width, height, domain, vx, vy, color, particleCount, fadeAmount} = this.props;
+        const {width, height, domain, vx, vy, color, particleCount, fadeAmount, lineWidth} = this.props;
 
         return <div>
             <XYPlot
@@ -88,9 +90,8 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
                 showGrid={false} showTicks={false}
             >
                 <FlowField {...{
-                    particleCount, fadeAmount,
-                    useSimpleFade: true,
-                    lineWidth: 2,
+                    particleCount, fadeAmount, lineWidth,
+                    //useSimpleFade: true,
                     vx: this._timed(vx),
                     vy: this._timed(vy),
                     color: color ? this._timed(color) : undefined
@@ -141,6 +142,12 @@ class ControlPanel extends React.Component {
                 label: <div>Fade amount</div>,
                 value: this.props.fadeAmount,
                 onValidChange: _.partial(onChangeOption, 'fadeAmount')
+            }} />
+
+            <NumberInput {...{
+                label: <div>Line width</div>,
+                value: this.props.lineWidth,
+                onValidChange: _.partial(onChangeOption, 'lineWidth')
             }} />
         </div>
     }

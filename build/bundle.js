@@ -20089,7 +20089,8 @@
 	    vy: _react2.default.PropTypes.function,
 	    color: _react2.default.PropTypes.function,
 	    particleCount: _react2.default.PropTypes.number,
-	    fadeAmount: _react2.default.PropTypes.number
+	    fadeAmount: _react2.default.PropTypes.number,
+	    lineWidth: _react2.default.PropTypes.number
 	};
 	
 	var App = function (_React$Component) {
@@ -20122,7 +20123,8 @@
 	            //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(Math.sin(y))).toString(),
 	            //return window.d3.lab(Math.abs(x*10), y*10, 0).toString();
 	            particleCount: 1000,
-	            fadeAmount: 0
+	            fadeAmount: 0,
+	            lineWidth: 1
 	        };
 	        return _this;
 	    }
@@ -20135,7 +20137,7 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var options = _lodash2.default.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount']);
+	            var options = _lodash2.default.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount', 'lineWidth']);
 	
 	            return _react2.default.createElement(
 	                'div',
@@ -20184,6 +20186,7 @@
 	            var color = _props.color;
 	            var particleCount = _props.particleCount;
 	            var fadeAmount = _props.fadeAmount;
+	            var lineWidth = _props.lineWidth;
 	
 	            return _react2.default.createElement(
 	                'div',
@@ -20195,9 +20198,8 @@
 	                        showGrid: false, showTicks: false
 	                    }),
 	                    _react2.default.createElement(_FlowField2.default, {
-	                        particleCount: particleCount, fadeAmount: fadeAmount,
-	                        useSimpleFade: true,
-	                        lineWidth: 2,
+	                        particleCount: particleCount, fadeAmount: fadeAmount, lineWidth: lineWidth,
+	                        //useSimpleFade: true,
 	                        vx: this._timed(vx),
 	                        vy: this._timed(vy),
 	                        color: color ? this._timed(color) : undefined
@@ -20274,6 +20276,15 @@
 	                    ),
 	                    value: this.props.fadeAmount,
 	                    onValidChange: _lodash2.default.partial(onChangeOption, 'fadeAmount')
+	                }),
+	                _react2.default.createElement(_NumberInput2.default, {
+	                    label: _react2.default.createElement(
+	                        'div',
+	                        null,
+	                        'Line width'
+	                    ),
+	                    value: this.props.lineWidth,
+	                    onValidChange: _lodash2.default.partial(onChangeOption, 'lineWidth')
 	                })
 	            );
 	        }
@@ -73715,9 +73726,9 @@
 	}
 	
 	function interpolateGrid(x, y, vectorGrid, xDomain, yDomain, xBins, yBins) {
-	    if (!_lodash2.default.isFinite(x) || !_lodash2.default.isFinite(y)) return [0, 0];
+	    var scaleFactor = arguments.length <= 7 || arguments[7] === undefined ? 10 : arguments[7];
 	
-	    var scaleFactor = 10;
+	    if (!_lodash2.default.isFinite(x) || !_lodash2.default.isFinite(y)) return [0, 0];
 	
 	    var _map = [[x, xDomain, xBins], [y, yDomain, yBins]].map(function (_ref) {
 	        var _ref2 = _slicedToArray(_ref, 3);
@@ -73952,12 +73963,14 @@
 	
 	            // cache a few things upfront, so we don't do them in every redraw call
 	            var ctx = _reactDom2.default.findDOMNode(this.refs.canvas).getContext("2d");
+	            ctx.lineWidth = props.lineWidth;
 	            var data = props.data;
 	            var scale = props.scale;
 	            var vx = props.vx;
 	            var vy = props.vy;
 	            var xBins = props.xBins;
 	            var yBins = props.yBins;
+	            var scaleFactor = props.scaleFactor;
 	
 	            var xDomain = scale.x.domain();
 	            var yDomain = scale.y.domain();
@@ -73970,7 +73983,7 @@
 	            // if a grid of vector data is provided,
 	            // create a vector function from it which interpolates between the grid points
 	            function (xVal, yVal) {
-	                return interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins);
+	                return interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins, scaleFactor);
 	            };
 	
 	            return { ctx: ctx, getVector: getVector, xDomain: xDomain, yDomain: yDomain };
@@ -74035,6 +74048,9 @@
 	    particleCount: _react2.default.PropTypes.number,
 	    lineWidth: _react2.default.PropTypes.number,
 	
+	    // positive integer for scaling up the speed of the particles
+	    scaleFactor: _react2.default.PropTypes.number,
+	
 	    // positive integer representing how fast the trails fade out
 	    // fadeAmount 0 disables fade entirely,
 	    fadeAmount: _react2.default.PropTypes.number,
@@ -74057,6 +74073,7 @@
 	    height: 500,
 	    particleCount: 300,
 	    lineWidth: 0.7,
+	    scaleFactor: 10,
 	    fadeAmount: 2,
 	    useSimpleFade: false,
 	    simpleFadeColor: "rgba(255, 255, 255, 0.05)"

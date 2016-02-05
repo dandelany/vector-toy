@@ -20,10 +20,8 @@ function interpolateGridSimple(x, y, vectorGrid, xDomain, yDomain, xBins, yBins)
     return [v.vx, v.vy].map(val => val * scaleFactor);
 }
 
-function interpolateGrid(x, y, vectorGrid, xDomain, yDomain, xBins, yBins) {
+function interpolateGrid(x, y, vectorGrid, xDomain, yDomain, xBins, yBins, scaleFactor = 10) {
     if(!_.isFinite(x) || !_.isFinite(y)) return [0, 0];
-
-    const scaleFactor = 10;
 
     const [xBinIndexFloat, yBinIndexFloat] = [[x, xDomain, xBins], [y, yDomain, yBins]]
         .map(([value, domain, bins]) => {
@@ -98,6 +96,9 @@ export default class FlowField extends React.Component {
         particleCount: React.PropTypes.number,
         lineWidth: React.PropTypes.number,
 
+        // positive integer for scaling up the speed of the particles
+        scaleFactor: React.PropTypes.number,
+
         // positive integer representing how fast the trails fade out
         // fadeAmount 0 disables fade entirely,
         fadeAmount: React.PropTypes.number,
@@ -118,6 +119,7 @@ export default class FlowField extends React.Component {
         height: 500,
         particleCount: 300,
         lineWidth: 0.7,
+        scaleFactor: 10,
         fadeAmount: 2,
         useSimpleFade: false,
         simpleFadeColor: "rgba(255, 255, 255, 0.05)"
@@ -166,7 +168,8 @@ export default class FlowField extends React.Component {
     _initFlow(props) {
         // cache a few things upfront, so we don't do them in every redraw call
         const ctx = ReactDOM.findDOMNode(this.refs.canvas).getContext("2d");
-        const {data, scale, vx, vy, xBins, yBins} = props;
+        ctx.lineWidth = props.lineWidth;
+        const {data, scale, vx, vy, xBins, yBins, scaleFactor} = props;
         const xDomain = scale.x.domain();
         const yDomain = scale.y.domain();
 
@@ -175,7 +178,7 @@ export default class FlowField extends React.Component {
             (xVal, yVal) => [vx(xVal, yVal, this.props), vy(xVal, yVal, this.props)] :
             // if a grid of vector data is provided,
             // create a vector function from it which interpolates between the grid points
-            (xVal, yVal) => interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins);
+            (xVal, yVal) => interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins, scaleFactor);
 
         return {ctx, getVector, xDomain, yDomain};
     }
