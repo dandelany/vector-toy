@@ -77,7 +77,7 @@ const FunctionInput = React.createClass({
     },
     render: function() {
         return (
-            <div className={'function-input' + (this.state.isValid ? '' : ' invalid-value')}>
+            <div className={`function-input function-input-${this.state.isValid ? 'valid' : 'invalid'}`}>
                 <div>
                     {this.props.label}
                 </div>

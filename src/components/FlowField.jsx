@@ -85,6 +85,22 @@ function trimParticles(particles, limit) {
     return particles;
 }
 
+function cartesianToPolar(x, y) {
+    const r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+    const theta = Math.atan2(y, x);
+    //const theta = // check which quadrant the point is in
+    //    (x > 0 && y > 0) ? theta1 :
+    //    (x < 0 && y > 0) ? Math.PI - theta1 :
+    //    (x < 0 && y < 0) ? Math.PI + theta1 :
+    //    (2 * Math.PI) + theta1;
+
+    return [r, theta];
+}
+
+function polarToCartesian(r, theta) {
+    return [r * Math.cos(theta), r * Math.sin(theta)];
+}
+
 export default class FlowField extends React.Component {
     static propTypes = {
         data: React.PropTypes.arrayOf(React.PropTypes.array),
@@ -95,6 +111,9 @@ export default class FlowField extends React.Component {
         color: React.PropTypes.function,
         particleCount: React.PropTypes.number,
         lineWidth: React.PropTypes.number,
+
+        // to clear the screen, change the screenId prop
+        screenId: React.PropTypes.any,
 
         // positive integer for scaling up the speed of the particles
         scaleFactor: React.PropTypes.number,
@@ -133,7 +152,8 @@ export default class FlowField extends React.Component {
 
         if(useSimpleFade) ctx.fillStyle = simpleFadeColor;
         ctx.lineWidth = this.props.lineWidth;
-        ctx.globalCompositeOperation = "source-over";
+        //ctx.globalCompositeOperation = "source-over";
+        ctx.globalCompositeOperation = "color";
 
         const startTime = new Date().getTime();
         const lastFrameTime = startTime;
@@ -147,6 +167,10 @@ export default class FlowField extends React.Component {
     }
     componentWillReceiveProps(newProps) {
         _.assign(this, this._initFlow(newProps));
+
+        if(_.has(newProps, 'screenId') && newProps.screenId !== this.props.screenId) {
+            this.ctx.clearRect(0, 0, this.props.scaleWidth, this.props.scaleHeight);
+        }
 
         // update number of particles without restarting from scratch
         const newCount = newProps.particleCount;
@@ -173,12 +197,24 @@ export default class FlowField extends React.Component {
         const xDomain = scale.x.domain();
         const yDomain = scale.y.domain();
 
-        const getVector = _.every([vx, vy], _.isFunction) ?
-            // if vector functions are provided, use them to generate flow
-            (xVal, yVal) => [vx(xVal, yVal, this.props), vy(xVal, yVal, this.props)] :
-            // if a grid of vector data is provided,
-            // create a vector function from it which interpolates between the grid points
-            (xVal, yVal) => interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins, scaleFactor);
+        const getVector = (x, y) => {
+            const [r, theta] = cartesianToPolar(x, y);
+            const [vR, vTheta] = [vx(x, theta, this.props), vy(y, theta, this.props)];
+            //const [vR, vTheta] = [vx(r, theta, this.props), vy(r, theta, this.props)];
+            const [r1, theta1] = [r + vR, theta + vTheta];
+            const [x1, y1] = polarToCartesian(r1, theta1);
+            return [x1 - x, y1 - y];
+            //return [vR, vTheta];
+            //if(Math.random() > .9999) console.log(vR, vTheta);
+            return polarToCartesian(vR, vTheta);
+        };
+
+        //const getVector = _.every([vx, vy], _.isFunction) ?
+        //    // if vector functions are provided, use them to generate flow
+        //    (xVal, yVal) => [vx(xVal, yVal, this.props), vy(xVal, yVal, this.props)] :
+        //    // if a grid of vector data is provided,
+        //    // create a vector function from it which interpolates between the grid points
+        //    (xVal, yVal) => interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins, scaleFactor);
 
         return {ctx, getVector, xDomain, yDomain};
     }

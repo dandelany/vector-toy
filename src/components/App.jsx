@@ -45,11 +45,14 @@ export default class App extends React.Component {
     }
 
     _onChangeOption(key, event, value) {
+        console.log(key, value);
         this.setState({[key]: value});
     }
 
     render() {
-        const options = _.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount', 'lineWidth']);
+        const options = _.pick(this.state,
+            ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount', 'lineWidth', 'screenId']
+        );
 
         return <div>
             <VectorWallpaper useDPI={true} {...options} />
@@ -69,7 +72,8 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
         height: 600,
         domain: {x: [-10, 10], y: [-10, 10]},
         vx: _.identity,
-        vy: _.identity
+        vy: _.identity,
+        screenId: 0
     };
 
     componentWillMount() {
@@ -81,7 +85,7 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
         });
     }
     render() {
-        const {width, height, domain, vx, vy, color, particleCount, fadeAmount, lineWidth} = this.props;
+        const {width, height, domain, vx, vy, color, particleCount, fadeAmount, lineWidth, screenId} = this.props;
 
         return <div>
             <XYPlot
@@ -90,7 +94,7 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
                 showGrid={false} showTicks={false}
             >
                 <FlowField {...{
-                    particleCount, fadeAmount, lineWidth,
+                    particleCount, fadeAmount, lineWidth, screenId,
                     //useSimpleFade: true,
                     vx: this._timed(vx),
                     vy: this._timed(vy),
@@ -105,9 +109,35 @@ class ControlPanel extends React.Component {
     static propTypes = _.assign({}, optionPropTypes, {
         onChangeOption: React.PropTypes.func
     });
+    onClearScreen = () => {
+        this.props.onChangeOption('screenId', {}, +(new Date()));
+    };
     render() {
         const {onChangeOption} = this.props;
         return <div className="control-panel">
+            <button onClick={this.onClearScreen}>
+                Clear Screen
+            </button>
+
+            <NumberInput {...{
+                label: <div>Particle count</div>,
+                value: this.props.particleCount,
+                onValidChange: _.partial(onChangeOption, 'particleCount')
+            }} />
+
+            <NumberInput {...{
+                label: <div>Fade amount</div>,
+                value: this.props.fadeAmount,
+                onValidChange: _.partial(onChangeOption, 'fadeAmount')
+            }} />
+
+            <NumberInput {...{
+                label: <div>Line width</div>,
+                value: this.props.lineWidth,
+                onValidChange: _.partial(onChangeOption, 'lineWidth')
+            }} />
+
+
             <FunctionInput {...{
                 label: "X velocity",
                 value: this.props.vx,
@@ -132,23 +162,7 @@ class ControlPanel extends React.Component {
                 checkValid: checkValidColorFunc
             }} />
 
-            <NumberInput {...{
-                label: <div>Particle count</div>,
-                value: this.props.particleCount,
-                onValidChange: _.partial(onChangeOption, 'particleCount')
-            }} />
 
-            <NumberInput {...{
-                label: <div>Fade amount</div>,
-                value: this.props.fadeAmount,
-                onValidChange: _.partial(onChangeOption, 'fadeAmount')
-            }} />
-
-            <NumberInput {...{
-                label: <div>Line width</div>,
-                value: this.props.lineWidth,
-                onValidChange: _.partial(onChangeOption, 'lineWidth')
-            }} />
         </div>
     }
 }
