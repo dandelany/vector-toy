@@ -51,9 +51,6 @@ function interpolateGrid(x, y, vectorGrid, xDomain, yDomain, xBins, yBins, scale
     return [vx, vy].map(val => val * scaleFactor);
 }
 
-function randomAge() {
-    return Math.round(Math.random() * 100);
-}
 function randomColor(min=0, max=255) {
     const rgb = () => _.random(min, max);
     return `rgb(${rgb()}, ${rgb()}, ${rgb()})`;
@@ -63,23 +60,6 @@ function randomGray(min=0, max=255) {
     return `rgb(${rgb}, ${rgb}, ${rgb})`;
 }
 
-
-
-//function cartesianToPolar(x, y) {
-//    const r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-//    const theta = Math.atan2(y, x);
-//    //const theta = // check which quadrant the point is in
-//    //    (x > 0 && y > 0) ? theta1 :
-//    //    (x < 0 && y > 0) ? Math.PI - theta1 :
-//    //    (x < 0 && y < 0) ? Math.PI + theta1 :
-//    //    (2 * Math.PI) + theta1;
-//
-//    return [r, theta];
-//}
-//
-//function polarToCartesian(r, theta) {
-//    return [r * Math.cos(theta), r * Math.sin(theta)];
-//}
 
 export default class FlowField extends React.Component {
     static propTypes = {
@@ -135,6 +115,7 @@ export default class FlowField extends React.Component {
         if(useSimpleFade) ctx.fillStyle = simpleFadeColor;
         ctx.lineWidth = this.props.lineWidth;
         ctx.globalCompositeOperation = "source-over";
+        //ctx.lineCap = 'round';
         //ctx.globalCompositeOperation = "screen";
 
         const startTime = new Date().getTime();

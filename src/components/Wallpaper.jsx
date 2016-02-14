@@ -6,7 +6,7 @@ function getWindowSize(useDPI = false) {
     // is2x for double resolution retina displays
     const dpiMult = (useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
     return {
-        width: window.innerWidth * dpiMult,
+        width: (window.innerWidth - 250) * dpiMult,
         height: window.innerHeight * dpiMult
     };
 }

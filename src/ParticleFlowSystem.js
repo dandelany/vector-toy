@@ -67,7 +67,6 @@ export default class ParticleFlowSystem {
                 particle.splice(0, 5, x1, y1, r1, theta1, age + 1);
             }
 
-            // call the callback
             return [x, y, x1, y1, color];
         });
     }

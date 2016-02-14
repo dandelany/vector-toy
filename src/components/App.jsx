@@ -3,63 +3,28 @@ import React from 'react';
 import d3 from 'd3';
 import _ from 'lodash';
 import {XYPlot} from 'reactochart';
+import RadioGroup from 'react-radio';
 
-//import VectorGrid from 'components/VectorGrid';
 import makeWallpaper from 'components/Wallpaper';
 import FlowField from 'components/FlowField';
 import FunctionInput from 'components/FunctionInput';
 import NumberInput from 'components/NumberInput';
+import ControlPanel from 'components/ControlPanel';
 
 window.d3 = d3;
 
-const optionPropTypes = {
+export const optionPropTypes = {
     domain: React.PropTypes.objectOf({x: React.PropTypes.array, y: React.PropTypes.array}),
     vx: React.PropTypes.function,
     vy: React.PropTypes.function,
+    vR: React.PropTypes.function,
+    vTheta: React.PropTypes.function,
     color: React.PropTypes.function,
     particleCount: React.PropTypes.number,
     fadeAmount: React.PropTypes.number,
-    lineWidth: React.PropTypes.number
+    lineWidth: React.PropTypes.number,
+    screenId: React.PropTypes.any
 };
-
-export default class App extends React.Component {
-    constructor(props) {
-        super(props);
-        const aspectRatio = window ? (window.innerWidth / window.innerHeight) : 1.75;
-
-        this.state = {
-            vx: function(x, y) { return ((Math.cos(x) + Math.cos(y)) * 10); },
-            vy: function(x, y) { return ((Math.sin(y) + Math.cos(x)) * 10); },
-            domain: {
-                x: [-5, 5].map((n) => n * aspectRatio),
-                y: [-5, 5]
-            },
-            //color: function(x, y, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
-            color: (x, y, t) => window.d3.hsl(x * t, Math.abs(Math.sin(y)), Math.abs(Math.sin(y*1.4)) - 0.3).toString(),
-            //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(Math.sin(y))).toString(),
-            //return window.d3.lab(Math.abs(x*10), y*10, 0).toString();
-            particleCount: 1000,
-            fadeAmount: 0,
-            lineWidth: 1
-        };
-    }
-
-    _onChangeOption(key, event, value) {
-        console.log(key, value);
-        this.setState({[key]: value});
-    }
-
-    render() {
-        const options = _.pick(this.state,
-            ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount', 'lineWidth', 'screenId']
-        );
-
-        return <div>
-            <VectorWallpaper useDPI={true} {...options} />
-            <ControlPanel onChangeOption={this._onChangeOption.bind(this)} {...options} />
-        </div>;
-    }
-}
 
 
 const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Component {
@@ -71,8 +36,6 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
         width: 800,
         height: 600,
         domain: {x: [-10, 10], y: [-10, 10]},
-        vx: _.identity,
-        vy: _.identity,
         screenId: 0
     };
 
@@ -80,12 +43,14 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
         const startTime = new Date().getTime();
         // creates wrapped versions of vector functions with extra param: time since start
         // todo: see how slow this is, move to FlowField so it's only done once for all functions
-        this._timed = (func) => ((x, y) => {
-            return func(x, y, (new Date().getTime() - startTime) / 1000);
+        this._timed = (func) => ((x, y, r, theta) => {
+            return func(x, y, r, theta, (new Date().getTime() - startTime) / 1000);
         });
     }
     render() {
-        const {width, height, domain, vx, vy, color, particleCount, fadeAmount, lineWidth, screenId} = this.props;
+        const {
+            width, height, domain, vx, vy, vr, vTheta, color, particleCount, fadeAmount, lineWidth, screenId
+            } = this.props;
 
         return <div>
             <XYPlot
@@ -96,8 +61,10 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
                 <FlowField {...{
                     particleCount, fadeAmount, lineWidth, screenId,
                     //useSimpleFade: true,
-                    vx: this._timed(vx),
-                    vy: this._timed(vy),
+                    vx: vx ? this._timed(vx) : undefined,
+                    vy: vy ? this._timed(vy) : undefined,
+                    vr: vr ? this._timed(vr) : undefined,
+                    vTheta: vTheta ? this._timed(vTheta) : undefined,
                     color: color ? this._timed(color) : undefined
                 }} />
             </XYPlot>
@@ -105,84 +72,52 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
     }
 });
 
-class ControlPanel extends React.Component {
-    static propTypes = _.assign({}, optionPropTypes, {
-        onChangeOption: React.PropTypes.func
-    });
-    onClearScreen = () => {
-        this.props.onChangeOption('screenId', {}, +(new Date()));
-    };
-    render() {
-        const {onChangeOption} = this.props;
-        return <div className="control-panel">
-            <button onClick={this.onClearScreen}>
-                Clear Screen
-            </button>
+export default class App extends React.Component {
+    constructor(props) {
+        super(props);
+        const aspectRatio = window ? (window.innerWidth / window.innerHeight) : 1.75;
 
-            <NumberInput {...{
-                label: <div>Particle count</div>,
-                value: this.props.particleCount,
-                onValidChange: _.partial(onChangeOption, 'particleCount')
-            }} />
-
-            <NumberInput {...{
-                label: <div>Fade amount</div>,
-                value: this.props.fadeAmount,
-                onValidChange: _.partial(onChangeOption, 'fadeAmount')
-            }} />
-
-            <NumberInput {...{
-                label: <div>Line width</div>,
-                value: this.props.lineWidth,
-                onValidChange: _.partial(onChangeOption, 'lineWidth')
-            }} />
-
-
-            <FunctionInput {...{
-                label: "X velocity",
-                value: this.props.vx,
-                funcParams: ['x', 'y', 't'],
-                onValidChange: _.partial(onChangeOption, 'vx'),
-                checkValid: checkValidVectorFunc
-            }} />
-
-            <FunctionInput {...{
-                label: "Y velocity",
-                value: this.props.vy,
-                funcParams: ['x', 'y', 't'],
-                onValidChange: _.partial(onChangeOption, 'vy'),
-                checkValid: checkValidVectorFunc
-            }} />
-
-            <FunctionInput {...{
-                label: "Color",
-                value: this.props.color,
-                funcParams: ['x', 'y', 't'],
-                onValidChange: _.partial(onChangeOption, 'color'),
-                checkValid: checkValidColorFunc
-            }} />
-
-
-        </div>
+        this.state = {
+            isPolar: true,
+            // first velocity function, X (cartesian) or R (polar)
+            vA: function(x, y, r, theta, t) { return ((Math.cos(x) + Math.cos(y)) * 10); },
+            // second velocity function, Y (cartesian) or Theta (polar)
+            vB: function(x, y, r, theta, t) { return ((Math.sin(y) + Math.cos(x)) * 10); },
+            //vr: function(x, y) { return Math.cos(x) * 10; },
+            //vTheta: function(x, y) { return Math.sin(y)  * 10; },
+            domain: {
+                x: [-5, 5].map((n) => n * aspectRatio),
+                y: [-5, 5]
+            },
+            //color: function(x, y, r, theta, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
+            //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(Math.sin(y)), Math.abs(Math.sin(y*1.4)) - 0.3).toString(),
+            //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(Math.sin(y))).toString(),
+            color: (x, y, r, theta, t) => window.d3.lab(Math.abs(x*10), y*10, 0).toString(),
+            particleCount: 1000,
+            fadeAmount: 0,
+            lineWidth: 1
+        };
     }
-}
 
+    _onChangeOption = (key, event, value) => {
+        console.log(key, value);
+        this.setState({[key]: value});
+    };
 
-function checkValidVectorFunc(func) {
-    return _.isFinite(func(0, 0, 1));
-}
-function checkValidColorFunc(func) {
-    // hard to check valid color, just make sure it doesn't barf
-    func(0, 0, 1);
-    return true;
-}
+    render() {
+        const options = _.pick(this.state, [
+            'color', 'particleCount', 'domain',
+            'fadeAmount', 'lineWidth', 'screenId', 'isPolar'
+        ]);
+        const {isPolar, vA, vB} = this.state;
 
-function unwrapFuncStr(funcStr) {
-    const funcBeginRegEx =  /^\s*function\s*\w*\(([\w,\s]*[\n\/\*]*)\)\s*\{[\s\n]*/;
-    const funcEndRegEx = /\s*}\s*$/; // ' } '
-    // peel the "function() {}" wrapper off of a function string (to make an 'internal function string')
-    return funcStr.replace(funcBeginRegEx, '').replace(funcEndRegEx, '')
-}
-function ensureFunc(funcStr, params) {
-    return _.isString(funcStr) ? 0 : 0;
+        const vectorOptions = this.state.isPolar ?
+            {vr: vA, vTheta: vB} :
+            {vx: vA, vy: vB};
+
+        return <div>
+            <VectorWallpaper useDPI={true} {...options} {...vectorOptions} />
+            <ControlPanel onChangeOption={this._onChangeOption} {...options} {...{vA, vB}} />
+        </div>;
+    }
 }
