@@ -84,6 +84,89 @@ function trimParticles(particles, limit) {
     particles.age = particles.age.slice(0, limit);
     return particles;
 }
+class ParticleFlowSystem {
+    constructor(xDomain, yDomain, particleCount = 0, getColor = 'black', maxAge = 100, dt = 0.005) {
+        _.assign(this, {xDomain, yDomain, getColor, maxAge, dt, particles: []});
+        this.add(particleCount);
+    }
+
+    add(count) {
+        // add new particles to system
+        const {particles} = this;
+        const newParticles = _.range(count).map(() => this._createParticle());
+        particles.push.apply(particles, newParticles);
+    }
+    limit(limit) {
+        // limit system to a max # of particles, remove the rest
+        this.particles = this.particles.slice(0, limit);
+    }
+    advect(getVector, callback) {
+        // advect (push) each particle along a cartesian vector field
+        // expects a function which returns a velocity vector [vx, vy]
+        // given a particle's [x, y] or [r, theta] position
+        const {particles, maxAge, dt} = this;
+
+        return particles.map((particle) => {
+            const [x, y, r, theta, age, color] = particle;
+            const [vx, vy] = getVector(x, y, r, theta);
+
+            const x1 = x + (vx * dt);
+            const y1 = y + (vy * dt);
+            const [r1, theta1] = cartesianToPolar(x1, y1);
+
+            if((age + 1) > maxAge) {
+                // kill the old particle and make a new one out of its dead body
+                this._createParticle(particle);
+            } else {
+                // update the particle with its new position and age
+                particle.splice(0, 5, x1, y1, r1, theta1, age + 1);
+            }
+
+            // call the callback
+            //callback(x, y, x1, y1, color);
+            return [x, y, x1, y1, color];
+        });
+
+        //for (var i = 0; i < particles.length; i++) {
+        //    const particle = particles[i];
+        //    const [x, y, r, theta, age, color] = particle;
+        //    const [vx, vy] = getVector(x, y, r, theta);
+        //
+        //    const x1 = x + (vx * dt);
+        //    const y1 = y + (vy * dt);
+        //    const [r1, theta1] = cartesianToPolar(x1, y1);
+        //
+        //    if((age + 1) > maxAge) {
+        //        // kill the old particle and make a new one out of its dead body
+        //        this._createParticle(particle);
+        //    } else {
+        //        // update the particle with its new position and age
+        //        particle.splice(0, 5, x1, y1, r1, theta1, age + 1);
+        //    }
+        //
+        //    // call the callback
+        //    callback(x, y, x1, y1, color);
+        //}
+    }
+
+    _createParticle = (particle) => {
+        // create a new particle with random starting position and age
+        // pass particle arg to reuse obj reference, otherwise created from scratch
+        const {particles, xDomain, yDomain, getColor} = this;
+
+        const x = _.random(xDomain[0], xDomain[1], true);
+        const y = _.random(yDomain[0], yDomain[1], true);
+        const [r, theta] = cartesianToPolar(x, y);
+        const color = _.isFunction(getColor) ?
+            getColor(x, y, r, theta) : getColor;
+        const age = randomAge();
+
+        // arrays still faster than objects :(
+        return particle ?
+            particle.splice(0, 6, x, y, r, theta, age, color) :
+            [x, y, r, theta, age, color];
+    };
+}
 
 function cartesianToPolar(x, y) {
     const r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
@@ -149,17 +232,18 @@ export default class FlowField extends React.Component {
 
         const {ctx, getVector, xDomain, yDomain} = this._initFlow(this.props);
         const particles = initParticles(xDomain, yDomain, particleCount, color);
+        const particleSystem = new ParticleFlowSystem(xDomain, yDomain, particleCount, color);
 
         if(useSimpleFade) ctx.fillStyle = simpleFadeColor;
         ctx.lineWidth = this.props.lineWidth;
-        //ctx.globalCompositeOperation = "source-over";
-        ctx.globalCompositeOperation = "color";
+        ctx.globalCompositeOperation = "source-over";
+        //ctx.globalCompositeOperation = "screen";
 
         const startTime = new Date().getTime();
         const lastFrameTime = startTime;
         const curFrame = 1;
 
-        _.assign(this, {particles, ctx, getVector, xDomain, yDomain, startTime, curFrame, lastFrameTime});
+        _.assign(this, {particles, particleSystem, ctx, getVector, xDomain, yDomain, startTime, curFrame, lastFrameTime});
 
         // draw loop
         //d3.timer(() => { this.redraw(); }, 30);
@@ -182,7 +266,11 @@ export default class FlowField extends React.Component {
                 _.times(newCount - oldCount, () => {
                     addParticle(this.particles, xDomain, yDomain, this.props.color);
                 }) :
-                trimParticles(this.particles, newCount)
+                trimParticles(this.particles, newCount);
+
+            newCount > oldCount ?
+                this.particleSystem.add(newCount - oldCount) :
+                this.particleSystem.limit(newCount)
         }
     }
     shouldComponentUpdate() {
@@ -197,24 +285,23 @@ export default class FlowField extends React.Component {
         const xDomain = scale.x.domain();
         const yDomain = scale.y.domain();
 
-        const getVector = (x, y) => {
-            const [r, theta] = cartesianToPolar(x, y);
-            const [vR, vTheta] = [vx(x, theta, this.props), vy(y, theta, this.props)];
-            //const [vR, vTheta] = [vx(r, theta, this.props), vy(r, theta, this.props)];
-            const [r1, theta1] = [r + vR, theta + vTheta];
-            const [x1, y1] = polarToCartesian(r1, theta1);
-            return [x1 - x, y1 - y];
-            //return [vR, vTheta];
-            //if(Math.random() > .9999) console.log(vR, vTheta);
-            return polarToCartesian(vR, vTheta);
-        };
+        //const getVector = (x, y) => {
+        //    const [r, theta] = cartesianToPolar(x, y);
+        //    const [vR, vTheta] = [vx(x, theta, this.props), vy(y, theta, this.props)];
+        //    //const [vR, vTheta] = [vx(r, theta, this.props), vy(r, theta, this.props)];
+        //    const [r1, theta1] = [r + vR, theta + vTheta];
+        //    const [x1, y1] = polarToCartesian(r1, theta1);
+        //    return [x1 - x, y1 - y];
+        //    //return [vR, vTheta];
+        //    return polarToCartesian(vR, vTheta);
+        //};
 
-        //const getVector = _.every([vx, vy], _.isFunction) ?
-        //    // if vector functions are provided, use them to generate flow
-        //    (xVal, yVal) => [vx(xVal, yVal, this.props), vy(xVal, yVal, this.props)] :
-        //    // if a grid of vector data is provided,
-        //    // create a vector function from it which interpolates between the grid points
-        //    (xVal, yVal) => interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins, scaleFactor);
+        const getVector = _.every([vx, vy], _.isFunction) ?
+            // if vector functions are provided, use them to generate flow
+            (xVal, yVal) => [vx(xVal, yVal, this.props), vy(xVal, yVal, this.props)] :
+            // if a grid of vector data is provided,
+            // create a vector function from it which interpolates between the grid points
+            (xVal, yVal) => interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins, scaleFactor);
 
         return {ctx, getVector, xDomain, yDomain};
     }
@@ -229,8 +316,9 @@ export default class FlowField extends React.Component {
         const imageData = image.data;
         if(imageData) {
             const len = imageData.length;
+            const {fadeAmount} = this.props;
             for (let pI=3; pI<len; pI += 4) {
-                imageData[pI] -= this.props.fadeAmount;
+                imageData[pI] -= fadeAmount;
             }
             this.ctx.putImageData(image, 0, 0);
         }
@@ -238,51 +326,24 @@ export default class FlowField extends React.Component {
     _redraw = () => {
         const {scale, fadeAmount, useSimpleFade} = this.props;
         const {ctx, particles, getVector} = this;
-        const {x, y, color, age} = particles;
-        const getColor = this.props.color;
-
-        const xDomain = scale.x.domain();
-        const yDomain = scale.y.domain();
 
         if(fadeAmount)
             useSimpleFade ? this._fadeOutSimple() : this._fadeOut();
 
-        const rX = (x, y) => y * Math.cos(x);
-        const rY = (x, y) => x * Math.cos(y);
-
-        //console.log(rX(x[1], y[1]));
-        for (var i = 0; i < x.length; i++) {
-            const dr = getVector(x[i], y[i]);
-
-            ctx.strokeStyle = color[i];
+        const translations = this.particleSystem.advect(getVector);
+        _.forEach(translations, function([x, y, x1, y1, color]) {
+            ctx.strokeStyle = color;
             ctx.beginPath();
-            ctx.moveTo(scale.x(x[i]), scale.y(y[i])); // start point of path
-            //ctx.moveTo(scale.x(rY(x[i], y[i])), scale.y(rX(x[i], y[i]))); // start point of path
-            // simlutaneously draw line to end point & increment position
-            ctx.lineTo(scale.x(x[i] += dr[0] * dt), scale.y(y[i] += dr[1] * dt));
-            //x[i] += dr[0] * dt;
-            //y[i] += dr[1] * dt;
-            //ctx.lineTo(scale.x(rY(x[i], y[i])), scale.y(rX(x[i], y[i])));
+            ctx.moveTo(scale.x(x), scale.y(y));
+            ctx.lineTo(scale.x(x1), scale.y(y1));
             ctx.stroke();
-
-            // increment age of each curve, restart if maxAge is reached
-            if (age[i]++ > maxAge) {
-                age[i] = randomAge();
-                x[i] = _.random(xDomain[0], xDomain[1] - 1) + Math.random();
-                y[i] = _.random(yDomain[0], yDomain[1] - 1) + Math.random();
-                color[i] = getColor(x[i], y[i]);
-                //color[i] = `rgb(0, ${Math.floor(scale.x(x[i])) % 255}, ${Math.floor(scale.y(y[i])) % 255})`;
-                //color[i] = `rgb(255, 0, 0)`;
-                //color[i] = randomGray(50);
-                //color[i] = 'black';
-            }
-        }
+        });
 
         if(!(this.curFrame % 20)) {
             const currentTime = new Date().getTime();
             const dTime = currentTime - this.lastFrameTime;
             const fps = 1 / (dTime / (20 * 1000));
-            //console.log(fps, 'fps');
+            console.log(fps, 'fps');
             this.lastFrameTime = currentTime;
         }
         this.curFrame++;
