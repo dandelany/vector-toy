@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import d3 from 'd3';
 import _ from 'lodash';
 
+import ParticleFlowSystem from 'ParticleFlowSystem';
+
 const dt = 0.005;
 const maxAge = 100; // # timesteps before restart
 
@@ -61,128 +63,23 @@ function randomGray(min=0, max=255) {
     return `rgb(${rgb}, ${rgb}, ${rgb})`;
 }
 
-function initParticles(xDomain, yDomain, particleCount, colorFunc = () => 'black') {
-    let particles = {x: [], y: [], color: [], age: []};
-    _.range(particleCount).forEach(i => {
-        addParticle(particles, xDomain, yDomain, colorFunc);
-    });
-    return particles;
-}
-function addParticle(particles, xDomain, yDomain, colorFunc = () => 'black') {
-    const x = _.random(xDomain[0], xDomain[1] - 1) + Math.random();
-    const y = _.random(yDomain[0], yDomain[1] - 1) + Math.random();
-    particles.x.push(x);
-    particles.y.push(y);
-    particles.color.push(colorFunc(x, y));
-    particles.age.push(randomAge());
-    return particles;
-}
-function trimParticles(particles, limit) {
-    particles.x = particles.x.slice(0, limit);
-    particles.y = particles.y.slice(0, limit);
-    particles.color = particles.color.slice(0, limit);
-    particles.age = particles.age.slice(0, limit);
-    return particles;
-}
-class ParticleFlowSystem {
-    constructor(xDomain, yDomain, particleCount = 0, getColor = 'black', maxAge = 100, dt = 0.005) {
-        _.assign(this, {xDomain, yDomain, getColor, maxAge, dt, particles: []});
-        this.add(particleCount);
-    }
 
-    add(count) {
-        // add new particles to system
-        const {particles} = this;
-        const newParticles = _.range(count).map(() => this._createParticle());
-        particles.push.apply(particles, newParticles);
-    }
-    limit(limit) {
-        // limit system to a max # of particles, remove the rest
-        this.particles = this.particles.slice(0, limit);
-    }
-    advect(getVector, callback) {
-        // advect (push) each particle along a cartesian vector field
-        // expects a function which returns a velocity vector [vx, vy]
-        // given a particle's [x, y] or [r, theta] position
-        const {particles, maxAge, dt} = this;
 
-        return particles.map((particle) => {
-            const [x, y, r, theta, age, color] = particle;
-            const [vx, vy] = getVector(x, y, r, theta);
-
-            const x1 = x + (vx * dt);
-            const y1 = y + (vy * dt);
-            const [r1, theta1] = cartesianToPolar(x1, y1);
-
-            if((age + 1) > maxAge) {
-                // kill the old particle and make a new one out of its dead body
-                this._createParticle(particle);
-            } else {
-                // update the particle with its new position and age
-                particle.splice(0, 5, x1, y1, r1, theta1, age + 1);
-            }
-
-            // call the callback
-            //callback(x, y, x1, y1, color);
-            return [x, y, x1, y1, color];
-        });
-
-        //for (var i = 0; i < particles.length; i++) {
-        //    const particle = particles[i];
-        //    const [x, y, r, theta, age, color] = particle;
-        //    const [vx, vy] = getVector(x, y, r, theta);
-        //
-        //    const x1 = x + (vx * dt);
-        //    const y1 = y + (vy * dt);
-        //    const [r1, theta1] = cartesianToPolar(x1, y1);
-        //
-        //    if((age + 1) > maxAge) {
-        //        // kill the old particle and make a new one out of its dead body
-        //        this._createParticle(particle);
-        //    } else {
-        //        // update the particle with its new position and age
-        //        particle.splice(0, 5, x1, y1, r1, theta1, age + 1);
-        //    }
-        //
-        //    // call the callback
-        //    callback(x, y, x1, y1, color);
-        //}
-    }
-
-    _createParticle = (particle) => {
-        // create a new particle with random starting position and age
-        // pass particle arg to reuse obj reference, otherwise created from scratch
-        const {particles, xDomain, yDomain, getColor} = this;
-
-        const x = _.random(xDomain[0], xDomain[1], true);
-        const y = _.random(yDomain[0], yDomain[1], true);
-        const [r, theta] = cartesianToPolar(x, y);
-        const color = _.isFunction(getColor) ?
-            getColor(x, y, r, theta) : getColor;
-        const age = randomAge();
-
-        // arrays still faster than objects :(
-        return particle ?
-            particle.splice(0, 6, x, y, r, theta, age, color) :
-            [x, y, r, theta, age, color];
-    };
-}
-
-function cartesianToPolar(x, y) {
-    const r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
-    const theta = Math.atan2(y, x);
-    //const theta = // check which quadrant the point is in
-    //    (x > 0 && y > 0) ? theta1 :
-    //    (x < 0 && y > 0) ? Math.PI - theta1 :
-    //    (x < 0 && y < 0) ? Math.PI + theta1 :
-    //    (2 * Math.PI) + theta1;
-
-    return [r, theta];
-}
-
-function polarToCartesian(r, theta) {
-    return [r * Math.cos(theta), r * Math.sin(theta)];
-}
+//function cartesianToPolar(x, y) {
+//    const r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+//    const theta = Math.atan2(y, x);
+//    //const theta = // check which quadrant the point is in
+//    //    (x > 0 && y > 0) ? theta1 :
+//    //    (x < 0 && y > 0) ? Math.PI - theta1 :
+//    //    (x < 0 && y < 0) ? Math.PI + theta1 :
+//    //    (2 * Math.PI) + theta1;
+//
+//    return [r, theta];
+//}
+//
+//function polarToCartesian(r, theta) {
+//    return [r * Math.cos(theta), r * Math.sin(theta)];
+//}
 
 export default class FlowField extends React.Component {
     static propTypes = {
@@ -191,6 +88,8 @@ export default class FlowField extends React.Component {
         yBins: React.PropTypes.arrayOf(React.PropTypes.array),
         vx: React.PropTypes.function,
         vy: React.PropTypes.function,
+        vr: React.PropTypes.function,
+        vTheta: React.PropTypes.function,
         color: React.PropTypes.function,
         particleCount: React.PropTypes.number,
         lineWidth: React.PropTypes.number,
@@ -230,8 +129,7 @@ export default class FlowField extends React.Component {
     componentDidMount() {
         const {particleCount, color, useSimpleFade, simpleFadeColor} = this.props;
 
-        const {ctx, getVector, xDomain, yDomain} = this._initFlow(this.props);
-        const particles = initParticles(xDomain, yDomain, particleCount, color);
+        const {ctx, getVector, xDomain, yDomain, isPolar} = this._initFlow(this.props);
         const particleSystem = new ParticleFlowSystem(xDomain, yDomain, particleCount, color);
 
         if(useSimpleFade) ctx.fillStyle = simpleFadeColor;
@@ -243,7 +141,7 @@ export default class FlowField extends React.Component {
         const lastFrameTime = startTime;
         const curFrame = 1;
 
-        _.assign(this, {particles, particleSystem, ctx, getVector, xDomain, yDomain, startTime, curFrame, lastFrameTime});
+        _.assign(this, {particleSystem, ctx, getVector, xDomain, yDomain, startTime, curFrame, lastFrameTime, isPolar});
 
         // draw loop
         //d3.timer(() => { this.redraw(); }, 30);
@@ -252,6 +150,7 @@ export default class FlowField extends React.Component {
     componentWillReceiveProps(newProps) {
         _.assign(this, this._initFlow(newProps));
 
+        // clear screen on new screenId
         if(_.has(newProps, 'screenId') && newProps.screenId !== this.props.screenId) {
             this.ctx.clearRect(0, 0, this.props.scaleWidth, this.props.scaleHeight);
         }
@@ -259,19 +158,10 @@ export default class FlowField extends React.Component {
         // update number of particles without restarting from scratch
         const newCount = newProps.particleCount;
         const oldCount = this.props.particleCount;
-        if(newCount != oldCount) {
-            const xDomain = this.props.scale.x.domain();
-            const yDomain = this.props.scale.y.domain();
-            newCount > oldCount ?
-                _.times(newCount - oldCount, () => {
-                    addParticle(this.particles, xDomain, yDomain, this.props.color);
-                }) :
-                trimParticles(this.particles, newCount);
-
-            newCount > oldCount ?
-                this.particleSystem.add(newCount - oldCount) :
-                this.particleSystem.limit(newCount)
-        }
+        if(newCount > oldCount)
+            this.particleSystem.add(newCount - oldCount);
+        else if(newCount < oldCount)
+            this.particleSystem.limit(newCount);
     }
     shouldComponentUpdate() {
         return false;
@@ -281,29 +171,24 @@ export default class FlowField extends React.Component {
         // cache a few things upfront, so we don't do them in every redraw call
         const ctx = ReactDOM.findDOMNode(this.refs.canvas).getContext("2d");
         ctx.lineWidth = props.lineWidth;
-        const {data, scale, vx, vy, xBins, yBins, scaleFactor} = props;
+        const {data, scale, vx, vy, vr, vTheta, xBins, yBins, scaleFactor} = props;
         const xDomain = scale.x.domain();
         const yDomain = scale.y.domain();
 
-        //const getVector = (x, y) => {
-        //    const [r, theta] = cartesianToPolar(x, y);
-        //    const [vR, vTheta] = [vx(x, theta, this.props), vy(y, theta, this.props)];
-        //    //const [vR, vTheta] = [vx(r, theta, this.props), vy(r, theta, this.props)];
-        //    const [r1, theta1] = [r + vR, theta + vTheta];
-        //    const [x1, y1] = polarToCartesian(r1, theta1);
-        //    return [x1 - x, y1 - y];
-        //    //return [vR, vTheta];
-        //    return polarToCartesian(vR, vTheta);
-        //};
+        const isPolar = _.every([vr, vTheta], _.isFunction);
+        const getVector =
+            isPolar ?
+                // if polar vector functions are provided, use them to generate flow
+                (x, y, r, theta) => [vr(x, y, r, theta, this.props), vTheta(x, y, r, theta, this.props)] :
+            _.every([vx, vy], _.isFunction) ?
+                // if cartesian vector functions are provided, use them to generate flow
+                (x, y, r, theta) => [vx(x, y, r, theta, this.props), vy(x, y, r, theta, this.props)] :
 
-        const getVector = _.every([vx, vy], _.isFunction) ?
-            // if vector functions are provided, use them to generate flow
-            (xVal, yVal) => [vx(xVal, yVal, this.props), vy(xVal, yVal, this.props)] :
             // if a grid of vector data is provided,
             // create a vector function from it which interpolates between the grid points
             (xVal, yVal) => interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins, scaleFactor);
 
-        return {ctx, getVector, xDomain, yDomain};
+        return {ctx, getVector, xDomain, yDomain, isPolar};
     }
     _fadeOutSimple() {
         // simple fade out by drawing transparent (fillStyle) white rectangle on top every frame
@@ -325,12 +210,12 @@ export default class FlowField extends React.Component {
     }
     _redraw = () => {
         const {scale, fadeAmount, useSimpleFade} = this.props;
-        const {ctx, particles, getVector} = this;
+        const {ctx, getVector, isPolar} = this;
 
         if(fadeAmount)
             useSimpleFade ? this._fadeOutSimple() : this._fadeOut();
 
-        const translations = this.particleSystem.advect(getVector);
+        const translations = this.particleSystem.advect(getVector, isPolar);
         _.forEach(translations, function([x, y, x1, y1, color]) {
             ctx.strokeStyle = color;
             ctx.beginPath();

@@ -20061,11 +20061,11 @@
 	
 	var _FlowField2 = _interopRequireDefault(_FlowField);
 	
-	var _FunctionInput = __webpack_require__(286);
+	var _FunctionInput = __webpack_require__(287);
 	
 	var _FunctionInput2 = _interopRequireDefault(_FunctionInput);
 	
-	var _NumberInput = __webpack_require__(287);
+	var _NumberInput = __webpack_require__(288);
 	
 	var _NumberInput2 = _interopRequireDefault(_NumberInput);
 	
@@ -20132,12 +20132,13 @@
 	    _createClass(App, [{
 	        key: '_onChangeOption',
 	        value: function _onChangeOption(key, event, value) {
+	            console.log(key, value);
 	            this.setState(_defineProperty({}, key, value));
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var options = _lodash2.default.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount', 'lineWidth']);
+	            var options = _lodash2.default.pick(this.state, ['vx', 'vy', 'color', 'particleCount', 'domain', 'fadeAmount', 'lineWidth', 'screenId']);
 	
 	            return _react2.default.createElement(
 	                'div',
@@ -20187,6 +20188,7 @@
 	            var particleCount = _props.particleCount;
 	            var fadeAmount = _props.fadeAmount;
 	            var lineWidth = _props.lineWidth;
+	            var screenId = _props.screenId;
 	
 	            return _react2.default.createElement(
 	                'div',
@@ -20198,7 +20200,7 @@
 	                        showGrid: false, showTicks: false
 	                    }),
 	                    _react2.default.createElement(_FlowField2.default, {
-	                        particleCount: particleCount, fadeAmount: fadeAmount, lineWidth: lineWidth,
+	                        particleCount: particleCount, fadeAmount: fadeAmount, lineWidth: lineWidth, screenId: screenId,
 	                        //useSimpleFade: true,
 	                        vx: this._timed(vx),
 	                        vy: this._timed(vy),
@@ -20218,16 +20220,27 @@
 	    height: 600,
 	    domain: { x: [-10, 10], y: [-10, 10] },
 	    vx: _lodash2.default.identity,
-	    vy: _lodash2.default.identity
+	    vy: _lodash2.default.identity,
+	    screenId: 0
 	}, _temp));
 	
 	var ControlPanel = function (_React$Component3) {
 	    _inherits(ControlPanel, _React$Component3);
 	
 	    function ControlPanel() {
+	        var _Object$getPrototypeO;
+	
+	        var _temp2, _this3, _ret;
+	
 	        _classCallCheck(this, ControlPanel);
 	
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(ControlPanel).apply(this, arguments));
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+	
+	        return _ret = (_temp2 = (_this3 = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(ControlPanel)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this3), _this3.onClearScreen = function () {
+	            _this3.props.onChangeOption('screenId', {}, +new Date());
+	        }, _temp2), _possibleConstructorReturn(_this3, _ret);
 	    }
 	
 	    _createClass(ControlPanel, [{
@@ -20238,27 +20251,11 @@
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'control-panel' },
-	                _react2.default.createElement(_FunctionInput2.default, {
-	                    label: "X velocity",
-	                    value: this.props.vx,
-	                    funcParams: ['x', 'y', 't'],
-	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vx'),
-	                    checkValid: checkValidVectorFunc
-	                }),
-	                _react2.default.createElement(_FunctionInput2.default, {
-	                    label: "Y velocity",
-	                    value: this.props.vy,
-	                    funcParams: ['x', 'y', 't'],
-	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vy'),
-	                    checkValid: checkValidVectorFunc
-	                }),
-	                _react2.default.createElement(_FunctionInput2.default, {
-	                    label: "Color",
-	                    value: this.props.color,
-	                    funcParams: ['x', 'y', 't'],
-	                    onValidChange: _lodash2.default.partial(onChangeOption, 'color'),
-	                    checkValid: checkValidColorFunc
-	                }),
+	                _react2.default.createElement(
+	                    'button',
+	                    { onClick: this.onClearScreen },
+	                    'Clear Screen'
+	                ),
 	                _react2.default.createElement(_NumberInput2.default, {
 	                    label: _react2.default.createElement(
 	                        'div',
@@ -20285,6 +20282,27 @@
 	                    ),
 	                    value: this.props.lineWidth,
 	                    onValidChange: _lodash2.default.partial(onChangeOption, 'lineWidth')
+	                }),
+	                _react2.default.createElement(_FunctionInput2.default, {
+	                    label: "X velocity",
+	                    value: this.props.vx,
+	                    funcParams: ['x', 'y', 't'],
+	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vx'),
+	                    checkValid: checkValidVectorFunc
+	                }),
+	                _react2.default.createElement(_FunctionInput2.default, {
+	                    label: "Y velocity",
+	                    value: this.props.vy,
+	                    funcParams: ['x', 'y', 't'],
+	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vy'),
+	                    checkValid: checkValidVectorFunc
+	                }),
+	                _react2.default.createElement(_FunctionInput2.default, {
+	                    label: "Color",
+	                    value: this.props.color,
+	                    funcParams: ['x', 'y', 't'],
+	                    onValidChange: _lodash2.default.partial(onChangeOption, 'color'),
+	                    checkValid: checkValidColorFunc
 	                })
 	            );
 	        }
@@ -73698,6 +73716,10 @@
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
 	
+	var _ParticleFlowSystem = __webpack_require__(286);
+	
+	var _ParticleFlowSystem2 = _interopRequireDefault(_ParticleFlowSystem);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73784,37 +73806,21 @@
 	    return 'rgb(' + rgb + ', ' + rgb + ', ' + rgb + ')';
 	}
 	
-	function initParticles(xDomain, yDomain, particleCount) {
-	    var colorFunc = arguments.length <= 3 || arguments[3] === undefined ? function () {
-	        return 'black';
-	    } : arguments[3];
-	
-	    var particles = { x: [], y: [], color: [], age: [] };
-	    _lodash2.default.range(particleCount).forEach(function (i) {
-	        addParticle(particles, xDomain, yDomain, colorFunc);
-	    });
-	    return particles;
-	}
-	function addParticle(particles, xDomain, yDomain) {
-	    var colorFunc = arguments.length <= 3 || arguments[3] === undefined ? function () {
-	        return 'black';
-	    } : arguments[3];
-	
-	    var x = _lodash2.default.random(xDomain[0], xDomain[1] - 1) + Math.random();
-	    var y = _lodash2.default.random(yDomain[0], yDomain[1] - 1) + Math.random();
-	    particles.x.push(x);
-	    particles.y.push(y);
-	    particles.color.push(colorFunc(x, y));
-	    particles.age.push(randomAge());
-	    return particles;
-	}
-	function trimParticles(particles, limit) {
-	    particles.x = particles.x.slice(0, limit);
-	    particles.y = particles.y.slice(0, limit);
-	    particles.color = particles.color.slice(0, limit);
-	    particles.age = particles.age.slice(0, limit);
-	    return particles;
-	}
+	//function cartesianToPolar(x, y) {
+	//    const r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+	//    const theta = Math.atan2(y, x);
+	//    //const theta = // check which quadrant the point is in
+	//    //    (x > 0 && y > 0) ? theta1 :
+	//    //    (x < 0 && y > 0) ? Math.PI - theta1 :
+	//    //    (x < 0 && y < 0) ? Math.PI + theta1 :
+	//    //    (2 * Math.PI) + theta1;
+	//
+	//    return [r, theta];
+	//}
+	//
+	//function polarToCartesian(r, theta) {
+	//    return [r * Math.cos(theta), r * Math.sin(theta)];
+	//}
 	
 	var FlowField = function (_React$Component) {
 	    _inherits(FlowField, _React$Component);
@@ -73837,60 +73843,33 @@
 	            var useSimpleFade = _this$props.useSimpleFade;
 	            var _this2 = _this;
 	            var ctx = _this2.ctx;
-	            var particles = _this2.particles;
 	            var getVector = _this2.getVector;
-	            var x = particles.x;
-	            var y = particles.y;
-	            var color = particles.color;
-	            var age = particles.age;
-	
-	            var getColor = _this.props.color;
-	
-	            var xDomain = scale.x.domain();
-	            var yDomain = scale.y.domain();
+	            var isPolar = _this2.isPolar;
 	
 	            if (fadeAmount) useSimpleFade ? _this._fadeOutSimple() : _this._fadeOut();
 	
-	            var rX = function rX(x, y) {
-	                return y * Math.cos(x);
-	            };
-	            var rY = function rY(x, y) {
-	                return x * Math.cos(y);
-	            };
+	            var translations = _this.particleSystem.advect(getVector, isPolar);
+	            _lodash2.default.forEach(translations, function (_ref3) {
+	                var _ref4 = _slicedToArray(_ref3, 5);
 	
-	            //console.log(rX(x[1], y[1]));
-	            for (var i = 0; i < x.length; i++) {
-	                var dr = getVector(x[i], y[i]);
+	                var x = _ref4[0];
+	                var y = _ref4[1];
+	                var x1 = _ref4[2];
+	                var y1 = _ref4[3];
+	                var color = _ref4[4];
 	
-	                ctx.strokeStyle = color[i];
+	                ctx.strokeStyle = color;
 	                ctx.beginPath();
-	                ctx.moveTo(scale.x(x[i]), scale.y(y[i])); // start point of path
-	                //ctx.moveTo(scale.x(rY(x[i], y[i])), scale.y(rX(x[i], y[i]))); // start point of path
-	                // simlutaneously draw line to end point & increment position
-	                ctx.lineTo(scale.x(x[i] += dr[0] * dt), scale.y(y[i] += dr[1] * dt));
-	                //x[i] += dr[0] * dt;
-	                //y[i] += dr[1] * dt;
-	                //ctx.lineTo(scale.x(rY(x[i], y[i])), scale.y(rX(x[i], y[i])));
+	                ctx.moveTo(scale.x(x), scale.y(y));
+	                ctx.lineTo(scale.x(x1), scale.y(y1));
 	                ctx.stroke();
-	
-	                // increment age of each curve, restart if maxAge is reached
-	                if (age[i]++ > maxAge) {
-	                    age[i] = randomAge();
-	                    x[i] = _lodash2.default.random(xDomain[0], xDomain[1] - 1) + Math.random();
-	                    y[i] = _lodash2.default.random(yDomain[0], yDomain[1] - 1) + Math.random();
-	                    color[i] = getColor(x[i], y[i]);
-	                    //color[i] = `rgb(0, ${Math.floor(scale.x(x[i])) % 255}, ${Math.floor(scale.y(y[i])) % 255})`;
-	                    //color[i] = `rgb(255, 0, 0)`;
-	                    //color[i] = randomGray(50);
-	                    //color[i] = 'black';
-	                }
-	            }
+	            });
 	
 	            if (!(_this.curFrame % 20)) {
 	                var currentTime = new Date().getTime();
 	                var dTime = currentTime - _this.lastFrameTime;
 	                var fps = 1 / (dTime / (20 * 1000));
-	                //console.log(fps, 'fps');
+	                console.log(fps, 'fps');
 	                _this.lastFrameTime = currentTime;
 	            }
 	            _this.curFrame++;
@@ -73914,19 +73893,20 @@
 	            var getVector = _initFlow2.getVector;
 	            var xDomain = _initFlow2.xDomain;
 	            var yDomain = _initFlow2.yDomain;
+	            var isPolar = _initFlow2.isPolar;
 	
-	            var particles = initParticles(xDomain, yDomain, particleCount, color);
+	            var particleSystem = new _ParticleFlowSystem2.default(xDomain, yDomain, particleCount, color);
 	
 	            if (useSimpleFade) ctx.fillStyle = simpleFadeColor;
 	            ctx.lineWidth = this.props.lineWidth;
-	            //ctx.globalCompositeOperation = "source-over";
-	            ctx.globalCompositeOperation = "screen";
+	            ctx.globalCompositeOperation = "source-over";
+	            //ctx.globalCompositeOperation = "screen";
 	
 	            var startTime = new Date().getTime();
 	            var lastFrameTime = startTime;
 	            var curFrame = 1;
 	
-	            _lodash2.default.assign(this, { particles: particles, ctx: ctx, getVector: getVector, xDomain: xDomain, yDomain: yDomain, startTime: startTime, curFrame: curFrame, lastFrameTime: lastFrameTime });
+	            _lodash2.default.assign(this, { particleSystem: particleSystem, ctx: ctx, getVector: getVector, xDomain: xDomain, yDomain: yDomain, startTime: startTime, curFrame: curFrame, lastFrameTime: lastFrameTime, isPolar: isPolar });
 	
 	            // draw loop
 	            //d3.timer(() => { this.redraw(); }, 30);
@@ -73935,22 +73915,17 @@
 	    }, {
 	        key: 'componentWillReceiveProps',
 	        value: function componentWillReceiveProps(newProps) {
-	            var _this3 = this;
-	
 	            _lodash2.default.assign(this, this._initFlow(newProps));
+	
+	            // clear screen on new screenId
+	            if (_lodash2.default.has(newProps, 'screenId') && newProps.screenId !== this.props.screenId) {
+	                this.ctx.clearRect(0, 0, this.props.scaleWidth, this.props.scaleHeight);
+	            }
 	
 	            // update number of particles without restarting from scratch
 	            var newCount = newProps.particleCount;
 	            var oldCount = this.props.particleCount;
-	            if (newCount != oldCount) {
-	                (function () {
-	                    var xDomain = _this3.props.scale.x.domain();
-	                    var yDomain = _this3.props.scale.y.domain();
-	                    newCount > oldCount ? _lodash2.default.times(newCount - oldCount, function () {
-	                        addParticle(_this3.particles, xDomain, yDomain, _this3.props.color);
-	                    }) : trimParticles(_this3.particles, newCount);
-	                })();
-	            }
+	            if (newCount > oldCount) this.particleSystem.add(newCount - oldCount);else if (newCount < oldCount) this.particleSystem.limit(newCount);
 	        }
 	    }, {
 	        key: 'shouldComponentUpdate',
@@ -73960,7 +73935,7 @@
 	    }, {
 	        key: '_initFlow',
 	        value: function _initFlow(props) {
-	            var _this4 = this;
+	            var _this3 = this;
 	
 	            // cache a few things upfront, so we don't do them in every redraw call
 	            var ctx = _reactDom2.default.findDOMNode(this.refs.canvas).getContext("2d");
@@ -73969,6 +73944,8 @@
 	            var scale = props.scale;
 	            var vx = props.vx;
 	            var vy = props.vy;
+	            var vr = props.vr;
+	            var vTheta = props.vTheta;
 	            var xBins = props.xBins;
 	            var yBins = props.yBins;
 	            var scaleFactor = props.scaleFactor;
@@ -73976,18 +73953,24 @@
 	            var xDomain = scale.x.domain();
 	            var yDomain = scale.y.domain();
 	
-	            var getVector = _lodash2.default.every([vx, vy], _lodash2.default.isFunction) ?
-	            // if vector functions are provided, use them to generate flow
-	            function (xVal, yVal) {
-	                return [vx(xVal, yVal, _this4.props), vy(xVal, yVal, _this4.props)];
+	            var isPolar = _lodash2.default.every([vr, vTheta], _lodash2.default.isFunction);
+	            var getVector = isPolar ?
+	            // if polar vector functions are provided, use them to generate flow
+	            function (x, y, r, theta) {
+	                return [vr(x, y, r, theta, _this3.props), vTheta(x, y, r, theta, _this3.props)];
+	            } : _lodash2.default.every([vx, vy], _lodash2.default.isFunction) ?
+	            // if cartesian vector functions are provided, use them to generate flow
+	            function (x, y, r, theta) {
+	                return [vx(x, y, r, theta, _this3.props), vy(x, y, r, theta, _this3.props)];
 	            } :
+	
 	            // if a grid of vector data is provided,
 	            // create a vector function from it which interpolates between the grid points
 	            function (xVal, yVal) {
 	                return interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins, scaleFactor);
 	            };
 	
-	            return { ctx: ctx, getVector: getVector, xDomain: xDomain, yDomain: yDomain };
+	            return { ctx: ctx, getVector: getVector, xDomain: xDomain, yDomain: yDomain, isPolar: isPolar };
 	        }
 	    }, {
 	        key: '_fadeOutSimple',
@@ -74004,8 +73987,10 @@
 	            var imageData = image.data;
 	            if (imageData) {
 	                var len = imageData.length;
+	                var fadeAmount = this.props.fadeAmount;
+	
 	                for (var pI = 3; pI < len; pI += 4) {
-	                    imageData[pI] -= this.props.fadeAmount;
+	                    imageData[pI] -= fadeAmount;
 	                }
 	                this.ctx.putImageData(image, 0, 0);
 	            }
@@ -74045,9 +74030,14 @@
 	    yBins: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.array),
 	    vx: _react2.default.PropTypes.function,
 	    vy: _react2.default.PropTypes.function,
+	    vr: _react2.default.PropTypes.function,
+	    vTheta: _react2.default.PropTypes.function,
 	    color: _react2.default.PropTypes.function,
 	    particleCount: _react2.default.PropTypes.number,
 	    lineWidth: _react2.default.PropTypes.number,
+	
+	    // to clear the screen, change the screenId prop
+	    screenId: _react2.default.PropTypes.any,
 	
 	    // positive integer for scaling up the speed of the particles
 	    scaleFactor: _react2.default.PropTypes.number,
@@ -74084,6 +74074,198 @@
 
 /***/ },
 /* 286 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _lodash = __webpack_require__(167);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function cartesianToPolar(x, y) {
+	    var r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
+	    var theta = Math.atan2(y, x);
+	
+	    return [r, theta];
+	}
+	
+	function polarToCartesian(r, theta) {
+	    return [r * Math.cos(theta), r * Math.sin(theta)];
+	}
+	
+	function randomAge() {
+	    return Math.round(Math.random() * 100);
+	}
+	function randomGray() {
+	    var min = arguments.length <= 0 || arguments[0] === undefined ? 0 : arguments[0];
+	    var max = arguments.length <= 1 || arguments[1] === undefined ? 255 : arguments[1];
+	
+	    var rgb = _lodash2.default.random(min, max);
+	    return 'rgb(' + rgb + ', ' + rgb + ', ' + rgb + ')';
+	}
+	
+	var ParticleFlowSystem = function () {
+	    function ParticleFlowSystem(xDomain, yDomain) {
+	        var particleCount = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
+	        var getColor = arguments.length <= 3 || arguments[3] === undefined ? randomGray : arguments[3];
+	        var maxAge = arguments.length <= 4 || arguments[4] === undefined ? 100 : arguments[4];
+	        var dt = arguments.length <= 5 || arguments[5] === undefined ? 0.005 : arguments[5];
+	
+	        _classCallCheck(this, ParticleFlowSystem);
+	
+	        _initialiseProps.call(this);
+	
+	        _lodash2.default.assign(this, { xDomain: xDomain, yDomain: yDomain, getColor: getColor, maxAge: maxAge, dt: dt, particles: [] });
+	        this.add(particleCount);
+	    }
+	
+	    _createClass(ParticleFlowSystem, [{
+	        key: 'add',
+	        value: function add(count) {
+	            var _this = this;
+	
+	            // add new particles to system
+	            var particles = this.particles;
+	
+	            var newParticles = _lodash2.default.range(count).map(function () {
+	                return _this._createParticle();
+	            });
+	            particles.push.apply(particles, newParticles);
+	        }
+	    }, {
+	        key: 'limit',
+	        value: function limit(_limit) {
+	            // limit system to a max # of particles, remove the rest
+	            this.particles = this.particles.slice(0, _limit);
+	        }
+	    }, {
+	        key: 'advect',
+	        value: function advect(getVector) {
+	            var _this2 = this;
+	
+	            var polar = arguments.length <= 1 || arguments[1] === undefined ? true : arguments[1];
+	
+	            // advect (push) each particle along a cartesian vector field
+	            // expects a function which returns a velocity vector [vx, vy]
+	            // given a particle's [x, y] or [r, theta] position
+	            var particles = this.particles;
+	            var maxAge = this.maxAge;
+	            var dt = this.dt;
+	
+	            return particles.map(function (particle) {
+	                var _particle = _slicedToArray(particle, 6);
+	
+	                var x = _particle[0];
+	                var y = _particle[1];
+	                var r = _particle[2];
+	                var theta = _particle[3];
+	                var age = _particle[4];
+	                var color = _particle[5];
+	
+	                var x1 = undefined,
+	                    y1 = undefined,
+	                    r1 = undefined,
+	                    theta1 = undefined;
+	
+	                if (polar) {
+	                    // use vars to make available outside of `if` scope
+	
+	                    var _getVector = getVector(x, y, r, theta);
+	
+	                    var _getVector2 = _slicedToArray(_getVector, 2);
+	
+	                    var vr = _getVector2[0];
+	                    var vTheta = _getVector2[1];
+	
+	                    r1 = r + vr * dt;
+	                    theta1 = theta + vTheta * dt;
+	
+	                    var _polarToCartesian = polarToCartesian(r1, theta1);
+	
+	                    var _polarToCartesian2 = _slicedToArray(_polarToCartesian, 2);
+	
+	                    x1 = _polarToCartesian2[0];
+	                    y1 = _polarToCartesian2[1];
+	                } else {
+	                    var _getVector3 = getVector(x, y, r, theta);
+	
+	                    var _getVector4 = _slicedToArray(_getVector3, 2);
+	
+	                    var vx = _getVector4[0];
+	                    var vy = _getVector4[1];
+	
+	                    x1 = x + vx * dt;
+	                    y1 = y + vy * dt;
+	
+	                    var _cartesianToPolar = cartesianToPolar(x1, y1);
+	
+	                    var _cartesianToPolar2 = _slicedToArray(_cartesianToPolar, 2);
+	
+	                    r1 = _cartesianToPolar2[0];
+	                    theta1 = _cartesianToPolar2[1];
+	                }
+	
+	                if (age + 1 > maxAge) {
+	                    // kill the old particle and make a new one out of its dead body
+	                    _this2._createParticle(particle);
+	                } else {
+	                    // update the particle with its new position and age
+	                    particle.splice(0, 5, x1, y1, r1, theta1, age + 1);
+	                }
+	
+	                // call the callback
+	                return [x, y, x1, y1, color];
+	            });
+	        }
+	    }]);
+	
+	    return ParticleFlowSystem;
+	}();
+	
+	var _initialiseProps = function _initialiseProps() {
+	    var _this3 = this;
+	
+	    this._createParticle = function (particle) {
+	        // create a new particle with random starting position and age
+	        // pass particle arg to reuse obj reference, otherwise created from scratch
+	        var xDomain = _this3.xDomain;
+	        var yDomain = _this3.yDomain;
+	        var getColor = _this3.getColor;
+	
+	        var x = _lodash2.default.random(xDomain[0], xDomain[1], true);
+	        var y = _lodash2.default.random(yDomain[0], yDomain[1], true);
+	
+	        var _cartesianToPolar3 = cartesianToPolar(x, y);
+	
+	        var _cartesianToPolar4 = _slicedToArray(_cartesianToPolar3, 2);
+	
+	        var r = _cartesianToPolar4[0];
+	        var theta = _cartesianToPolar4[1];
+	
+	        var color = _lodash2.default.isFunction(getColor) ? getColor(x, y, r, theta) : getColor;
+	        var age = randomAge();
+	
+	        // arrays still faster than objects :(
+	        return particle ? particle.splice(0, 6, x, y, r, theta, age, color) : [x, y, r, theta, age, color];
+	    };
+	};
+	
+	exports.default = ParticleFlowSystem;
+
+/***/ },
+/* 287 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -74207,7 +74389,7 @@
 	exports.default = FunctionInput;
 
 /***/ },
-/* 287 */
+/* 288 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
