@@ -78,11 +78,13 @@ export default class App extends React.Component {
         const aspectRatio = window ? (window.innerWidth / window.innerHeight) : 1.75;
 
         this.state = {
-            isPolar: true,
+            isPolar: false,
             // first velocity function, X (cartesian) or R (polar)
-            vA: function(x, y, r, theta, t) { return ((Math.cos(x) + Math.cos(y)) * 10); },
+            //vA: function(x, y, r, theta, t) { return ((Math.cos(x) + Math.cos(y)) * 10); },
+            vA: function(x, y, r, theta, t) { return (Math.cos(r) + Math.cos(theta)) * 10; },
             // second velocity function, Y (cartesian) or Theta (polar)
-            vB: function(x, y, r, theta, t) { return ((Math.sin(y) + Math.cos(x)) * 10); },
+            //vB: function(x, y, r, theta, t) { return ((Math.sin(x) * Math.cos(y)) * 10); },
+            vB: function(x, y, r, theta, t) { return (Math.cos(r) * Math.cos(theta)) * 10; },
             //vr: function(x, y) { return Math.cos(x) * 10; },
             //vTheta: function(x, y) { return Math.sin(y)  * 10; },
             domain: {
@@ -92,10 +94,10 @@ export default class App extends React.Component {
             //color: function(x, y, r, theta, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
             //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(Math.sin(y)), Math.abs(Math.sin(y*1.4)) - 0.3).toString(),
             //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(Math.sin(y))).toString(),
-            color: (x, y, r, theta, t) => window.d3.lab(Math.abs(x*10), y*10, 0).toString(),
+            color: (x, y, r, theta, t) => window.d3.lab(80 - (r * 13), y * 20 * Math.random(), x * 20 * Math.random()).toString(),
             particleCount: 1000,
             fadeAmount: 0,
-            lineWidth: 1
+            lineWidth: 0.7
         };
     }
 
