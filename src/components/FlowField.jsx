@@ -68,11 +68,11 @@ export default class FlowField extends React.Component {
         data: React.PropTypes.arrayOf(React.PropTypes.array),
         xBins: React.PropTypes.arrayOf(React.PropTypes.array),
         yBins: React.PropTypes.arrayOf(React.PropTypes.array),
-        vx: React.PropTypes.function,
-        vy: React.PropTypes.function,
-        vr: React.PropTypes.function,
-        vTheta: React.PropTypes.function,
-        color: React.PropTypes.function,
+        vx: React.PropTypes.func,
+        vy: React.PropTypes.func,
+        vr: React.PropTypes.func,
+        vTheta: React.PropTypes.func,
+        color: React.PropTypes.func,
         particleCount: React.PropTypes.number,
         lineWidth: React.PropTypes.number,
 
@@ -92,7 +92,7 @@ export default class FlowField extends React.Component {
         simpleFadeColor: React.PropTypes.string,
 
         // expected to be rendered inside a Reactochart XYPlot, which will pass these props
-        scale: React.PropTypes.obj,
+        scale: React.PropTypes.object,
         scaleWidth: React.PropTypes.number,
         scaleHeight: React.PropTypes.number
     };
@@ -234,7 +234,7 @@ export default class FlowField extends React.Component {
                     style={{marginLeft: margin.left, marginTop: margin.top}}
                     width={scaleWidth}
                     height={scaleHeight}
-                />;
+                />
             </foreignObject>
         </g>;
     }

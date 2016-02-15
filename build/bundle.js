@@ -20099,12 +20099,12 @@
 	window.d3 = _d2.default;
 	
 	var optionPropTypes = exports.optionPropTypes = {
-	    domain: _react2.default.PropTypes.objectOf({ x: _react2.default.PropTypes.array, y: _react2.default.PropTypes.array }),
-	    vx: _react2.default.PropTypes.function,
-	    vy: _react2.default.PropTypes.function,
-	    vR: _react2.default.PropTypes.function,
-	    vTheta: _react2.default.PropTypes.function,
-	    color: _react2.default.PropTypes.function,
+	    domain: _react2.default.PropTypes.shape({ x: _react2.default.PropTypes.array, y: _react2.default.PropTypes.array }),
+	    vx: _react2.default.PropTypes.func,
+	    vy: _react2.default.PropTypes.func,
+	    vr: _react2.default.PropTypes.func,
+	    vTheta: _react2.default.PropTypes.func,
+	    color: _react2.default.PropTypes.func,
 	    particleCount: _react2.default.PropTypes.number,
 	    fadeAmount: _react2.default.PropTypes.number,
 	    lineWidth: _react2.default.PropTypes.number,
@@ -20318,6 +20318,8 @@
 	// http://is.gd/Oz8u2D
 	
 	// http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0XG4vKiovKSB7XG5yZXR1cm4gKHkteCkqIDVcbn0iLCJ2QiI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0XG4vKiovKSB7XG5yZXR1cm4gKE1hdGguc2luKHgpK01hdGguY29zKHkqdGhldGEpKSAqIDU7XG59IiwiZG9tYWluIjp7IngiOlstMTQuNDQsMTQuNDRdLCJ5IjpbLTksOV19LCJjb2xvciI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0XG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovKSB7XG5yZXR1cm4gd2luZG93LmQzLmxhYig4MCAtIHIqMTAsIDMwLCB4ICogMTAgKiBNYXRoLnJhbmRvbSgpKS50b1N0cmluZygpO1xufSIsInBhcnRpY2xlQ291bnQiOjEwMDAwLCJmYWRlQW1vdW50IjowLCJsaW5lV2lkdGgiOjAuNSwic2NyZWVuSWQiOjE0NTU1MzkyMjY3MzIsImZ1bmNTdHJzIjpbInZBIiwidkIiLCJjb2xvciJdfQ==
+	
+	// http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0XG4vKiovKSB7XG5yZXR1cm4gKE1hdGguY29zKHIvdGhldGEpKSAqIDEwO1xufSIsInZCIjoiZnVuY3Rpb24gdkIoeCwgeSwgciwgdGhldGEsIHQpIHtcbiByZXR1cm4gTWF0aC5jb3MocikgKiBNYXRoLmNvcyh0aGV0YSkgKiAxMDtcbiB9IiwiZG9tYWluIjp7IngiOlstOS40NCw5LjQ0XSwieSI6Wy01LDVdfSwiY29sb3IiOiJmdW5jdGlvbiBjb2xvcih4LCB5LCByLCB0aGV0YSwgdCkge1xuIHJldHVybiB3aW5kb3cuZDMubGFiKDgwIC0gciAqIDEzLCB5ICogMjAgKiBNYXRoLnJhbmRvbSgpLCB4ICogMjAgKiBNYXRoLnJhbmRvbSgpKS50b1N0cmluZygpO1xuIH0iLCJwYXJ0aWNsZUNvdW50IjoxMDAwLCJmYWRlQW1vdW50IjowLCJsaW5lV2lkdGgiOjAuNSwic2NyZWVuSWQiOjE0NTU1NzczNzU2MzAsImZ1bmNTdHJzIjpbInZBIiwidkIiLCJjb2xvciJdfQ==
 	
 	// NSFW
 	// http://localhost:8228/?s=eyJpc1BvbGFyIjpmYWxzZSwidkEiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqL1xuLyoqLykge1xucmV0dXJuIChNYXRoLnNpbihyKSArIE1hdGguY29zKHRoZXRhKSkgKiAxXG59IiwidkIiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqLykge1xucmV0dXJuIE1hdGguY29zKHIpICogTWF0aC5jb3ModGhldGEpICogMTA7XG59IiwiZG9tYWluIjp7IngiOlstOS40NCw5LjQ0XSwieSI6Wy01LDVdfSwiY29sb3IiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqLykge1xucmV0dXJuIHdpbmRvdy5kMy5sYWIoODAgLSByKjEwLCAzMCwgeCAqIDEwICogTWF0aC5yYW5kb20oKSkudG9TdHJpbmcoKTtcbn0iLCJwYXJ0aWNsZUNvdW50Ijo3MDAwLCJmYWRlQW1vdW50IjowLCJsaW5lV2lkdGgiOjAuMiwic2NyZWVuSWQiOjE0NTU1MzUwMjkwNDUsImZ1bmNTdHJzIjpbInZBIiwidkIiLCJjb2xvciJdfQ==
@@ -76129,8 +76131,7 @@
 	                        style: { marginLeft: margin.left, marginTop: margin.top },
 	                        width: scaleWidth,
 	                        height: scaleHeight
-	                    }),
-	                    ';'
+	                    })
 	                )
 	            );
 	        }
@@ -76143,11 +76144,11 @@
 	    data: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.array),
 	    xBins: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.array),
 	    yBins: _react2.default.PropTypes.arrayOf(_react2.default.PropTypes.array),
-	    vx: _react2.default.PropTypes.function,
-	    vy: _react2.default.PropTypes.function,
-	    vr: _react2.default.PropTypes.function,
-	    vTheta: _react2.default.PropTypes.function,
-	    color: _react2.default.PropTypes.function,
+	    vx: _react2.default.PropTypes.func,
+	    vy: _react2.default.PropTypes.func,
+	    vr: _react2.default.PropTypes.func,
+	    vTheta: _react2.default.PropTypes.func,
+	    color: _react2.default.PropTypes.func,
 	    particleCount: _react2.default.PropTypes.number,
 	    lineWidth: _react2.default.PropTypes.number,
 	
@@ -76167,7 +76168,7 @@
 	    simpleFadeColor: _react2.default.PropTypes.string,
 	
 	    // expected to be rendered inside a Reactochart XYPlot, which will pass these props
-	    scale: _react2.default.PropTypes.obj,
+	    scale: _react2.default.PropTypes.object,
 	    scaleWidth: _react2.default.PropTypes.number,
 	    scaleHeight: _react2.default.PropTypes.number
 	};
@@ -76238,6 +76239,13 @@
 	function uniformXY(xDomain, yDomain) {
 	    var x = _lodash2.default.random(xDomain[0], xDomain[1], true);
 	    var y = _lodash2.default.random(yDomain[0], yDomain[1], true);
+	    return { x: x, y: y };
+	}
+	function uniformGrid(xDomain, yDomain) {
+	    var gridPrecision = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+	
+	    var x = +_lodash2.default.random(xDomain[0], xDomain[1], true).toFixed(gridPrecision);
+	    var y = +_lodash2.default.random(yDomain[0], yDomain[1], true).toFixed(gridPrecision);
 	    return { x: x, y: y };
 	}
 	
@@ -76802,13 +76810,9 @@
 	                    'div',
 	                    { className: 'panel' },
 	                    _react2.default.createElement(
-	                        _TippedComponent2.default,
-	                        { tipContent: "Clear the screen" },
-	                        _react2.default.createElement(
-	                            'button',
-	                            { onClick: this._onClearScreen },
-	                            'Clear'
-	                        )
+	                        'button',
+	                        { onClick: this._onClearScreen },
+	                        'Clear'
 	                    ),
 	                    _react2.default.createElement(
 	                        _TippedComponent2.default,

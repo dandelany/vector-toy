@@ -52,11 +52,9 @@ export default class ControlPanel extends React.Component {
             </div>
 
             <div className="panel">
-                <TippedComponent {...{tipContent: "Clear the screen"}}>
-                    <button onClick={this._onClearScreen}>
-                        Clear
-                    </button>
-                </TippedComponent>
+                <button onClick={this._onClearScreen}>
+                    Clear
+                </button>
 
                 <TippedComponent {...{tipContent:
                     "Save these settings in your history, so you can access them again with the 'back' button"
@@ -65,8 +63,6 @@ export default class ControlPanel extends React.Component {
                         Save
                     </button>
                 </TippedComponent>
-
-
             </div>
 
             <div className="panel">

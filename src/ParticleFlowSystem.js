@@ -27,6 +27,11 @@ function uniformXY(xDomain, yDomain) {
     const y = _.random(yDomain[0], yDomain[1], true);
     return {x, y};
 }
+function uniformGrid(xDomain, yDomain, gridPrecision = 1) {
+    const x = +_.random(xDomain[0], xDomain[1], true).toFixed(gridPrecision);
+    const y = +_.random(yDomain[0], yDomain[1], true).toFixed(gridPrecision);
+    return {x, y};
+}
 
 function normalXY(xDomain, yDomain) {
     const [xMean, yMean] = [xDomain, yDomain].map(_.mean);
