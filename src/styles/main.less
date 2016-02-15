@@ -9,43 +9,105 @@ body {
   }
 }
 
+// mixin
+.control-input-text-style {
+  color: #f0f0f0;
+  font-family: "Inconsolata", monospace;
+  font-size: 9pt;
+  background: #181818;
+  border: 1px solid #232323;
+  box-shadow: inset 0 0 3px #000000;
+}
+.valid-input-style {
+  outline: none;
+  color: lightgreen;
+  &:focus {
+    //box-shadow: inset 0 0 4px lightgreen;
+    border: 1px solid lightgreen;
+  }
+}
+.invalid-input-style {
+  outline: none;
+  color: lightcoral;
+  &:focus {
+    //box-shadow: inset 0 0 4px lightgreen;
+    border: 1px solid lightcoral;
+  }
+}
+
 .control-panel {
   position: fixed;
-  background: #494949;
-  color: #f0f0f0;
   width: 250px;
   height: 100%;
   right: 0;
   top: 0;
-  padding: 15px;
-  //top: 100%;
-  //transform: translateY(-300px);
+  padding: 0;
+  background: #494949;
+  color: #f0f0f0;
+  font-family: "Titillium Web", sans-serif;
+  font-size: 11pt;
 
-  .function-input, .number-input {
-    //display: inline-block;
+  .panel {
+    padding: 4px 15px;
+    background-color: #333;
+    &:nth-child(odd) {
+      background-color: #404040;
+    }
+
+    input {}
+  }
+
+
+  .number-input {
+    input {
+      float: right;
+      width: 6em;
+      line-height: 13pt;
+      .control-input-text-style;
+    }
+    label {
+      display: block;
+      position: relative;
+      overflow: auto;
+      :first-child {
+        float: left;
+      }
+    }
+    &.number-input-valid input {
+      .valid-input-style
+    }
+    &.number-input-invalid input {
+      .invalid-input-style
+    }
+  }
+
+  .function-input {
+    .function-signature {
+      font-family: "Inconsolata", monospace;
+      font-size: 9pt;
+    }
+    textarea {
+      width: 100%;
+      height: 25pt;
+      transition: height 0.35s;
+      .control-input-text-style;
+
+      &:focus {
+        height: 80pt;
+        outline: none;
+        box-shadow: 0 0 4px #b0b0b0;
+      }
+    }
+
+    &.function-input-valid textarea {
+      .valid-input-style
+    }
+    &.function-input-invalid textarea {
+      .invalid-input-style
+    }
   }
 }
 
-.function-input {
-  textarea {
-    width: 100%;
-    height: 40pt;
-    color: #f0f0f0;
-    font-family: "Inconsolata", monospace;
-    font-size: 9pt;
-    background: #181818;
-    border: 1px solid #232323;
-    box-shadow: inset 0 0 3px #000000;
-  }
 
-  &.function-input-valid {
-    textarea {
-      color: lightgreen;
-    }
-  }
-  &.function-input-invalid {
-    textarea {
-      color: lightcoral;
-    }
-  }
-}
+
+

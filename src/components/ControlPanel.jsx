@@ -11,45 +11,79 @@ export default class ControlPanel extends React.Component {
         onChangeOption: React.PropTypes.func
     });
     _onClearScreen = () => {
-        this.props.onChangeOption('screenId', {}, +(new Date()));
+        this.props.onChangeOption('screenId', +(new Date()));
     };
     _onChangePolar = (value, event) => {
         const isPolar = (value.toLowerCase() === 'polar');
-        this.props.onChangeOption('isPolar', {}, isPolar);
+        this.props.onChangeOption('isPolar', isPolar, event);
+    };
+    _onChangeDomain = (key, index, value, event) => {
+        const keyDomain = this.props.domain[key].slice();
+        keyDomain.splice(index, 1, value);
+        const domain = _.assign({}, this.props.domain, {[key]: keyDomain});
+        this.props.onChangeOption('domain', domain, event);
     };
     render() {
         const {onChangeOption, isPolar} = this.props;
         return <div className="control-panel">
-            <button onClick={this._onClearScreen}>
-                Clear Screen
-            </button>
+            <div className="panel">
+                <button onClick={this._onClearScreen}>
+                    Clear Screen
+                </button>
+            </div>
 
-            <RadioGroup {...{
-                name: 'isPolar',
-                value: this.props.isPolar ? 'polar' : 'cartesian',
-                items: ['polar', 'cartesian'],
-                onChange: this._onChangePolar
-            }} />
+            <div className="panel">
+                <RadioGroup {...{
+                    name: 'isPolar',
+                    value: this.props.isPolar ? 'polar' : 'cartesian',
+                    items: ['polar', 'cartesian'],
+                    onChange: this._onChangePolar
+                }} />
+            </div>
 
-            <NumberInput {...{
-                label: <div>Particle count</div>,
+            <NumberPanel {...{
+                label: <div>Particles</div>,
                 value: this.props.particleCount,
                 onValidChange: _.partial(onChangeOption, 'particleCount')
             }} />
 
-            <NumberInput {...{
-                label: <div>Fade amount</div>,
+            <NumberPanel {...{
+                label: <div>Fade out</div>,
                 value: this.props.fadeAmount,
                 onValidChange: _.partial(onChangeOption, 'fadeAmount')
             }} />
 
-            <NumberInput {...{
+            <NumberPanel {...{
                 label: <div>Line width</div>,
                 value: this.props.lineWidth,
                 onValidChange: _.partial(onChangeOption, 'lineWidth')
             }} />
 
-            <FunctionInput {...{
+            <NumberRangePanel {...{
+                label: "X Domain",
+                min: {
+                    value: this.props.domain.x[0],
+                    onValidChange: _.partial(this._onChangeDomain, 'x', 0)
+                },
+                max: {
+                    value: this.props.domain.x[1],
+                    onValidChange: _.partial(this._onChangeDomain, 'x', 1)
+                }
+            }} />
+
+            <NumberRangePanel {...{
+                label: "Y Domain",
+                min: {
+                    value: this.props.domain.y[0],
+                    onValidChange: _.partial(this._onChangeDomain, 'y', 0)
+                },
+                max: {
+                    value: this.props.domain.y[1],
+                    onValidChange: _.partial(this._onChangeDomain, 'y', 1)
+                }
+            }} />
+
+            <FunctionPanel {...{
                 label: `${isPolar ? "R" : "X"} velocity`,
                 value: this.props.vA,
                 funcParams: ['x', 'y', 'r', 'theta', 't'],
@@ -57,7 +91,7 @@ export default class ControlPanel extends React.Component {
                 checkValid: checkValidVectorFunc
             }} />
 
-            <FunctionInput {...{
+            <FunctionPanel {...{
                 label: `${isPolar ? "Theta" : "Y"} velocity`,
                 value: this.props.vB,
                 funcParams: ['x', 'y', 'r', 'theta', 't'],
@@ -65,7 +99,7 @@ export default class ControlPanel extends React.Component {
                 checkValid: checkValidVectorFunc
             }} />
 
-            <FunctionInput {...{
+            <FunctionPanel {...{
                 label: "Color",
                 value: this.props.color,
                 funcParams: ['x', 'y', 'r', 'theta', 't'],
@@ -75,6 +109,31 @@ export default class ControlPanel extends React.Component {
         </div>
     }
 }
+
+const FunctionPanel = (props) => (
+    <div className="panel function-panel">
+        <FunctionInput {...props} />
+    </div>
+);
+
+const NumberPanel = (props) => (
+    <div className="panel number-panel">
+        <NumberInput {...props} />
+    </div>
+);
+
+const NumberRangePanel = (props) => (
+    <div className="panel number-range-panel">
+        <span className="panel-label">
+            {props.label}
+        </span>
+
+        <span className="panel-input">
+            <NumberInput {...props.min} />
+            <NumberInput {...props.max} />
+        </span>
+    </div>
+);
 
 function checkValidVectorFunc(func) {
     return _.isFinite(func(1, 1, 1, 1, 1));

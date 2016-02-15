@@ -49,21 +49,21 @@ export default class NumberInput extends React.Component {
         // allow input text to contain whatever value you type in, good or bad...
         this.setState({inputValue, isValid}, () => {
             // call the onChange callback for any change, valid or otherwise, with the event and string
-            this.props.onChange(event, inputValue);
+            this.props.onChange(inputValue, event);
             // ... but only call onValidChange if it's really a Number, and pass the valid number
-            if(isValid) this.props.onValidChange(event, numberValue);
+            if(isValid) this.props.onValidChange(numberValue, event);
             // note setState is asynchronous so we do this in callback to ensure state has updated
         });
     };
 
     render() {
         return (
-            <span className={`number-input number-input-${this.state.isValid ? 'valid' : 'invalid'}`}>
+            <div className={`number-input number-input-${this.state.isValid ? 'valid' : 'invalid'}`}>
                 <label>
                     {this.props.label}
                     <input type="text" value={this.state.inputValue} onChange={this._onChange} />
                 </label>
-            </span>
+            </div>
         );
     }
 }

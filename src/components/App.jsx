@@ -1,7 +1,7 @@
 import React from 'react';
-
 import d3 from 'd3';
 import _ from 'lodash';
+import qs from 'qs';
 import {XYPlot} from 'reactochart';
 import RadioGroup from 'react-radio';
 
@@ -97,13 +97,39 @@ export default class App extends React.Component {
             color: (x, y, r, theta, t) => window.d3.lab(80 - (r * 13), y * 20 * Math.random(), x * 20 * Math.random()).toString(),
             particleCount: 1000,
             fadeAmount: 0,
-            lineWidth: 0.7
+            lineWidth: 2
         };
     }
 
-    _onChangeOption = (key, event, value) => {
-        console.log(key, value);
-        this.setState({[key]: value});
+    componentDidMount() {
+        this._loadStateFromUrl();
+        window.onpopstate = this._loadStateFromUrl;
+    }
+
+    _loadStateFromUrl = () => {
+        var query = document.location.search;
+        if(_.includes(query, '?s=')) {
+            const stateStr = query.replace('?s=', '');
+            const stateObj = deurlify(stateStr);
+            this.setState(stateObj);
+        }
+    };
+
+    _saveStateToUrl = (pushState = true) => {
+        const saveStr = urlify(this.state);
+        const updateUrl = (pushState ? history.pushState : history.replaceState).bind(history);
+        updateUrl({}, 'state', `${document.location.pathname}?s=${saveStr}`);
+    };
+
+    _onChangeOption = (key, value, event) => {
+        console.log('state update:', key, value);
+        const newState = {[key]: value};
+
+        // if no fade, clear screen on settings change
+        if(this.state.fadeAmount === 0)
+            _.assign(newState, {screenId: +(new Date())});
+
+        this.setState(newState, () => this._saveStateToUrl(true));
     };
 
     render() {
@@ -123,3 +149,53 @@ export default class App extends React.Component {
         </div>;
     }
 }
+
+var funcBeginRegEx =  /^\s*function\s*\w*\(([\w,\s]*[\n\/\*]*)\)\s*\{[\s\n]*/, // 'function(a,b,c) { '
+    funcEndRegEx = /\s*}\s*$/; // ' } '
+
+function unwrapFuncStr(funcStr) {
+    // peel the "function() {}" wrapper off of a function string (to make an 'internal function string')
+    return funcStr.replace(funcBeginRegEx, '').replace(funcEndRegEx, '')
+}
+
+function urlify(obj, preserveWhitespace = true) {
+    // given a nested JS object which may contain functions
+    // encode it into a URL-safe string
+    const objCopy = _.cloneDeep(obj);
+    objCopy.funcStrs = [];
+    _.forEach(objCopy, (val, key) => {
+        if(!_.isFunction(val)) return;
+        let str = val.toString()
+            .replace(/(\{)\n\t(\s+)/g, '{\n ')
+            .replace(/\n\t(\s+)(\})/g, '\n }');
+        objCopy[key] = preserveWhitespace ? str : str.replace(/\s+/g, ' ');
+        objCopy.funcStrs.push(key); // save functions as strings, and note which so we can undo
+    });
+
+    const objStr = JSON.stringify(objCopy);
+    //const qStr = qs.stringify(savedState);
+    // base64 encode it, shorter than query string encoding
+    return btoa(objStr);
+}
+
+function deurlify(str) {
+    const objStr = atob(str);
+    const obj = JSON.parse(objStr);
+
+    _.forEach(obj.funcStrs || [], funcStrKey => {
+        // slightly nicer way to make a function from a string than eval(). only slightly. that regex is badbad
+        try {
+            var funcStr = obj[funcStrKey];
+            var argsMatch = funcStr.match(funcBeginRegEx);
+            var args = argsMatch.length ? argsMatch[1].split(/,\s*/) : [];
+            if(args.length == 1 && args[0] == '') args = [];
+
+            obj[funcStrKey] = Function.apply(this, _.flatten([args, unwrapFuncStr(funcStr)]));
+        } catch(e) {
+            throw "failed to parse url function key" + funcStrKey;
+        }
+    });
+
+    return obj;
+}
+

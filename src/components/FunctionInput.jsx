@@ -49,7 +49,7 @@ const FunctionInput = React.createClass({
         try {
             isValid = this.props.checkValid(newFunc);
         } catch(e) {
-            console.log(e);
+            console.error(e);
             return false;
         }
         return isValid;
@@ -71,8 +71,7 @@ const FunctionInput = React.createClass({
         this.setState({inputValue: inputValue, isValid: isValid}, function() {
             // ...but only call callback to change app state if it's a valid function
             // note: setState is asynchronous so do this in callback to ensure state has updated
-            console.log('valid change');
-            if(isValid) this.props.onValidChange(event, funcValue);
+            if(isValid) this.props.onValidChange(funcValue, event);
         });
     },
     render: function() {
