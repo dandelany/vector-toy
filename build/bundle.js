@@ -107,7 +107,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #101010;\n}\nbody * {\n  box-sizing: border-box;\n}\n.tooltip {\n  position: fixed;\n}\n.tooltip .tooltip-content {\n  background: rgba(255, 255, 255, 0.8);\n  padding: 6px;\n  font-size: 9pt;\n  border-radius: 4px 0 4px 4px;\n}\n.tooltip .tooltip-content ul {\n  margin: 0;\n  padding-left: 15px;\n}\n.tooltip .tooltip-triangle-right {\n  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);\n}\n.control-input-text-style {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n}\n.valid-input-style {\n  outline: none;\n  color: lightgreen;\n}\n.valid-input-style:focus {\n  border: 1px solid lightgreen;\n}\n.invalid-input-style {\n  outline: none;\n  color: lightcoral;\n}\n.invalid-input-style:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel {\n  position: fixed;\n  width: 250px;\n  height: 100%;\n  right: 0;\n  top: 0;\n  padding: 0;\n  background: #494949;\n  color: #f0f0f0;\n  font-family: \"Titillium Web\", sans-serif;\n  font-size: 10pt;\n}\n.control-panel .panel {\n  display: block;\n  position: relative;\n  overflow: auto;\n  padding: 4px 15px;\n  background-color: #333;\n}\n.control-panel .panel:nth-child(odd) {\n  background-color: #404040;\n}\n.control-panel .panel-left {\n  float: left;\n}\n.control-panel .panel-right {\n  float: right;\n}\n.control-panel .panel-left .number-input,\n.control-panel .panel-right .number-input,\n.control-panel .panel-left span,\n.control-panel .panel-right span {\n  display: inline-block;\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel.head-panel {\n  background-color: #18183a;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .panel-left,\n.control-panel .panel.head-panel .panel-right {\n  line-height: 20pt;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .subtitle,\n.control-panel .panel.head-panel .byline {\n  vertical-align: baseline;\n  display: inline-block;\n  font-size: 8pt;\n  font-weight: normal;\n}\n.control-panel .panel.head-panel h3 {\n  display: inline-block;\n  vertical-align: baseline;\n  margin: 0;\n  font-size: 13pt;\n  font-weight: 700;\n  color: #f6f6f6;\n  text-shadow: 0 1px 0 #040404;\n}\n.control-panel .panel.head-panel .subtitle {\n  margin-left: 4px;\n}\n.control-panel .panel.head-panel .byline {\n  color: #a0a0a0;\n}\n.control-panel .panel.number-range-panel .number-input input {\n  width: 4em;\n}\n.control-panel .panel.number-range-panel .range-delimiter {\n  margin: 0 5px;\n  font-size: 8pt;\n}\n.control-panel .number-input input {\n  float: right;\n  width: 6em;\n  line-height: 13pt;\n  text-align: right;\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n}\n.control-panel .number-input label {\n  display: block;\n  position: relative;\n  overflow: auto;\n}\n.control-panel .number-input label :first-child {\n  float: left;\n}\n.control-panel .number-input.number-input-valid input {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .number-input.number-input-valid input:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .number-input.number-input-invalid input {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .number-input.number-input-invalid input:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel .function-input .function-signature {\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n}\n.control-panel .function-input textarea {\n  width: 100%;\n  height: 25pt;\n  transition: height 0.35s;\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n}\n.control-panel .function-input textarea:focus {\n  height: 80pt;\n  outline: none;\n  box-shadow: 0 0 4px #b0b0b0;\n}\n.control-panel .function-input.function-input-valid textarea {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .function-input.function-input-valid textarea:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .function-input.function-input-invalid textarea {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .function-input.function-input-invalid textarea:focus {\n  border: 1px solid lightcoral;\n}\n", ""]);
+	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #101010;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n}\nbody * {\n  box-sizing: border-box;\n}\n.tooltip {\n  position: fixed;\n}\n.tooltip .tooltip-content {\n  background: rgba(255, 255, 255, 0.8);\n  padding: 6px;\n  font-size: 9pt;\n  border-radius: 4px 0 4px 4px;\n}\n.tooltip .tooltip-content ul {\n  margin: 0;\n  padding-left: 15px;\n}\n.tooltip .tooltip-triangle-right {\n  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);\n}\n.control-input-text-style {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n}\n.valid-input-style {\n  outline: none;\n  color: lightgreen;\n}\n.valid-input-style:focus {\n  border: 1px solid lightgreen;\n}\n.invalid-input-style {\n  outline: none;\n  color: lightcoral;\n}\n.invalid-input-style:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel {\n  position: fixed;\n  width: 250px;\n  height: 100%;\n  right: 0;\n  top: 0;\n  padding: 0;\n  background: #494949;\n  color: #f0f0f0;\n  font-size: 10pt;\n}\n.control-panel button {\n  display: inline-block;\n  background: transparent;\n  border-radius: 4px;\n  color: #f0f0f0;\n  border: 1px solid #f0f0f0;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n  cursor: pointer;\n}\n.control-panel button:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.control-panel button:active {\n  outline: none;\n  background-color: #292929;\n  border-color: #898989;\n}\n.control-panel button:focus {\n  outline: none;\n}\n.control-panel input[type=\"text\"] {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n  line-height: 13pt;\n  text-align: right;\n}\n.control-panel .panel {\n  display: block;\n  position: relative;\n  overflow: auto;\n  padding: 4px 15px;\n  background-color: #333;\n}\n.control-panel .panel:nth-child(odd) {\n  background-color: #404040;\n}\n.control-panel .panel button {\n  margin-left: 6px;\n}\n.control-panel .panel button:first-of-type {\n  margin-left: 0;\n}\n.control-panel .panel-left {\n  float: left;\n}\n.control-panel .panel-right {\n  float: right;\n}\n.control-panel .panel-left .number-input,\n.control-panel .panel-right .number-input,\n.control-panel .panel-left span,\n.control-panel .panel-right span {\n  display: inline-block;\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel.head-panel {\n  background-color: #18183a;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .panel-left,\n.control-panel .panel.head-panel .panel-right {\n  line-height: 20pt;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .subtitle,\n.control-panel .panel.head-panel .byline {\n  vertical-align: baseline;\n  display: inline-block;\n  font-size: 8pt;\n  font-weight: normal;\n}\n.control-panel .panel.head-panel h3 {\n  display: inline-block;\n  vertical-align: baseline;\n  margin: 0;\n  font-size: 13pt;\n  font-weight: 700;\n  color: #f6f6f6;\n  text-shadow: 0 1px 0 #040404;\n}\n.control-panel .panel.head-panel .subtitle {\n  margin-left: 4px;\n}\n.control-panel .panel.head-panel .byline {\n  color: #a0a0a0;\n}\n.control-panel .panel.number-range-panel .number-input input {\n  width: 4em;\n}\n.control-panel .panel.number-range-panel .range-delimiter {\n  margin: 0 5px;\n  font-size: 8pt;\n}\n.control-panel .number-input input {\n  float: right;\n  width: 6em;\n}\n.control-panel .number-input label {\n  display: block;\n  position: relative;\n  overflow: auto;\n}\n.control-panel .number-input label :first-child {\n  float: left;\n}\n.control-panel .number-input.number-input-valid input {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .number-input.number-input-valid input:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .number-input.number-input-invalid input {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .number-input.number-input-invalid input:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel .function-input .function-signature {\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n}\n.control-panel .function-input textarea {\n  width: 100%;\n  height: 25pt;\n  transition: height 0.35s;\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n}\n.control-panel .function-input textarea:focus {\n  height: 80pt;\n  outline: none;\n  box-shadow: 0 0 4px #b0b0b0;\n}\n.control-panel .function-input.function-input-valid textarea {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .function-input.function-input-valid textarea:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .function-input.function-input-invalid textarea {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .function-input.function-input-invalid textarea:focus {\n  border: 1px solid lightcoral;\n}\n", ""]);
 	
 	// exports
 
@@ -20038,8 +20038,6 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	var _class, _temp;
-	
 	var _react = __webpack_require__(7);
 	
 	var _react2 = _interopRequireDefault(_react);
@@ -20113,16 +20111,16 @@
 	    screenId: _react2.default.PropTypes.any
 	};
 	
-	var VectorWallpaper = (0, _Wallpaper2.default)((_temp = _class = function (_React$Component) {
-	    _inherits(VectorContainer, _React$Component);
+	var VectorWallpaper = function (_React$Component) {
+	    _inherits(VectorWallpaper, _React$Component);
 	
-	    function VectorContainer() {
-	        _classCallCheck(this, VectorContainer);
+	    function VectorWallpaper() {
+	        _classCallCheck(this, VectorWallpaper);
 	
-	        return _possibleConstructorReturn(this, Object.getPrototypeOf(VectorContainer).apply(this, arguments));
+	        return _possibleConstructorReturn(this, Object.getPrototypeOf(VectorWallpaper).apply(this, arguments));
 	    }
 	
-	    _createClass(VectorContainer, [{
+	    _createClass(VectorWallpaper, [{
 	        key: 'componentWillMount',
 	        value: function componentWillMount() {
 	            var startTime = new Date().getTime();
@@ -20138,8 +20136,7 @@
 	        key: 'render',
 	        value: function render() {
 	            var _props = this.props;
-	            var width = _props.width;
-	            var height = _props.height;
+	            var panelWidth = _props.panelWidth;
 	            var domain = _props.domain;
 	            var vx = _props.vx;
 	            var vy = _props.vy;
@@ -20151,40 +20148,65 @@
 	            var lineWidth = _props.lineWidth;
 	            var screenId = _props.screenId;
 	
+	            var windowSize = (0, _utils.getWindowSize)(true);
+	            var dpiMult = this.props.useDPI && window.devicePixelRatio >= 2 ? 2 : 1;
+	            var height = windowSize.height;
+	            var width = windowSize.width - panelWidth * dpiMult;
+	
+	            var wallpaperStyle = {
+	                position: 'fixed',
+	                top: 0,
+	                left: 0,
+	                width: width, height: height,
+	                zIndex: -1
+	            };
+	            _lodash2.default.assign(wallpaperStyle, dpiMult === 2 ? {
+	                transform: 'scale(0.5) translate(-50%, -50%)',
+	                WebkitTransform: 'scale(0.5) translate(-50%, -50%)'
+	            } : {});
 	
 	            return _react2.default.createElement(
-	                'div',
-	                null,
+	                _reactPortal2.default,
+	                { isOpened: true },
 	                _react2.default.createElement(
-	                    _reactochart.XYPlot,
-	                    _extends({ height: height, width: width, domain: domain }, {
-	                        nice: false, showLabels: false,
-	                        showGrid: false, showTicks: false
-	                    }),
-	                    _react2.default.createElement(_FlowField2.default, {
-	                        particleCount: particleCount, fadeAmount: fadeAmount, lineWidth: lineWidth, screenId: screenId,
-	                        //useSimpleFade: true,
-	                        vx: vx ? this._timed(vx) : undefined,
-	                        vy: vy ? this._timed(vy) : undefined,
-	                        vr: vr ? this._timed(vr) : undefined,
-	                        vTheta: vTheta ? this._timed(vTheta) : undefined,
-	                        color: color ? this._timed(color) : undefined
-	                    })
+	                    'div',
+	                    { style: wallpaperStyle },
+	                    _react2.default.createElement(
+	                        _reactochart.XYPlot,
+	                        _extends({ height: height, width: width, domain: domain }, {
+	                            nice: false, showLabels: false,
+	                            showGrid: false, showTicks: false
+	                        }),
+	                        _react2.default.createElement(_FlowField2.default, {
+	                            particleCount: particleCount, fadeAmount: fadeAmount, lineWidth: lineWidth, screenId: screenId,
+	                            //useSimpleFade: true,
+	                            vx: vx ? this._timed(vx) : undefined,
+	                            vy: vy ? this._timed(vy) : undefined,
+	                            vr: vr ? this._timed(vr) : undefined,
+	                            vTheta: vTheta ? this._timed(vTheta) : undefined,
+	                            color: color ? this._timed(color) : undefined
+	                        })
+	                    )
 	                )
 	            );
 	        }
 	    }]);
 	
-	    return VectorContainer;
-	}(_react2.default.Component), _class.propTypes = _lodash2.default.assign({}, optionPropTypes, {
+	    return VectorWallpaper;
+	}(_react2.default.Component);
+	
+	VectorWallpaper.propTypes = _lodash2.default.assign({}, optionPropTypes, {
 	    width: _react2.default.PropTypes.number,
 	    height: _react2.default.PropTypes.number
-	}), _class.defaultProps = {
+	});
+	VectorWallpaper.defaultProps = {
+	    panelWidth: 0,
+	    useDPI: true,
 	    width: 800,
 	    height: 600,
 	    domain: { x: [-10, 10], y: [-10, 10] },
 	    screenId: 0
-	}, _temp));
+	};
 	
 	var App = function (_React$Component2) {
 	    _inherits(App, _React$Component2);
@@ -20204,7 +20226,7 @@
 	        };
 	
 	        _this2._saveStateToUrl = function () {
-	            var pushState = arguments.length <= 0 || arguments[0] === undefined ? true : arguments[0];
+	            var pushState = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 	
 	            var saveStr = (0, _utils.urlify)(_this2.state);
 	            var updateUrl = (pushState ? history.pushState : history.replaceState).bind(history);
@@ -20219,12 +20241,12 @@
 	            if (_this2.state.fadeAmount === 0) _lodash2.default.assign(newState, { screenId: +new Date() });
 	
 	            _this2.setState(newState, function () {
-	                return _this2._saveStateToUrl(true);
+	                return _this2._saveStateToUrl(false);
 	            });
 	        };
 	
 	        var aspectRatio = window ? window.innerWidth / window.innerHeight : 1.75;
-	
+	        _this2._panelWidth = 250;
 	        _this2.state = {
 	            isPolar: false,
 	            // first velocity function, X (cartesian) or R (polar)
@@ -20265,6 +20287,8 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var _this3 = this;
+	
 	            var options = _lodash2.default.pick(this.state, ['color', 'particleCount', 'domain', 'fadeAmount', 'lineWidth', 'screenId', 'isPolar']);
 	            var _state = this.state;
 	            var isPolar = _state.isPolar;
@@ -20277,14 +20301,23 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(VectorWallpaper, _extends({ useDPI: true }, options, vectorOptions)),
-	                _react2.default.createElement(_ControlPanel2.default, _extends({ onChangeOption: this._onChangeOption }, options, { vA: vA, vB: vB }))
+	                _react2.default.createElement(VectorWallpaper, _extends({ useDPI: true, panelWidth: this._panelWidth }, options, vectorOptions)),
+	                _react2.default.createElement(_ControlPanel2.default, _extends({
+	                    onChangeOption: this._onChangeOption,
+	                    onPushHistory: function onPushHistory() {
+	                        return _this3._saveStateToUrl(true);
+	                    }
+	                }, options, { vA: vA, vB: vB }))
 	            );
 	        }
 	    }]);
 	
 	    return App;
 	}(_react2.default.Component);
+	
+	// http://is.gd/Oz8u2D
+	
+	// http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0XG4vKiovKSB7XG5yZXR1cm4gKHkteCkqIDVcbn0iLCJ2QiI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0XG4vKiovKSB7XG5yZXR1cm4gKE1hdGguc2luKHgpK01hdGguY29zKHkqdGhldGEpKSAqIDU7XG59IiwiZG9tYWluIjp7IngiOlstMTQuNDQsMTQuNDRdLCJ5IjpbLTksOV19LCJjb2xvciI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0XG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovKSB7XG5yZXR1cm4gd2luZG93LmQzLmxhYig4MCAtIHIqMTAsIDMwLCB4ICogMTAgKiBNYXRoLnJhbmRvbSgpKS50b1N0cmluZygpO1xufSIsInBhcnRpY2xlQ291bnQiOjEwMDAwLCJmYWRlQW1vdW50IjowLCJsaW5lV2lkdGgiOjAuNSwic2NyZWVuSWQiOjE0NTU1MzkyMjY3MzIsImZ1bmNTdHJzIjpbInZBIiwidkIiLCJjb2xvciJdfQ==
 	
 	// NSFW
 	// http://localhost:8228/?s=eyJpc1BvbGFyIjpmYWxzZSwidkEiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqL1xuLyoqLykge1xucmV0dXJuIChNYXRoLnNpbihyKSArIE1hdGguY29zKHRoZXRhKSkgKiAxXG59IiwidkIiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqLykge1xucmV0dXJuIE1hdGguY29zKHIpICogTWF0aC5jb3ModGhldGEpICogMTA7XG59IiwiZG9tYWluIjp7IngiOlstOS40NCw5LjQ0XSwieSI6Wy01LDVdfSwiY29sb3IiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqLykge1xucmV0dXJuIHdpbmRvdy5kMy5sYWIoODAgLSByKjEwLCAzMCwgeCAqIDEwICogTWF0aC5yYW5kb20oKSkudG9TdHJpbmcoKTtcbn0iLCJwYXJ0aWNsZUNvdW50Ijo3MDAwLCJmYWRlQW1vdW50IjowLCJsaW5lV2lkdGgiOjAuMiwic2NyZWVuSWQiOjE0NTU1MzUwMjkwNDUsImZ1bmNTdHJzIjpbInZBIiwidkIiLCJjb2xvciJdfQ==
@@ -73870,6 +73903,7 @@
 	exports.urlify = urlify;
 	exports.deurlify = deurlify;
 	exports.shortenUrl = shortenUrl;
+	exports.getWindowSize = getWindowSize;
 	
 	var _lodash = __webpack_require__(167);
 	
@@ -73935,8 +73969,21 @@
 	function shortenUrl(url, callback) {
 	    // get a shortened url by calling the is.gd api
 	    _superagent2.default.get('http://is.gd/create.php?format=json&url=' + encodeURIComponent(url)).end(function (err, res) {
-	        return err ? callback(err, res) : callback(err, _lodash2.default.get(JSON.parse(res.text), 'shorturl'));
+	        if (err) callback(err, res);
+	        var obj = JSON.parse(res.text);
+	        if (_lodash2.default.has(obj, 'shorturl')) callback(err, obj.shorturl);else callback(new Error("no shorturl"), res);
 	    });
+	}
+	
+	function getWindowSize() {
+	    var useDPI = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+	
+	    // is2x for double resolution retina displays
+	    var dpiMult = useDPI && window.devicePixelRatio >= 2 ? 2 : 1;
+	    return {
+	        width: window.innerWidth * dpiMult,
+	        height: window.innerHeight * dpiMult
+	    };
 	}
 
 /***/ },
@@ -75415,7 +75462,7 @@
 	                width: width + 16,
 	                pointerEvents: 'none'
 	            };
-	            var contentStyle = { width: width };
+	            var contentStyle = { maxWidth: width };
 	            var triangleStyle = {
 	                position: 'absolute',
 	                top: 0,
@@ -75508,6 +75555,7 @@
 	        }, _this._onMouseEnter = function () {
 	            _this.setState({ isActive: true });
 	        }, _this._onMouseLeave = function () {
+	            console.log('ok');
 	            _this.setState({ isActive: false });
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
@@ -75524,8 +75572,8 @@
 	            var newChildren = _react2.default.Children.toArray(child.props.children).concat(tooltip);
 	
 	            return _react2.default.cloneElement(child, {
-	                onMouseEnter: this._onMouseEnter,
-	                onMouseLeave: this._onMouseLeave
+	                onMouseOver: this._onMouseEnter,
+	                onMouseOut: this._onMouseLeave
 	            }, newChildren);
 	        }
 	    }]);
@@ -75960,9 +76008,9 @@
 	
 	            if (useSimpleFade) ctx.fillStyle = simpleFadeColor;
 	            ctx.lineWidth = this.props.lineWidth;
-	            //ctx.globalCompositeOperation = "source-over";
-	            //ctx.lineCap = 'round';
-	            ctx.globalCompositeOperation = "screen";
+	            ctx.globalCompositeOperation = "source-over";
+	            //ctx.globalCompositeOperation = "screen";
+	            ctx.lineCap = 'square';
 	
 	            var startTime = new Date().getTime();
 	            var lastFrameTime = startTime;
@@ -75983,9 +76031,6 @@
 	                xDomain: this.xDomain,
 	                yDomain: this.yDomain
 	            });
-	            //this.particleSystem.getColor = newProps.color;
-	            //this.particleSystem.xDomain = this.xDomain;
-	            //this.particleSystem.yDomain = this.yDomain;
 	
 	            // clear screen on new screenId
 	            if (_lodash2.default.has(newProps, 'screenId') && newProps.screenId !== this.props.screenId) {
@@ -76400,6 +76445,8 @@
 	    value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _lodash = __webpack_require__(167);
 	
 	var _lodash2 = _interopRequireDefault(_lodash);
@@ -76492,6 +76539,7 @@
 	        });
 	    },
 	    render: function render() {
+	        var otherProps = _lodash2.default.omit(this.props, ['value', 'funcParams', 'label', 'checkValid', 'onChange']);
 	        return _react2.default.createElement(
 	            'div',
 	            { className: 'function-input function-input-' + (this.state.isValid ? 'valid' : 'invalid') },
@@ -76507,7 +76555,7 @@
 	                this.props.funcParams.join(', '),
 	                ') =>'
 	            ),
-	            _react2.default.createElement('textarea', { value: this.state.inputValue, onChange: this.onChange })
+	            _react2.default.createElement('textarea', _extends({ value: this.state.inputValue, onChange: this.onChange }, otherProps))
 	        );
 	    }
 	});
@@ -76636,6 +76684,8 @@
 	    value: true
 	});
 	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _react = __webpack_require__(7);
@@ -76694,11 +76744,11 @@
 	            shortUrl: ''
 	        }, _this._onClearScreen = function () {
 	            _this.props.onChangeOption('screenId', +new Date());
+	        }, _this._onPushHistory = function () {
+	            _this.props.onPushHistory();
 	        }, _this._onShortenUrl = function () {
-	            console.log(document.location.href);
 	            (0, _utils.shortenUrl)(document.location.href, function (err, shortUrl) {
-	                //shortenUrl('http://yahoo.com', (err, shortUrl) => {
-	                if (!err) _this.setState({ shortUrl: shortUrl });
+	                if (err) _this.setState({ shortUrl: document.location.href });else _this.setState({ shortUrl: shortUrl });
 	            });
 	        }, _this._onChangePolar = function (value, event) {
 	            var isPolar = value.toLowerCase() === 'polar';
@@ -76752,9 +76802,23 @@
 	                    'div',
 	                    { className: 'panel' },
 	                    _react2.default.createElement(
-	                        'button',
-	                        { onClick: this._onClearScreen },
-	                        'Clear Screen'
+	                        _TippedComponent2.default,
+	                        { tipContent: "Clear the screen" },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { onClick: this._onClearScreen },
+	                            'Clear'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        _TippedComponent2.default,
+	                        { tipContent: "Save these settings in your history, so you can access them again with the 'back' button"
+	                        },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { onClick: this._onPushHistory },
+	                            'Save'
+	                        )
 	                    )
 	                ),
 	                _react2.default.createElement(
@@ -76765,7 +76829,11 @@
 	                        { onClick: this._onShortenUrl },
 	                        'Shorten URL'
 	                    ),
-	                    _react2.default.createElement('input', { type: 'text', ref: 'shortUrl', value: this.state.shortUrl })
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-right' },
+	                        _react2.default.createElement('input', { type: 'text', ref: 'shortUrl', value: this.state.shortUrl })
+	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'div',
@@ -76855,7 +76923,8 @@
 	}(_react2.default.Component);
 	
 	ControlPanel.propTypes = _lodash2.default.assign({}, _App.optionPropTypes, {
-	    onChangeOption: _react2.default.PropTypes.func
+	    onChangeOption: _react2.default.PropTypes.func,
+	    onPushHistory: _react2.default.PropTypes.func
 	});
 	exports.default = ControlPanel;
 	
@@ -76910,7 +76979,9 @@
 	        _react2.default.createElement(
 	            'div',
 	            { className: 'panel function-panel' },
-	            _react2.default.createElement(_FunctionInput2.default, props)
+	            _react2.default.createElement(_FunctionInput2.default, _extends({}, props, { onMouseOver: function onMouseOver(e) {
+	                    return e.stopPropagation();
+	                } }))
 	        )
 	    );
 	};

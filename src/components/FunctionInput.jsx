@@ -75,6 +75,7 @@ const FunctionInput = React.createClass({
         });
     },
     render: function() {
+        const otherProps = _.omit(this.props, ['value', 'funcParams', 'label', 'checkValid', 'onChange']);
         return (
             <div className={`function-input function-input-${this.state.isValid ? 'valid' : 'invalid'}`}>
                 <div>
@@ -83,7 +84,7 @@ const FunctionInput = React.createClass({
                 <div className="function-signature">
                     ({this.props.funcParams.join(', ')}) =>
                 </div>
-                <textarea value={this.state.inputValue} onChange={this.onChange} />
+                <textarea value={this.state.inputValue} onChange={this.onChange} {...otherProps} />
             </div>
         );
     }

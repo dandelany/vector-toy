@@ -11,6 +11,7 @@ export default class TippedComponent extends React.Component {
         this.setState({isActive: true});
     };
     _onMouseLeave = () => {
+        console.log('ok')
         this.setState({isActive: false});
     };
 
@@ -22,8 +23,8 @@ export default class TippedComponent extends React.Component {
         const newChildren = React.Children.toArray(child.props.children).concat(tooltip);
 
         return React.cloneElement(child, {
-            onMouseEnter: this._onMouseEnter,
-            onMouseLeave: this._onMouseLeave
+            onMouseOver: this._onMouseEnter,
+            onMouseOut: this._onMouseLeave
         }, newChildren);
     }
 }

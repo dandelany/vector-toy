@@ -40,7 +40,7 @@ export default class SimpleTooltip extends React.Component {
             width: width + 16,
             pointerEvents: 'none'
         };
-        const contentStyle = {width};
+        const contentStyle = {maxWidth: width};
         const triangleStyle = {
             position: 'absolute',
             top: 0,

@@ -1,5 +1,4 @@
 'use strict';
-
 import React from 'react';
 import d3 from 'd3';
 import _ from 'lodash';
@@ -7,7 +6,7 @@ import {XYPlot} from 'reactochart';
 
 import Portal from 'react-portal';
 
-import {urlify, deurlify, shortenUrl} from 'utils';
+import {urlify, deurlify, shortenUrl, getWindowSize} from 'utils';
 import Tooltip from 'components/SimpleTooltip';
 import TippedComponent from 'components/TippedComponent';
 import makeWallpaper from 'components/Wallpaper';
@@ -31,12 +30,14 @@ export const optionPropTypes = {
     screenId: React.PropTypes.any
 };
 
-const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Component {
+class VectorWallpaper extends React.Component {
     static propTypes = _.assign({}, optionPropTypes, {
         width: React.PropTypes.number,
         height: React.PropTypes.number
     });
     static defaultProps = {
+        panelWidth: 0,
+        useDPI: true,
         width: 800,
         height: 600,
         domain: {x: [-10, 10], y: [-10, 10]},
@@ -53,34 +54,54 @@ const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Compon
     }
     render() {
         const {
-            width, height, domain, vx, vy, vr, vTheta, color, particleCount, fadeAmount, lineWidth, screenId
-            } = this.props;
+            panelWidth, domain, vx, vy, vr, vTheta, color, particleCount, fadeAmount, lineWidth, screenId
+        } = this.props;
+        const windowSize = getWindowSize(true);
+        const dpiMult = (this.props.useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
+        const height = windowSize.height;
+        const width = windowSize.width - (panelWidth * dpiMult);
 
-        return <div>
-            <XYPlot
-                {...{height, width, domain}}
-                nice={false} showLabels={false}
-                showGrid={false} showTicks={false}
-            >
-                <FlowField {...{
-                    particleCount, fadeAmount, lineWidth, screenId,
-                    //useSimpleFade: true,
-                    vx: vx ? this._timed(vx) : undefined,
-                    vy: vy ? this._timed(vy) : undefined,
-                    vr: vr ? this._timed(vr) : undefined,
-                    vTheta: vTheta ? this._timed(vTheta) : undefined,
-                    color: color ? this._timed(color) : undefined
-                }} />
-            </XYPlot>
-        </div>;
+        const wallpaperStyle = {
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width, height,
+            zIndex: -1
+        };
+        _.assign(wallpaperStyle,
+            (dpiMult === 2) ? {
+                transform: 'scale(0.5) translate(-50%, -50%)',
+                WebkitTransform: 'scale(0.5) translate(-50%, -50%)'
+            } : {}
+        );
+
+        return <Portal isOpened={true}>
+            <div style={wallpaperStyle}>
+                <XYPlot
+                    {...{height, width, domain}}
+                    nice={false} showLabels={false}
+                    showGrid={false} showTicks={false}
+                >
+                    <FlowField {...{
+                        particleCount, fadeAmount, lineWidth, screenId,
+                        //useSimpleFade: true,
+                        vx: vx ? this._timed(vx) : undefined,
+                        vy: vy ? this._timed(vy) : undefined,
+                        vr: vr ? this._timed(vr) : undefined,
+                        vTheta: vTheta ? this._timed(vTheta) : undefined,
+                        color: color ? this._timed(color) : undefined
+                    }} />
+                </XYPlot>
+            </div>
+        </Portal>;
     }
-});
+}
 
 export default class App extends React.Component {
     constructor(props) {
         super(props);
         const aspectRatio = window ? (window.innerWidth / window.innerHeight) : 1.75;
-
+        this._panelWidth = 250;
         this.state = {
             isPolar: false,
             // first velocity function, X (cartesian) or R (polar)
@@ -116,8 +137,7 @@ export default class App extends React.Component {
             this.setState(stateObj);
         }
     };
-
-    _saveStateToUrl = (pushState = true) => {
+    _saveStateToUrl = (pushState = false) => {
         const saveStr = urlify(this.state);
         const updateUrl = (pushState ? history.pushState : history.replaceState).bind(history);
         updateUrl({}, 'state', `${document.location.pathname}?s=${saveStr}`);
@@ -131,7 +151,7 @@ export default class App extends React.Component {
         if(this.state.fadeAmount === 0)
             _.assign(newState, {screenId: +(new Date())});
 
-        this.setState(newState, () => this._saveStateToUrl(true));
+        this.setState(newState, () => this._saveStateToUrl(false));
     };
 
     render() {
@@ -146,11 +166,22 @@ export default class App extends React.Component {
             {vx: vA, vy: vB};
 
         return <div>
-            <VectorWallpaper useDPI={true} {...options} {...vectorOptions} />
-            <ControlPanel onChangeOption={this._onChangeOption} {...options} {...{vA, vB}} />
+            <VectorWallpaper
+                {...{useDPI: true, panelWidth: this._panelWidth}}
+                {...options} {...vectorOptions}
+            />
+            <ControlPanel
+                onChangeOption={this._onChangeOption}
+                onPushHistory={() => this._saveStateToUrl(true)}
+                {...options} {...{vA, vB}}
+            />
         </div>;
     }
 }
+
+// http://is.gd/Oz8u2D
+
+// http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0XG4vKiovKSB7XG5yZXR1cm4gKHkteCkqIDVcbn0iLCJ2QiI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0XG4vKiovKSB7XG5yZXR1cm4gKE1hdGguc2luKHgpK01hdGguY29zKHkqdGhldGEpKSAqIDU7XG59IiwiZG9tYWluIjp7IngiOlstMTQuNDQsMTQuNDRdLCJ5IjpbLTksOV19LCJjb2xvciI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0XG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovKSB7XG5yZXR1cm4gd2luZG93LmQzLmxhYig4MCAtIHIqMTAsIDMwLCB4ICogMTAgKiBNYXRoLnJhbmRvbSgpKS50b1N0cmluZygpO1xufSIsInBhcnRpY2xlQ291bnQiOjEwMDAwLCJmYWRlQW1vdW50IjowLCJsaW5lV2lkdGgiOjAuNSwic2NyZWVuSWQiOjE0NTU1MzkyMjY3MzIsImZ1bmNTdHJzIjpbInZBIiwidkIiLCJjb2xvciJdfQ==
 
 // NSFW
 // http://localhost:8228/?s=eyJpc1BvbGFyIjpmYWxzZSwidkEiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqL1xuLyoqLykge1xucmV0dXJuIChNYXRoLnNpbihyKSArIE1hdGguY29zKHRoZXRhKSkgKiAxXG59IiwidkIiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqLykge1xucmV0dXJuIE1hdGguY29zKHIpICogTWF0aC5jb3ModGhldGEpICogMTA7XG59IiwiZG9tYWluIjp7IngiOlstOS40NCw5LjQ0XSwieSI6Wy01LDVdfSwiY29sb3IiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqLykge1xucmV0dXJuIHdpbmRvdy5kMy5sYWIoODAgLSByKjEwLCAzMCwgeCAqIDEwICogTWF0aC5yYW5kb20oKSkudG9TdHJpbmcoKTtcbn0iLCJwYXJ0aWNsZUNvdW50Ijo3MDAwLCJmYWRlQW1vdW50IjowLCJsaW5lV2lkdGgiOjAuMiwic2NyZWVuSWQiOjE0NTU1MzUwMjkwNDUsImZ1bmNTdHJzIjpbInZBIiwidkIiLCJjb2xvciJdfQ==

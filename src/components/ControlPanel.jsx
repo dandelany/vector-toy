@@ -10,7 +10,8 @@ import NumberInput from 'components/NumberInput';
 
 export default class ControlPanel extends React.Component {
     static propTypes = _.assign({}, optionPropTypes, {
-        onChangeOption: React.PropTypes.func
+        onChangeOption: React.PropTypes.func,
+        onPushHistory: React.PropTypes.func,
     });
     state = {
         shortUrl: ''
@@ -18,11 +19,13 @@ export default class ControlPanel extends React.Component {
     _onClearScreen = () => {
         this.props.onChangeOption('screenId', +(new Date()));
     };
+    _onPushHistory = () => {
+        this.props.onPushHistory();
+    };
     _onShortenUrl = () => {
-        console.log(document.location.href);
         shortenUrl(document.location.href, (err, shortUrl) => {
-        //shortenUrl('http://yahoo.com', (err, shortUrl) => {
-            if(!err) this.setState({shortUrl});
+            if(err) this.setState({shortUrl: document.location.href});
+            else this.setState({shortUrl});
         });
     };
     _onChangePolar = (value, event) => {
@@ -49,16 +52,30 @@ export default class ControlPanel extends React.Component {
             </div>
 
             <div className="panel">
-                <button onClick={this._onClearScreen}>
-                    Clear Screen
-                </button>
+                <TippedComponent {...{tipContent: "Clear the screen"}}>
+                    <button onClick={this._onClearScreen}>
+                        Clear
+                    </button>
+                </TippedComponent>
+
+                <TippedComponent {...{tipContent:
+                    "Save these settings in your history, so you can access them again with the 'back' button"
+                }}>
+                    <button onClick={this._onPushHistory}>
+                        Save
+                    </button>
+                </TippedComponent>
+
+
             </div>
 
             <div className="panel">
                 <button onClick={this._onShortenUrl}>
                     Shorten URL
                 </button>
-                <input type="text" ref="shortUrl" value={this.state.shortUrl} />
+                <div className="panel-right">
+                    <input type="text" ref="shortUrl" value={this.state.shortUrl} />
+                </div>
             </div>
 
             <div className="panel">
@@ -148,14 +165,12 @@ const FunctionPanel = (props) => {
             <li><strong>x, y</strong>: particle X & Y coordinates</li>
             <li><strong>r, theta</strong>: particle R & θ (polar) coordinates</li>
             <li><strong>t</strong>: time since start in seconds</li>
-
         </ul>
-
     </div>;
 
     return <TippedComponent {...{tipContent}}>
         <div className="panel function-panel">
-            <FunctionInput {...props} />
+            <FunctionInput {...props} onMouseOver={(e) => (e.stopPropagation())} />
         </div>
     </TippedComponent>
 };

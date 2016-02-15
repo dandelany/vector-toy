@@ -3,6 +3,7 @@
 body {
   //background: #f0f0f0;
   background: #101010;
+  font-family: "Titillium Web", "Helvetica Neue", Helvetica, sans-serif;
 
   * {
     box-sizing: border-box;
@@ -63,8 +64,34 @@ body {
   padding: 0;
   background: #494949;
   color: #f0f0f0;
-  font-family: "Titillium Web", sans-serif;
   font-size: 10pt;
+
+  button {
+    display: inline-block;
+    background: transparent;
+    border-radius: 4px;
+    color: #f0f0f0;
+    border: 1px solid #f0f0f0;
+    font-family: "Titillium Web", "Helvetica Neue", Helvetica, sans-serif;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, .1);
+    }
+    &:active {
+      outline: none;
+      background-color: #292929;
+      border-color: #898989;
+    }
+    &:focus {
+      outline: none;
+    }
+  }
+  input[type="text"] {
+    .control-input-text-style;
+    line-height: 13pt;
+    text-align: right;
+  }
 
   .panel {
     display: block;
@@ -75,6 +102,12 @@ body {
     background-color: #333;
     &:nth-child(odd) {
       background-color: #404040;
+    }
+    button {
+      margin-left: 6px;
+      &:first-of-type {
+        margin-left: 0;
+      }
     }
   }
   .panel-left { float: left; }
@@ -136,9 +169,6 @@ body {
     input {
       float: right;
       width: 6em;
-      line-height: 13pt;
-      text-align: right;
-      .control-input-text-style;
     }
     label {
       display: block;

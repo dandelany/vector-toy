@@ -54,8 +54,18 @@ export function shortenUrl(url, callback) {
     // get a shortened url by calling the is.gd api
     Http.get(`http://is.gd/create.php?format=json&url=${encodeURIComponent(url)}`)
         .end((err, res) => {
-            return err ?
-                callback(err, res) :
-                callback(err, _.get(JSON.parse(res.text), 'shorturl'))
+            if(err) callback(err, res);
+            const obj = JSON.parse(res.text);
+            if(_.has(obj, 'shorturl')) callback(err, obj.shorturl);
+            else callback(new Error("no shorturl"), res);
         });
+}
+
+export function getWindowSize(useDPI = false) {
+    // is2x for double resolution retina displays
+    const dpiMult = (useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
+    return {
+        width: window.innerWidth * dpiMult,
+        height: window.innerHeight * dpiMult
+    };
 }
