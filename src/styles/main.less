@@ -45,18 +45,54 @@ body {
   background: #494949;
   color: #f0f0f0;
   font-family: "Titillium Web", sans-serif;
-  font-size: 11pt;
+  font-size: 10pt;
 
   .panel {
+    display: block;
+    position: relative;
+    overflow: auto;
     padding: 4px 15px;
+
     background-color: #333;
     &:nth-child(odd) {
       background-color: #404040;
     }
-
-    input {}
   }
+  .panel-left { float: left; }
+  .panel-right { float: right; }
 
+  .panel.head-panel {
+    background-color: #18183a;
+    vertical-align: baseline;
+
+    .panel-left, .panel-right {
+      line-height: 20pt;
+      vertical-align: baseline;
+    }
+
+    .subtitle, .byline {
+      vertical-align: baseline;
+      display: inline-block;
+      font-size: 8pt;
+      font-weight: normal;
+    }
+
+    h3 {
+      display: inline-block;
+      vertical-align: baseline;
+      margin: 0;
+      font-size: 13pt;
+      font-weight: 700;
+      color: #f6f6f6;
+      text-shadow: 0 1px 0 #040404;
+    }
+    .subtitle {
+      margin-left: 4px;
+    }
+    .byline {
+      color: #a0a0a0;
+    }
+  }
 
   .number-input {
     input {

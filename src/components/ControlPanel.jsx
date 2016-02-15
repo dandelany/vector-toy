@@ -26,6 +26,16 @@ export default class ControlPanel extends React.Component {
     render() {
         const {onChangeOption, isPolar} = this.props;
         return <div className="control-panel">
+            <div className="panel head-panel">
+                <div className="panel-left">
+                    <h3>Vector Toy</h3>
+                    <span className="subtitle">v1.0</span>
+                </div>
+                <div className="panel-right">
+                    <span className="byline">by dandelany</span>
+                </div>
+            </div>
+
             <div className="panel">
                 <button onClick={this._onClearScreen}>
                     Clear Screen
