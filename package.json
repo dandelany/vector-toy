@@ -11,18 +11,16 @@
   },
   "dependencies": {
     "d3": "^3.5.14",
-    "globalize": "^0.1.1",
+    "es6-promise": "^3.1.2",
     "lodash": "^4.3.0",
-    "qs": "^6.1.0",
-    "query-string": "^3.0.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-layer": "^2.0.0",
-    "react-number-input": "^1.14.7",
-    "react-numeric-input": "^2.0.1",
+    "react-portal": "^2.0.0",
     "react-radio": "^2.1.1",
-    "react-widgets": "^3.1.7",
-    "reactochart": "spotify/reactochart#1aabb05"
+    "reactochart": "spotify/reactochart#1aabb05",
+    "superagent": "^1.7.2",
+    "superagent-promise": "^1.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.4.5",

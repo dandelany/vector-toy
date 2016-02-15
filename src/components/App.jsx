@@ -1,10 +1,15 @@
+'use strict';
+
 import React from 'react';
 import d3 from 'd3';
 import _ from 'lodash';
-import qs from 'qs';
 import {XYPlot} from 'reactochart';
-import RadioGroup from 'react-radio';
 
+import Portal from 'react-portal';
+
+import {urlify, deurlify, shortenUrl} from 'utils';
+import Tooltip from 'components/SimpleTooltip';
+import TippedComponent from 'components/TippedComponent';
 import makeWallpaper from 'components/Wallpaper';
 import FlowField from 'components/FlowField';
 import FunctionInput from 'components/FunctionInput';
@@ -25,7 +30,6 @@ export const optionPropTypes = {
     lineWidth: React.PropTypes.number,
     screenId: React.PropTypes.any
 };
-
 
 const VectorWallpaper = makeWallpaper(class VectorContainer extends React.Component {
     static propTypes = _.assign({}, optionPropTypes, {
@@ -85,10 +89,8 @@ export default class App extends React.Component {
             // second velocity function, Y (cartesian) or Theta (polar)
             //vB: function(x, y, r, theta, t) { return ((Math.sin(x) * Math.cos(y)) * 10); },
             vB: function(x, y, r, theta, t) { return (Math.cos(r) * Math.cos(theta)) * 10; },
-            //vr: function(x, y) { return Math.cos(x) * 10; },
-            //vTheta: function(x, y) { return Math.sin(y)  * 10; },
             domain: {
-                x: [-5, 5].map((n) => n * aspectRatio),
+                x: [-5, 5].map((n) => +(n * aspectRatio).toFixed(2)),
                 y: [-5, 5]
             },
             //color: function(x, y, r, theta, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
@@ -150,52 +152,5 @@ export default class App extends React.Component {
     }
 }
 
-var funcBeginRegEx =  /^\s*function\s*\w*\(([\w,\s]*[\n\/\*]*)\)\s*\{[\s\n]*/, // 'function(a,b,c) { '
-    funcEndRegEx = /\s*}\s*$/; // ' } '
-
-function unwrapFuncStr(funcStr) {
-    // peel the "function() {}" wrapper off of a function string (to make an 'internal function string')
-    return funcStr.replace(funcBeginRegEx, '').replace(funcEndRegEx, '')
-}
-
-function urlify(obj, preserveWhitespace = true) {
-    // given a nested JS object which may contain functions
-    // encode it into a URL-safe string
-    const objCopy = _.cloneDeep(obj);
-    objCopy.funcStrs = [];
-    _.forEach(objCopy, (val, key) => {
-        if(!_.isFunction(val)) return;
-        let str = val.toString()
-            .replace(/(\{)\n\t(\s+)/g, '{\n ')
-            .replace(/\n\t(\s+)(\})/g, '\n }');
-        objCopy[key] = preserveWhitespace ? str : str.replace(/\s+/g, ' ');
-        objCopy.funcStrs.push(key); // save functions as strings, and note which so we can undo
-    });
-
-    const objStr = JSON.stringify(objCopy);
-    //const qStr = qs.stringify(savedState);
-    // base64 encode it, shorter than query string encoding
-    return btoa(objStr);
-}
-
-function deurlify(str) {
-    const objStr = atob(str);
-    const obj = JSON.parse(objStr);
-
-    _.forEach(obj.funcStrs || [], funcStrKey => {
-        // slightly nicer way to make a function from a string than eval(). only slightly. that regex is badbad
-        try {
-            var funcStr = obj[funcStrKey];
-            var argsMatch = funcStr.match(funcBeginRegEx);
-            var args = argsMatch.length ? argsMatch[1].split(/,\s*/) : [];
-            if(args.length == 1 && args[0] == '') args = [];
-
-            obj[funcStrKey] = Function.apply(this, _.flatten([args, unwrapFuncStr(funcStr)]));
-        } catch(e) {
-            throw "failed to parse url function key" + funcStrKey;
-        }
-    });
-
-    return obj;
-}
-
+// NSFW
+// http://localhost:8228/?s=eyJpc1BvbGFyIjpmYWxzZSwidkEiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqL1xuLyoqLykge1xucmV0dXJuIChNYXRoLnNpbihyKSArIE1hdGguY29zKHRoZXRhKSkgKiAxXG59IiwidkIiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqLykge1xucmV0dXJuIE1hdGguY29zKHIpICogTWF0aC5jb3ModGhldGEpICogMTA7XG59IiwiZG9tYWluIjp7IngiOlstOS40NCw5LjQ0XSwieSI6Wy01LDVdfSwiY29sb3IiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqLykge1xucmV0dXJuIHdpbmRvdy5kMy5sYWIoODAgLSByKjEwLCAzMCwgeCAqIDEwICogTWF0aC5yYW5kb20oKSkudG9TdHJpbmcoKTtcbn0iLCJwYXJ0aWNsZUNvdW50Ijo3MDAwLCJmYWRlQW1vdW50IjowLCJsaW5lV2lkdGgiOjAuMiwic2NyZWVuSWQiOjE0NTU1MzUwMjkwNDUsImZ1bmNTdHJzIjpbInZBIiwidkIiLCJjb2xvciJdfQ==

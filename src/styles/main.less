@@ -9,6 +9,25 @@ body {
   }
 }
 
+.tooltip {
+  position: fixed;
+
+  .tooltip-content {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 6px;
+    font-size: 9pt;
+    border-radius: 4px 0 4px 4px;
+    ul {
+      margin: 0;
+      padding-left: 15px;
+    }
+  }
+
+  .tooltip-triangle-right {
+    border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);
+  }
+}
+
 // mixin
 .control-input-text-style {
   color: #f0f0f0;
@@ -60,6 +79,16 @@ body {
   }
   .panel-left { float: left; }
   .panel-right { float: right; }
+  .panel-left, .panel-right {
+    //line-height: 12pt;
+    //vertical-align: middle;
+    .number-input, span {
+      display: inline-block;
+      line-height: 12pt;
+      vertical-align: middle;
+    }
+
+  }
 
   .panel.head-panel {
     background-color: #18183a;
@@ -94,11 +123,21 @@ body {
     }
   }
 
+  .panel.number-range-panel {
+    .number-input input {
+      width: 4em;
+    }
+    .range-delimiter {
+      margin: 0 5px;
+      font-size: 8pt;
+    }
+  }
   .number-input {
     input {
       float: right;
       width: 6em;
       line-height: 13pt;
+      text-align: right;
       .control-input-text-style;
     }
     label {

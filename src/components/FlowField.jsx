@@ -1,3 +1,5 @@
+'use strict';
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import d3 from 'd3';
@@ -110,7 +112,7 @@ export default class FlowField extends React.Component {
         const {particleCount, color, useSimpleFade, simpleFadeColor} = this.props;
 
         const {ctx, getVector, xDomain, yDomain, isPolar} = this._initFlow(this.props);
-        const particleSystem = new ParticleFlowSystem(xDomain, yDomain, particleCount, color);
+        const particleSystem = new ParticleFlowSystem({xDomain, yDomain, particleCount, getColor: color});
 
         if(useSimpleFade) ctx.fillStyle = simpleFadeColor;
         ctx.lineWidth = this.props.lineWidth;
@@ -130,9 +132,14 @@ export default class FlowField extends React.Component {
     }
     componentWillReceiveProps(newProps) {
         _.assign(this, this._initFlow(newProps));
-        this.particleSystem.getColor = newProps.color;
-        this.particleSystem.xDomain = this.xDomain;
-        this.particleSystem.yDomain = this.yDomain;
+        this.particleSystem.setOptions({
+            getColor: newProps.color,
+            xDomain: this.xDomain,
+            yDomain: this.yDomain
+        });
+        //this.particleSystem.getColor = newProps.color;
+        //this.particleSystem.xDomain = this.xDomain;
+        //this.particleSystem.yDomain = this.yDomain;
 
         // clear screen on new screenId
         if(_.has(newProps, 'screenId') && newProps.screenId !== this.props.screenId) {

@@ -1,8 +1,10 @@
 import React from 'react';
 import _ from 'lodash';
 import RadioGroup from 'react-radio';
-import {optionPropTypes} from 'components/App';
 
+import {shortenUrl} from 'utils';
+import {optionPropTypes} from 'components/App';
+import TippedComponent from 'components/TippedComponent';
 import FunctionInput from 'components/FunctionInput';
 import NumberInput from 'components/NumberInput';
 
@@ -10,8 +12,18 @@ export default class ControlPanel extends React.Component {
     static propTypes = _.assign({}, optionPropTypes, {
         onChangeOption: React.PropTypes.func
     });
+    state = {
+        shortUrl: ''
+    };
     _onClearScreen = () => {
         this.props.onChangeOption('screenId', +(new Date()));
+    };
+    _onShortenUrl = () => {
+        console.log(document.location.href);
+        shortenUrl(document.location.href, (err, shortUrl) => {
+        //shortenUrl('http://yahoo.com', (err, shortUrl) => {
+            if(!err) this.setState({shortUrl});
+        });
     };
     _onChangePolar = (value, event) => {
         const isPolar = (value.toLowerCase() === 'polar');
@@ -40,6 +52,13 @@ export default class ControlPanel extends React.Component {
                 <button onClick={this._onClearScreen}>
                     Clear Screen
                 </button>
+            </div>
+
+            <div className="panel">
+                <button onClick={this._onShortenUrl}>
+                    Shorten URL
+                </button>
+                <input type="text" ref="shortUrl" value={this.state.shortUrl} />
             </div>
 
             <div className="panel">
@@ -120,11 +139,26 @@ export default class ControlPanel extends React.Component {
     }
 }
 
-const FunctionPanel = (props) => (
-    <div className="panel function-panel">
-        <FunctionInput {...props} />
-    </div>
-);
+
+
+const FunctionPanel = (props) => {
+    const tipContent = <div>
+        Javascript function which controls each particle's {props.label}. Click to edit. Parameters: <br/>
+        <ul>
+            <li><strong>x, y</strong>: particle X & Y coordinates</li>
+            <li><strong>r, theta</strong>: particle R & θ (polar) coordinates</li>
+            <li><strong>t</strong>: time since start in seconds</li>
+
+        </ul>
+
+    </div>;
+
+    return <TippedComponent {...{tipContent}}>
+        <div className="panel function-panel">
+            <FunctionInput {...props} />
+        </div>
+    </TippedComponent>
+};
 
 const NumberPanel = (props) => (
     <div className="panel number-panel">
@@ -134,12 +168,13 @@ const NumberPanel = (props) => (
 
 const NumberRangePanel = (props) => (
     <div className="panel number-range-panel">
-        <span className="panel-label">
+        <span className="panel-left">
             {props.label}
         </span>
 
-        <span className="panel-input">
+        <span className="panel-right">
             <NumberInput {...props.min} />
+            <span className="range-delimiter">to</span>
             <NumberInput {...props.max} />
         </span>
     </div>
