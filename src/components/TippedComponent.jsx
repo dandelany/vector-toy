@@ -11,7 +11,6 @@ export default class TippedComponent extends React.Component {
         this.setState({isActive: true});
     };
     _onMouseLeave = () => {
-        console.log('ok')
         this.setState({isActive: false});
     };
 

@@ -8,6 +8,29 @@ import TippedComponent from 'components/TippedComponent';
 import FunctionInput from 'components/FunctionInput';
 import NumberInput from 'components/NumberInput';
 
+const tipContent = {
+    save: "Save these settings in your history, so you can access them again with the 'back' button",
+    particleCount: "Total number of particles to draw simultaneously",
+    lineWidth: "Thickness of the particle trail line",
+    fadeAmount: `Amount to fade out particle trails every frame.\
+        Zero fade is always fastest, fading affects performance especially at high resolutions.`,
+
+    xRange: "Visible range of X values; increase/decrease to zoom out/in",
+    yRange: "Visible range of Y values; increase/decrease to zoom out/in",
+
+    vectorFunc: (props) => {
+        return <div>
+            Javascript function which controls each particle's {props.label}. Click to edit. Parameters: <br/>
+            <ul>
+                <li><strong>x, y</strong>: particle X & Y coordinates</li>
+                <li><strong>r, theta</strong>: particle R & θ (polar) coordinates</li>
+                <li><strong>t</strong>: time since start in seconds</li>
+                <li><strong>fr</strong>: index of the current frame</li>
+            </ul>
+        </div>;
+    }
+};
+
 export default class ControlPanel extends React.Component {
     static propTypes = _.assign({}, optionPropTypes, {
         onChangeOption: React.PropTypes.func,
@@ -52,15 +75,25 @@ export default class ControlPanel extends React.Component {
             </div>
 
             <div className="panel">
+                <TippedComponent {...{tipContent: ""}}>
+                    <button>
+                        Shuffle
+                    </button>
+                </TippedComponent>
+
                 <button onClick={this._onClearScreen}>
                     Clear
                 </button>
 
-                <TippedComponent {...{tipContent:
-                    "Save these settings in your history, so you can access them again with the 'back' button"
-                }}>
+                <TippedComponent {...{tipContent: tipContent.save}}>
                     <button onClick={this._onPushHistory}>
                         Save
+                    </button>
+                </TippedComponent>
+
+                <TippedComponent {...{tipContent: ""}}>
+                    <button>
+                        Autosave
                     </button>
                 </TippedComponent>
             </div>
@@ -85,24 +118,28 @@ export default class ControlPanel extends React.Component {
 
             <NumberPanel {...{
                 label: <div>Particles</div>,
+                description: tipContent.particleCount,
                 value: this.props.particleCount,
                 onValidChange: _.partial(onChangeOption, 'particleCount')
             }} />
 
             <NumberPanel {...{
                 label: <div>Fade out</div>,
+                description: tipContent.fadeAmount,
                 value: this.props.fadeAmount,
                 onValidChange: _.partial(onChangeOption, 'fadeAmount')
             }} />
 
             <NumberPanel {...{
                 label: <div>Line width</div>,
+                description: tipContent.lineWidth,
                 value: this.props.lineWidth,
                 onValidChange: _.partial(onChangeOption, 'lineWidth')
             }} />
 
             <NumberRangePanel {...{
-                label: "X Domain",
+                label: "X Range",
+                description: tipContent.xRange,
                 min: {
                     value: this.props.domain.x[0],
                     onValidChange: _.partial(this._onChangeDomain, 'x', 0)
@@ -114,7 +151,8 @@ export default class ControlPanel extends React.Component {
             }} />
 
             <NumberRangePanel {...{
-                label: "Y Domain",
+                label: "Y Range",
+                description: tipContent.yRange,
                 min: {
                     value: this.props.domain.y[0],
                     onValidChange: _.partial(this._onChangeDomain, 'y', 0)
@@ -128,7 +166,7 @@ export default class ControlPanel extends React.Component {
             <FunctionPanel {...{
                 label: `${isPolar ? "R" : "X"} velocity`,
                 value: this.props.vA,
-                funcParams: ['x', 'y', 'r', 'theta', 't'],
+                funcParams: ['x', 'y', 'r', 'theta', 't', 'fr'],
                 onValidChange: _.partial(onChangeOption, 'vA'),
                 checkValid: checkValidVectorFunc
             }} />
@@ -136,7 +174,7 @@ export default class ControlPanel extends React.Component {
             <FunctionPanel {...{
                 label: `${isPolar ? "Theta" : "Y"} velocity`,
                 value: this.props.vB,
-                funcParams: ['x', 'y', 'r', 'theta', 't'],
+                funcParams: ['x', 'y', 'r', 'theta', 't', 'fr'],
                 onValidChange: _.partial(onChangeOption, 'vB'),
                 checkValid: checkValidVectorFunc
             }} />
@@ -144,7 +182,7 @@ export default class ControlPanel extends React.Component {
             <FunctionPanel {...{
                 label: "Color",
                 value: this.props.color,
-                funcParams: ['x', 'y', 'r', 'theta', 't'],
+                funcParams: ['x', 'y', 'r', 'theta', 't', 'fr'],
                 onValidChange: _.partial(onChangeOption, 'color'),
                 checkValid: checkValidColorFunc
             }} />
@@ -152,50 +190,45 @@ export default class ControlPanel extends React.Component {
     }
 }
 
-
-
 const FunctionPanel = (props) => {
-    const tipContent = <div>
-        Javascript function which controls each particle's {props.label}. Click to edit. Parameters: <br/>
-        <ul>
-            <li><strong>x, y</strong>: particle X & Y coordinates</li>
-            <li><strong>r, theta</strong>: particle R & θ (polar) coordinates</li>
-            <li><strong>t</strong>: time since start in seconds</li>
-        </ul>
-    </div>;
-
-    return <TippedComponent {...{tipContent}}>
+    return <TippedComponent {...{tipContent: tipContent.vectorFunc(props)}}>
         <div className="panel function-panel">
             <FunctionInput {...props} onMouseOver={(e) => (e.stopPropagation())} />
         </div>
     </TippedComponent>
 };
 
-const NumberPanel = (props) => (
-    <div className="panel number-panel">
-        <NumberInput {...props} />
-    </div>
-);
+const NumberPanel = (props) => {
+    const label = (props.description) ?
+        <TippedComponent tipContent={props.description}>{props.label}</TippedComponent>
+        : props.label;
+    const newProps = _.assign({}, props, {label});
 
-const NumberRangePanel = (props) => (
-    <div className="panel number-range-panel">
-        <span className="panel-left">
-            {props.label}
-        </span>
+    return <div className="panel number-panel">
+        <NumberInput {...newProps} />
+    </div>;
+};
 
+const NumberRangePanel = (props) => {
+    let label = <span className="panel-left">{props.label}</span>;
+    label = !(props.description) ? {label} :
+        <TippedComponent tipContent={props.description}>{label}</TippedComponent>;
+
+    return <div className="panel number-range-panel">
+        {label}
         <span className="panel-right">
             <NumberInput {...props.min} />
             <span className="range-delimiter">to</span>
             <NumberInput {...props.max} />
         </span>
-    </div>
-);
+    </div>;
+};
 
 function checkValidVectorFunc(func) {
-    return _.isFinite(func(1, 1, 1, 1, 1));
+    return _.isFinite(func(1, 1, 1, 1, 1, 1));
 }
 function checkValidColorFunc(func) {
     // hard to check valid color, just make sure it doesn't barf
-    func(1, 1, 1, 1, 1);
+    func(1, 1, 1, 1, 1, 1);
     return true;
 }

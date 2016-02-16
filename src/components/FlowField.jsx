@@ -7,11 +7,6 @@ import _ from 'lodash';
 
 import ParticleFlowSystem from 'ParticleFlowSystem';
 
-const dt = 0.005;
-const maxAge = 100; // # timesteps before restart
-
-// vector field function
-
 function interpolateGridSimple(x, y, vectorGrid, xDomain, yDomain, xBins, yBins) {
     const scaleFactor = 10;
     const xBinSize = (xDomain[1] - xDomain[0]) / xBins.length;
@@ -91,10 +86,10 @@ export default class FlowField extends React.Component {
         useSimpleFade: React.PropTypes.bool,
         simpleFadeColor: React.PropTypes.string,
 
-        // expected to be rendered inside a Reactochart XYPlot, which will pass these props
+        // will use x/y scales if passed, otherwise will be created from width/height
         scale: React.PropTypes.object,
-        scaleWidth: React.PropTypes.number,
-        scaleHeight: React.PropTypes.number
+        width: React.PropTypes.number,
+        height: React.PropTypes.number
     };
     static defaultProps = {
         color: () => randomGray(),
@@ -105,7 +100,8 @@ export default class FlowField extends React.Component {
         scaleFactor: 10,
         fadeAmount: 2,
         useSimpleFade: false,
-        simpleFadeColor: "rgba(255, 255, 255, 0.05)"
+        simpleFadeColor: "rgba(255, 255, 255, 0.05)",
+        margin: {top: 0, left: 0, bottom: 0, right: 0}
     };
 
     componentDidMount() {
@@ -120,7 +116,6 @@ export default class FlowField extends React.Component {
         //ctx.globalCompositeOperation = "screen";
         ctx.lineCap = 'square';
 
-
         const startTime = new Date().getTime();
         const lastFrameTime = startTime;
         const curFrame = 1;
@@ -128,7 +123,6 @@ export default class FlowField extends React.Component {
         _.assign(this, {particleSystem, ctx, getVector, xDomain, yDomain, startTime, curFrame, lastFrameTime, isPolar});
 
         // draw loop
-        //d3.timer(() => { this.redraw(); }, 30);
         this._redraw();
     }
     componentWillReceiveProps(newProps) {
@@ -141,7 +135,7 @@ export default class FlowField extends React.Component {
 
         // clear screen on new screenId
         if(_.has(newProps, 'screenId') && newProps.screenId !== this.props.screenId) {
-            this.ctx.clearRect(0, 0, this.props.scaleWidth, this.props.scaleHeight);
+            this.ctx.clearRect(0, 0, this.props.width, this.props.height);
         }
 
         // update number of particles without restarting from scratch
@@ -163,30 +157,30 @@ export default class FlowField extends React.Component {
         const {data, scale, vx, vy, vr, vTheta, xBins, yBins, scaleFactor} = props;
         const xDomain = scale.x.domain();
         const yDomain = scale.y.domain();
-
         const isPolar = _.every([vr, vTheta], _.isFunction);
-        const getVector =
-            isPolar ?
-                // if polar vector functions are provided, use them to generate flow
-                (x, y, r, theta) => [vr(x, y, r, theta, this.props), vTheta(x, y, r, theta, this.props)] :
-            _.every([vx, vy], _.isFunction) ?
-                // if cartesian vector functions are provided, use them to generate flow
-                (x, y, r, theta) => [vx(x, y, r, theta, this.props), vy(x, y, r, theta, this.props)] :
+        const isCartesian = _.every([vx, vy], _.isFunction);
+        const hasData = _.every([data, xBins, yBins], _.isArray);
+        if(!(isPolar || isCartesian || hasData))
+            throw new Error("Must provide {vx, vy}, {vr, vTheta}, or {data, xBins, yBins} props for vector field");
 
+        const [vA, vB] = (isPolar ? [vr, vTheta] : (isCartesian ? [vx, vy] : [null, null]));
+        const getVector = (isPolar || isCartesian) ?
+            // if polar or cartesian vector functions are provided, use them to generate flow
+            (...args) => [vA(...args), vB(...args)] :
             // if a grid of vector data is provided,
             // create a vector function from it which interpolates between the grid points
-            (xVal, yVal) => interpolateGrid(xVal, yVal, data, xDomain, yDomain, xBins, yBins, scaleFactor);
+            (x, y) => interpolateGrid(x, y, data, xDomain, yDomain, xBins, yBins, scaleFactor);
 
         return {ctx, getVector, xDomain, yDomain, isPolar};
     }
     _fadeOutSimple() {
         // simple fade out by drawing transparent (fillStyle) white rectangle on top every frame
         // fast but doesn't fade lines all the way, doesn't work with transparent background
-        this.ctx.fillRect(0, 0, this.props.scaleWidth, this.props.scaleHeight);
+        this.ctx.fillRect(0, 0, this.props.width, this.props.height);
     }
     _fadeOut() {
         // more complicated alpha fade for real transparency - but slower
-        const image = this.ctx.getImageData(0, 0, this.props.scaleWidth, this.props.scaleHeight);
+        const image = this.ctx.getImageData(0, 0, this.props.width, this.props.height);
         const imageData = image.data;
         if(imageData) {
             const len = imageData.length;
@@ -226,16 +220,26 @@ export default class FlowField extends React.Component {
     };
 
     render() {
-        const {margin, scaleWidth, scaleHeight} = this.props;
+        const {margin, width, height} = this.props;
         return <g>
             <foreignObject>
                 <canvas
                     ref="canvas"
                     style={{marginLeft: margin.left, marginTop: margin.top}}
-                    width={scaleWidth}
-                    height={scaleHeight}
+                    width={width}
+                    height={height}
                 />
             </foreignObject>
         </g>;
     }
-};
+}
+
+// wrapper for reactochart
+class FlowFieldChart extends React.Component {
+    render() {
+        const dimensions = {width: this.props.scaleWidth, height: this.props.scaleHeight};
+        const flowProps = _.assign({}, this.props, dimensions);
+
+        return <FlowField {...flowProps} />;
+    }
+}

@@ -54,11 +54,17 @@ const defaultOptions = {
 export default class ParticleFlowSystem {
     constructor(options = {}) {
         this.setOptions(options);
-        this.particles = [];
-        this.add(this.particleCount);
+        this.reset();
     }
+
     setOptions(options) {
         _.assign(this, _.defaults(options, (this.options || defaultOptions)));
+    }
+    reset() {
+        this.startTime = +(new Date());
+        this.ticks = 0;
+        this.particles = [];
+        this.add(this.particleCount);
     }
 
     add(count) {
@@ -75,20 +81,23 @@ export default class ParticleFlowSystem {
         // advect (push) each particle along a cartesian vector field
         // expects a function which returns a velocity vector [vx, vy]
         // given a particle's [x, y] or [r, theta] position
-        const {particles, maxAge, dt} = this;
+        const {particles, maxAge, dt, ticks} = this;
+        const time = this._getTime();
+        this.ticks += 1;
 
         // return an array of particle translations which are used to draw lines
         return particles.map((particle) => {
             const [x, y, r, theta, age, color] = particle;
+            const vectorArgs = [x, y, r, theta, time, ticks];
             let x1, y1, r1, theta1;
 
             if(polar) {
-                let [vr, vTheta] = getVector(x, y, r, theta);
+                let [vr, vTheta] = getVector.apply(null, vectorArgs);
                 r1 = r + (vr * dt);
                 theta1 = theta + (vTheta * dt);
                 [x1, y1] = polarToCartesian(r1, theta1);
             } else {
-                let [vx, vy] = getVector(x, y, r, theta);
+                let [vx, vy] = getVector.apply(null, vectorArgs);
                 x1 = x + (vx * dt);
                 y1 = y + (vy * dt);
                 [r1, theta1] = cartesianToPolar(x1, y1);
@@ -109,7 +118,8 @@ export default class ParticleFlowSystem {
     _createParticle = (particle) => {
         // create a new particle with random starting position and age
         // pass particle arg to reuse obj reference, otherwise created from scratch
-        const {xDomain, yDomain, getColor} = this;
+        const {xDomain, yDomain, getColor, ticks} = this;
+        const time = this._getTime();
 
         //const x = _.random(xDomain[0], xDomain[1], true);
         //const y = _.random(yDomain[0], yDomain[1], true);
@@ -120,13 +130,19 @@ export default class ParticleFlowSystem {
             ([x, y] = polarToCartesian(r, theta));
         }
 
+        const colorArgs = [x, y, r, theta, time, ticks];
         const color = _.isFunction(getColor) ?
-            getColor(x, y, r, theta) : getColor;
+            getColor.apply(null, colorArgs) : getColor;
         const age = randomAge();
 
         // arrays still faster than objects :(
         return particle ?
             particle.splice(0, 6, x, y, r, theta, age, color) :
             [x, y, r, theta, age, color];
+    };
+
+    _getTime = () => {
+        if(!this.startTime) this.startTime = +(new Date());
+        return (+(new Date()) - this.startTime) / 1000;
     };
 }

@@ -2,17 +2,10 @@
 import React from 'react';
 import d3 from 'd3';
 import _ from 'lodash';
-import {XYPlot} from 'reactochart';
-
 import Portal from 'react-portal';
 
-import {urlify, deurlify, shortenUrl, getWindowSize} from 'utils';
-import Tooltip from 'components/SimpleTooltip';
-import TippedComponent from 'components/TippedComponent';
-import makeWallpaper from 'components/Wallpaper';
-import FlowField from 'components/FlowField';
-import FunctionInput from 'components/FunctionInput';
-import NumberInput from 'components/NumberInput';
+import {urlify, deurlify, shortenUrl} from 'utils';
+import FlowWallpaper from 'components/FlowWallpaper';
 import ControlPanel from 'components/ControlPanel';
 
 window.d3 = d3;
@@ -29,73 +22,6 @@ export const optionPropTypes = {
     lineWidth: React.PropTypes.number,
     screenId: React.PropTypes.any
 };
-
-class VectorWallpaper extends React.Component {
-    static propTypes = _.assign({}, optionPropTypes, {
-        width: React.PropTypes.number,
-        height: React.PropTypes.number
-    });
-    static defaultProps = {
-        panelWidth: 0,
-        useDPI: true,
-        width: 800,
-        height: 600,
-        domain: {x: [-10, 10], y: [-10, 10]},
-        screenId: 0
-    };
-
-    componentWillMount() {
-        const startTime = new Date().getTime();
-        // creates wrapped versions of vector functions with extra param: time since start
-        // todo: see how slow this is, move to FlowField so it's only done once for all functions
-        this._timed = (func) => ((x, y, r, theta) => {
-            return func(x, y, r, theta, (new Date().getTime() - startTime) / 1000);
-        });
-    }
-    render() {
-        const {
-            panelWidth, domain, vx, vy, vr, vTheta, color, particleCount, fadeAmount, lineWidth, screenId
-        } = this.props;
-        const windowSize = getWindowSize(true);
-        const dpiMult = (this.props.useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
-        const height = windowSize.height;
-        const width = windowSize.width - (panelWidth * dpiMult);
-
-        const wallpaperStyle = {
-            position: 'fixed',
-            top: 0,
-            left: 0,
-            width, height,
-            zIndex: -1
-        };
-        _.assign(wallpaperStyle,
-            (dpiMult === 2) ? {
-                transform: 'scale(0.5) translate(-50%, -50%)',
-                WebkitTransform: 'scale(0.5) translate(-50%, -50%)'
-            } : {}
-        );
-
-        return <Portal isOpened={true}>
-            <div style={wallpaperStyle}>
-                <XYPlot
-                    {...{height, width, domain}}
-                    nice={false} showLabels={false}
-                    showGrid={false} showTicks={false}
-                >
-                    <FlowField {...{
-                        particleCount, fadeAmount, lineWidth, screenId,
-                        //useSimpleFade: true,
-                        vx: vx ? this._timed(vx) : undefined,
-                        vy: vy ? this._timed(vy) : undefined,
-                        vr: vr ? this._timed(vr) : undefined,
-                        vTheta: vTheta ? this._timed(vTheta) : undefined,
-                        color: color ? this._timed(color) : undefined
-                    }} />
-                </XYPlot>
-            </div>
-        </Portal>;
-    }
-}
 
 export default class App extends React.Component {
     constructor(props) {
@@ -166,7 +92,7 @@ export default class App extends React.Component {
             {vx: vA, vy: vB};
 
         return <div>
-            <VectorWallpaper
+            <FlowWallpaper
                 {...{useDPI: true, panelWidth: this._panelWidth}}
                 {...options} {...vectorOptions}
             />
