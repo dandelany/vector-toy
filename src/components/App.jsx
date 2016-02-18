@@ -7,6 +7,7 @@ import Portal from 'react-portal';
 import {urlify, deurlify, shortenUrl} from 'utils';
 import FlowWallpaper from 'components/FlowWallpaper';
 import ControlPanel from 'components/ControlPanel';
+import DEFAULTS from 'defaults';
 
 window.d3 = d3;
 
@@ -23,54 +24,76 @@ export const optionPropTypes = {
     screenId: React.PropTypes.any
 };
 
+function getStateFromUrl() {
+    var query = document.location.search;
+    if(_.includes(query, '?s=')) {
+        try {
+            const stateStr = query.replace('?s=', '');
+            return deurlify(stateStr);
+        } catch(e) { return undefined; }
+    } else {
+        return undefined;
+    }
+}
+
+function getRandomState() {
+    // 50/50 chance of getting a slightly randomized preset or a completely random mashup
+    const coinFlip = Math.random() > 0.5;
+    const template = coinFlip ? _.sample(DEFAULTS.presets) : DEFAULTS.shuffleAll;
+    return _.mapValues(_.cloneDeep(template), (value) => {
+        return _.isArray(value.choices) ? _.sample(value.choices) : value;
+    });
+}
+
+// UI settings only control interface options,
+// and are therefore not saved to the URL like the rest of the state
+const defaultUISettings = {
+    autosave: true
+};
+const uiSettingKeys = _.keys(defaultUISettings);
+
+
 export default class App extends React.Component {
+    static defaultProps = {
+        panelWidth: 250
+    };
     constructor(props) {
         super(props);
-        const aspectRatio = window ? (window.innerWidth / window.innerHeight) : 1.75;
-        this._panelWidth = 250;
-        this.state = {
-            isPolar: false,
-            // first velocity function, X (cartesian) or R (polar)
-            //vA: function(x, y, r, theta, t) { return ((Math.cos(x) + Math.cos(y)) * 10); },
-            vA: function(x, y, r, theta, t) { return (Math.cos(r) + Math.cos(theta)) * 10; },
-            // second velocity function, Y (cartesian) or Theta (polar)
-            //vB: function(x, y, r, theta, t) { return ((Math.sin(x) * Math.cos(y)) * 10); },
-            vB: function(x, y, r, theta, t) { return (Math.cos(r) * Math.cos(theta)) * 10; },
-            domain: {
-                x: [-5, 5].map((n) => +(n * aspectRatio).toFixed(2)),
-                y: [-5, 5]
-            },
-            //color: function(x, y, r, theta, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
-            //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(Math.sin(y)), Math.abs(Math.sin(y*1.4)) - 0.3).toString(),
-            //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(Math.sin(y))).toString(),
-            color: (x, y, r, theta, t) => window.d3.lab(80 - (r * 13), y * 20 * Math.random(), x * 20 * Math.random()).toString(),
-            particleCount: 1000,
-            fadeAmount: 0,
-            lineWidth: 2
-        };
+
+        // try to load state from the URL,
+        // otherwise shuffle a random initial state from the default settings
+        this.state = _.assign(
+            getStateFromUrl() || this._getRandomState(),
+            defaultUISettings
+        );
     }
 
     componentDidMount() {
-        this._loadStateFromUrl();
-        window.onpopstate = this._loadStateFromUrl;
+        window.onpopstate = () => this.setState(getStateFromUrl());
     }
 
-    _loadStateFromUrl = () => {
-        var query = document.location.search;
-        if(_.includes(query, '?s=')) {
-            const stateStr = query.replace('?s=', '');
-            const stateObj = deurlify(stateStr);
-            this.setState(stateObj);
-        }
+    _getRandomState = () => {
+        const state = getRandomState();
+        state.domain.x = state.domain.x || this._xDomainFromYDomain(state.domain.y);
+        return state;
     };
+
+    _xDomainFromYDomain = (yDomain) => {
+        const mainWidth = window.innerWidth - this.props.panelWidth;
+        const aspectRatio = _.isFinite(mainWidth) && (mainWidth > 0) ? (mainWidth / window.innerHeight) : 1.75;
+        return yDomain.map((n) => +(n * aspectRatio).toFixed(2));
+    };
+
     _saveStateToUrl = (pushState = false) => {
-        const saveStr = urlify(this.state);
+        // urlify this.state, except for the parts which are UI settings
+        const saveStr = urlify(_.omit(this.state, uiSettingKeys));
+        // pushState or replaceState the new URL
         const updateUrl = (pushState ? history.pushState : history.replaceState).bind(history);
         updateUrl({}, 'state', `${document.location.pathname}?s=${saveStr}`);
     };
 
     _onChangeOption = (key, value, event) => {
-        console.log('state update:', key, value);
+        console.log('option update:', key, value);
         const newState = {[key]: value};
 
         // if no fade, clear screen on settings change
@@ -80,26 +103,36 @@ export default class App extends React.Component {
         this.setState(newState, () => this._saveStateToUrl(false));
     };
 
+    _onShuffleOptions = () => {
+        this.setState(
+            _.assign(this._getRandomState(), {screenId: +(new Date())}),
+            this._saveStateToUrl
+        );
+    };
+
     render() {
         const options = _.pick(this.state, [
             'color', 'particleCount', 'domain',
             'fadeAmount', 'lineWidth', 'screenId', 'isPolar'
         ]);
-        const {isPolar, vA, vB} = this.state;
+        const uiOptions = _.pick(this.state, uiSettingKeys);
 
-        const vectorOptions = this.state.isPolar ?
+        const {isPolar, vA, vB} = this.state;
+        const vectorOptions = isPolar ?
             {vr: vA, vTheta: vB} :
             {vx: vA, vy: vB};
 
         return <div>
             <FlowWallpaper
-                {...{useDPI: true, panelWidth: this._panelWidth}}
+                {...{useDPI: true, panelWidth: this.props.panelWidth}}
                 {...options} {...vectorOptions}
             />
             <ControlPanel
+                width={this.props.panelWidth}
                 onChangeOption={this._onChangeOption}
+                onShuffleOptions={this._onShuffleOptions}
                 onPushHistory={() => this._saveStateToUrl(true)}
-                {...options} {...{vA, vB}}
+                {...options} {...{vA, vB}} {...uiOptions}
             />
         </div>;
     }

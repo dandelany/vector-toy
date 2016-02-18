@@ -107,7 +107,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #101010;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n}\nbody * {\n  box-sizing: border-box;\n}\n.tooltip {\n  position: fixed;\n}\n.tooltip .tooltip-content {\n  background: rgba(255, 255, 255, 0.8);\n  padding: 6px;\n  font-size: 9pt;\n  border-radius: 4px 0 4px 4px;\n}\n.tooltip .tooltip-content ul {\n  margin: 0;\n  padding-left: 15px;\n}\n.tooltip .tooltip-triangle-right {\n  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);\n}\n.control-input-text-style {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n}\n.valid-input-style {\n  outline: none;\n  color: lightgreen;\n}\n.valid-input-style:focus {\n  border: 1px solid lightgreen;\n}\n.invalid-input-style {\n  outline: none;\n  color: lightcoral;\n}\n.invalid-input-style:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel {\n  position: fixed;\n  width: 250px;\n  height: 100%;\n  right: 0;\n  top: 0;\n  padding: 0;\n  background: #494949;\n  color: #f0f0f0;\n  font-size: 10pt;\n}\n.control-panel button {\n  display: inline-block;\n  background: transparent;\n  line-height: 10px;\n  font-size: 8pt;\n  color: #f0f0f0;\n  border: 1px solid #f0f0f0;\n  border-radius: 4px;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n  cursor: pointer;\n}\n.control-panel button:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.control-panel button:active {\n  outline: none;\n  background-color: #292929;\n  border-color: #898989;\n}\n.control-panel button:focus {\n  outline: none;\n}\n.control-panel input[type=\"text\"] {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n  line-height: 13pt;\n  text-align: right;\n}\n.control-panel .panel {\n  display: block;\n  position: relative;\n  overflow: auto;\n  padding: 4px 15px;\n  background-color: #333;\n}\n.control-panel .panel:nth-child(odd) {\n  background-color: #404040;\n}\n.control-panel .panel button {\n  margin-left: 6px;\n}\n.control-panel .panel button:first-of-type {\n  margin-left: 0;\n}\n.control-panel .panel-left {\n  float: left;\n}\n.control-panel .panel-right {\n  float: right;\n}\n.control-panel .panel-left,\n.control-panel .panel-right {\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel-left .number-input,\n.control-panel .panel-right .number-input,\n.control-panel .panel-left span,\n.control-panel .panel-right span {\n  display: inline-block;\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel.head-panel {\n  background-color: #18183a;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .panel-left,\n.control-panel .panel.head-panel .panel-right {\n  line-height: 20pt;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .subtitle,\n.control-panel .panel.head-panel .byline {\n  vertical-align: baseline;\n  display: inline-block;\n  font-size: 8pt;\n  font-weight: normal;\n}\n.control-panel .panel.head-panel h3 {\n  display: inline-block;\n  vertical-align: baseline;\n  margin: 0;\n  font-size: 13pt;\n  font-weight: 700;\n  color: #f6f6f6;\n  text-shadow: 0 1px 0 #040404;\n}\n.control-panel .panel.head-panel .subtitle {\n  margin-left: 4px;\n}\n.control-panel .panel.head-panel .byline {\n  color: #a0a0a0;\n}\n.control-panel .panel.number-range-panel .number-input input {\n  width: 4em;\n}\n.control-panel .panel.number-range-panel .range-delimiter {\n  margin: 0 5px;\n  font-size: 8pt;\n}\n.control-panel .number-input input {\n  float: right;\n  width: 6em;\n}\n.control-panel .number-input label {\n  display: block;\n  position: relative;\n  overflow: auto;\n}\n.control-panel .number-input label :first-child {\n  float: left;\n}\n.control-panel .number-input.number-input-valid input {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .number-input.number-input-valid input:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .number-input.number-input-invalid input {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .number-input.number-input-invalid input:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel .function-input .function-signature {\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n}\n.control-panel .function-input textarea {\n  width: 100%;\n  height: 25pt;\n  transition: height 0.35s;\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n}\n.control-panel .function-input textarea:focus {\n  height: 80pt;\n  outline: none;\n  box-shadow: 0 0 4px #b0b0b0;\n}\n.control-panel .function-input.function-input-valid textarea {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .function-input.function-input-valid textarea:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .function-input.function-input-invalid textarea {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .function-input.function-input-invalid textarea:focus {\n  border: 1px solid lightcoral;\n}\n", ""]);
+	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #101010;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n}\nbody * {\n  box-sizing: border-box;\n}\n.tooltip {\n  position: fixed;\n}\n.tooltip .tooltip-content {\n  background: rgba(255, 255, 255, 0.8);\n  padding: 6px;\n  font-size: 9pt;\n  border-radius: 4px 0 4px 4px;\n}\n.tooltip .tooltip-content ul {\n  margin: 0;\n  padding-left: 15px;\n}\n.tooltip .tooltip-triangle-right {\n  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);\n}\n.control-input-text-style {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n}\n.valid-input-style {\n  outline: none;\n  color: lightgreen;\n}\n.valid-input-style:focus {\n  border: 1px solid lightgreen;\n}\n.invalid-input-style {\n  outline: none;\n  color: lightcoral;\n}\n.invalid-input-style:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel {\n  position: fixed;\n  height: 100%;\n  right: 0;\n  top: 0;\n  padding: 0;\n  background: #494949;\n  color: #f0f0f0;\n  font-size: 10pt;\n}\n.control-panel button {\n  display: inline-block;\n  background: transparent;\n  line-height: 10px;\n  font-size: 8pt;\n  color: #f0f0f0;\n  border: 1px solid #f0f0f0;\n  border-radius: 4px;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n  cursor: pointer;\n}\n.control-panel button:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.control-panel button:active {\n  outline: none;\n  background-color: #292929;\n  border-color: #898989;\n}\n.control-panel button:focus {\n  outline: none;\n}\n.control-panel input[type=\"text\"] {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n  line-height: 13pt;\n  text-align: right;\n}\n.control-panel .panel {\n  display: block;\n  position: relative;\n  overflow: auto;\n  padding: 4px 15px;\n  background-color: #333;\n}\n.control-panel .panel:nth-child(odd) {\n  background-color: #404040;\n}\n.control-panel .panel button {\n  margin-left: 6px;\n}\n.control-panel .panel button:first-of-type {\n  margin-left: 0;\n}\n.control-panel .panel-left {\n  float: left;\n}\n.control-panel .panel-right {\n  float: right;\n}\n.control-panel .panel-left,\n.control-panel .panel-right {\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel-left .number-input,\n.control-panel .panel-right .number-input,\n.control-panel .panel-left span,\n.control-panel .panel-right span {\n  display: inline-block;\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel.head-panel {\n  background-color: #18183a;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .panel-left,\n.control-panel .panel.head-panel .panel-right {\n  line-height: 20pt;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .subtitle,\n.control-panel .panel.head-panel .byline {\n  vertical-align: baseline;\n  display: inline-block;\n  font-size: 8pt;\n  font-weight: normal;\n}\n.control-panel .panel.head-panel h3 {\n  display: inline-block;\n  vertical-align: baseline;\n  margin: 0;\n  font-size: 13pt;\n  font-weight: 700;\n  color: #f6f6f6;\n  text-shadow: 0 1px 0 #040404;\n}\n.control-panel .panel.head-panel .subtitle {\n  margin-left: 4px;\n}\n.control-panel .panel.head-panel .byline {\n  color: #a0a0a0;\n}\n.control-panel .panel.number-range-panel .number-input input {\n  width: 4em;\n}\n.control-panel .panel.number-range-panel .range-delimiter {\n  margin: 0 5px;\n  font-size: 8pt;\n}\n.control-panel .number-input input {\n  float: right;\n  width: 6em;\n}\n.control-panel .number-input label {\n  display: block;\n  position: relative;\n  overflow: auto;\n}\n.control-panel .number-input label :first-child {\n  float: left;\n}\n.control-panel .number-input.number-input-valid input {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .number-input.number-input-valid input:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .number-input.number-input-invalid input {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .number-input.number-input-invalid input:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel .function-input .function-signature {\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n}\n.control-panel .function-input textarea {\n  width: 100%;\n  height: 25pt;\n  transition: height 0.35s;\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  box-shadow: inset 0 0 3px #000000;\n}\n.control-panel .function-input textarea:focus {\n  height: 80pt;\n  outline: none;\n  box-shadow: 0 0 4px #b0b0b0;\n}\n.control-panel .function-input.function-input-valid textarea {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .function-input.function-input-valid textarea:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .function-input.function-input-invalid textarea {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .function-input.function-input-invalid textarea:focus {\n  border: 1px solid lightcoral;\n}\n", ""]);
 	
 	// exports
 
@@ -20064,6 +20064,10 @@
 	
 	var _ControlPanel2 = _interopRequireDefault(_ControlPanel);
 	
+	var _defaults = __webpack_require__(186);
+	
+	var _defaults2 = _interopRequireDefault(_defaults);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -20089,33 +20093,73 @@
 	    screenId: _react2.default.PropTypes.any
 	};
 	
+	function getStateFromUrl() {
+	    var query = document.location.search;
+	    if (_lodash2.default.includes(query, '?s=')) {
+	        try {
+	            var stateStr = query.replace('?s=', '');
+	            return (0, _utils.deurlify)(stateStr);
+	        } catch (e) {
+	            return undefined;
+	        }
+	    } else {
+	        return undefined;
+	    }
+	}
+	
+	function getRandomState() {
+	    // 50/50 chance of getting a slightly randomized preset or a completely random mashup
+	    var coinFlip = Math.random() > 0.5;
+	    var template = coinFlip ? _lodash2.default.sample(_defaults2.default.presets) : _defaults2.default.shuffleAll;
+	    return _lodash2.default.mapValues(_lodash2.default.cloneDeep(template), function (value) {
+	        return _lodash2.default.isArray(value.choices) ? _lodash2.default.sample(value.choices) : value;
+	    });
+	}
+	
+	// UI settings only control interface options,
+	// and are therefore not saved to the URL like the rest of the state
+	var defaultUISettings = {
+	    autosave: true
+	};
+	var uiSettingKeys = _lodash2.default.keys(defaultUISettings);
+	
 	var App = function (_React$Component) {
 	    _inherits(App, _React$Component);
 	
 	    function App(props) {
 	        _classCallCheck(this, App);
 	
+	        // try to load state from the URL,
+	        // otherwise shuffle a random initial state from the default settings
+	
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
 	
-	        _this._loadStateFromUrl = function () {
-	            var query = document.location.search;
-	            if (_lodash2.default.includes(query, '?s=')) {
-	                var stateStr = query.replace('?s=', '');
-	                var stateObj = (0, _utils.deurlify)(stateStr);
-	                _this.setState(stateObj);
-	            }
+	        _this._getRandomState = function () {
+	            var state = getRandomState();
+	            state.domain.x = state.domain.x || _this._xDomainFromYDomain(state.domain.y);
+	            return state;
+	        };
+	
+	        _this._xDomainFromYDomain = function (yDomain) {
+	            var mainWidth = window.innerWidth - _this.props.panelWidth;
+	            var aspectRatio = _lodash2.default.isFinite(mainWidth) && mainWidth > 0 ? mainWidth / window.innerHeight : 1.75;
+	            return yDomain.map(function (n) {
+	                return +(n * aspectRatio).toFixed(2);
+	            });
 	        };
 	
 	        _this._saveStateToUrl = function () {
 	            var pushState = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 	
-	            var saveStr = (0, _utils.urlify)(_this.state);
+	            // urlify this.state, except for the parts which are UI settings
+	            var saveStr = (0, _utils.urlify)(_lodash2.default.omit(_this.state, uiSettingKeys));
+	            // pushState or replaceState the new URL
 	            var updateUrl = (pushState ? history.pushState : history.replaceState).bind(history);
 	            updateUrl({}, 'state', document.location.pathname + '?s=' + saveStr);
 	        };
 	
 	        _this._onChangeOption = function (key, value, event) {
-	            console.log('state update:', key, value);
+	            console.log('option update:', key, value);
 	            var newState = _defineProperty({}, key, value);
 	
 	            // if no fade, clear screen on settings change
@@ -20126,69 +20170,50 @@
 	            });
 	        };
 	
-	        var aspectRatio = window ? window.innerWidth / window.innerHeight : 1.75;
-	        _this._panelWidth = 250;
-	        _this.state = {
-	            isPolar: false,
-	            // first velocity function, X (cartesian) or R (polar)
-	            //vA: function(x, y, r, theta, t) { return ((Math.cos(x) + Math.cos(y)) * 10); },
-	            vA: function vA(x, y, r, theta, t) {
-	                return (Math.cos(r) + Math.cos(theta)) * 10;
-	            },
-	            // second velocity function, Y (cartesian) or Theta (polar)
-	            //vB: function(x, y, r, theta, t) { return ((Math.sin(x) * Math.cos(y)) * 10); },
-	            vB: function vB(x, y, r, theta, t) {
-	                return Math.cos(r) * Math.cos(theta) * 10;
-	            },
-	            domain: {
-	                x: [-5, 5].map(function (n) {
-	                    return +(n * aspectRatio).toFixed(2);
-	                }),
-	                y: [-5, 5]
-	            },
-	            //color: function(x, y, r, theta, t) { return `rgb(10, ${(t*40)%255}, ${(t*54)%255})`; },
-	            //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(Math.sin(y)), Math.abs(Math.sin(y*1.4)) - 0.3).toString(),
-	            //color: (x, y, t) => window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(Math.sin(y))).toString(),
-	            color: function color(x, y, r, theta, t) {
-	                return window.d3.lab(80 - r * 13, y * 20 * Math.random(), x * 20 * Math.random()).toString();
-	            },
-	            particleCount: 1000,
-	            fadeAmount: 0,
-	            lineWidth: 2
+	        _this._onShuffleOptions = function () {
+	            _this.setState(_lodash2.default.assign(_this._getRandomState(), { screenId: +new Date() }), _this._saveStateToUrl);
 	        };
+	
+	        _this.state = _lodash2.default.assign(getStateFromUrl() || _this._getRandomState(), defaultUISettings);
 	        return _this;
 	    }
 	
 	    _createClass(App, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            this._loadStateFromUrl();
-	            window.onpopstate = this._loadStateFromUrl;
+	            var _this2 = this;
+	
+	            window.onpopstate = function () {
+	                return _this2.setState(getStateFromUrl());
+	            };
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this2 = this;
+	            var _this3 = this;
 	
 	            var options = _lodash2.default.pick(this.state, ['color', 'particleCount', 'domain', 'fadeAmount', 'lineWidth', 'screenId', 'isPolar']);
+	            var uiOptions = _lodash2.default.pick(this.state, uiSettingKeys);
+	
 	            var _state = this.state;
 	            var isPolar = _state.isPolar;
 	            var vA = _state.vA;
 	            var vB = _state.vB;
 	
-	
-	            var vectorOptions = this.state.isPolar ? { vr: vA, vTheta: vB } : { vx: vA, vy: vB };
+	            var vectorOptions = isPolar ? { vr: vA, vTheta: vB } : { vx: vA, vy: vB };
 	
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_FlowWallpaper2.default, _extends({ useDPI: true, panelWidth: this._panelWidth }, options, vectorOptions)),
+	                _react2.default.createElement(_FlowWallpaper2.default, _extends({ useDPI: true, panelWidth: this.props.panelWidth }, options, vectorOptions)),
 	                _react2.default.createElement(_ControlPanel2.default, _extends({
+	                    width: this.props.panelWidth,
 	                    onChangeOption: this._onChangeOption,
+	                    onShuffleOptions: this._onShuffleOptions,
 	                    onPushHistory: function onPushHistory() {
-	                        return _this2._saveStateToUrl(true);
+	                        return _this3._saveStateToUrl(true);
 	                    }
-	                }, options, { vA: vA, vB: vB }))
+	                }, options, { vA: vA, vB: vB }, uiOptions))
 	            );
 	        }
 	    }]);
@@ -20206,6 +20231,9 @@
 	// http://localhost:8228/?s=eyJpc1BvbGFyIjpmYWxzZSwidkEiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqL1xuLyoqLykge1xucmV0dXJuIChNYXRoLnNpbihyKSArIE1hdGguY29zKHRoZXRhKSkgKiAxXG59IiwidkIiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqL1xuLyoqLykge1xucmV0dXJuIE1hdGguY29zKHIpICogTWF0aC5jb3ModGhldGEpICogMTA7XG59IiwiZG9tYWluIjp7IngiOlstOS40NCw5LjQ0XSwieSI6Wy01LDVdfSwiY29sb3IiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdFxuLyoqL1xuLyoqLykge1xucmV0dXJuIHdpbmRvdy5kMy5sYWIoODAgLSByKjEwLCAzMCwgeCAqIDEwICogTWF0aC5yYW5kb20oKSkudG9TdHJpbmcoKTtcbn0iLCJwYXJ0aWNsZUNvdW50Ijo3MDAwLCJmYWRlQW1vdW50IjowLCJsaW5lV2lkdGgiOjAuMiwic2NyZWVuSWQiOjE0NTU1MzUwMjkwNDUsImZ1bmNTdHJzIjpbInZBIiwidkIiLCJjb2xvciJdfQ==
 	
 	
+	App.defaultProps = {
+	    panelWidth: 250
+	};
 	exports.default = App;
 
 /***/ },
@@ -44824,13 +44852,14 @@
 	    objCopy.funcStrs = [];
 	    _lodash2.default.forEach(objCopy, function (val, key) {
 	        if (!_lodash2.default.isFunction(val)) return;
-	        var str = val.toString().replace(/(\{)\n\t(\s+)/g, '{\n ').replace(/\n\t(\s+)(\})/g, '\n }');
+	        var str = val.toString();
+	        //.replace(/(\{)\n\t(\s+)/g, '{\n ')
+	        //.replace(/\n\t(\s+)(\})/g, '\n }');
 	        objCopy[key] = preserveWhitespace ? str : str.replace(/\s+/g, ' ');
 	        objCopy.funcStrs.push(key); // save functions as strings, and note which so we can undo
 	    });
 	
 	    var objStr = JSON.stringify(objCopy);
-	    //const qStr = qs.stringify(savedState);
 	    // base64 encode it, shorter than query string encoding
 	    return btoa(objStr);
 	}
@@ -44842,7 +44871,7 @@
 	    var obj = JSON.parse(objStr);
 	
 	    _lodash2.default.forEach(obj.funcStrs || [], function (funcStrKey) {
-	        // slightly nicer way to make a function from a string than eval(). only slightly. that regex is badbad
+	        // slightly nicer way to make a function from a string than eval(). only slightly.
 	        try {
 	            var funcStr = obj[funcStrKey];
 	            var argsMatch = funcStr.match(funcBeginRegEx);
@@ -46586,8 +46615,8 @@
 	
 	            if (useSimpleFade) ctx.fillStyle = simpleFadeColor;
 	            ctx.lineWidth = this.props.lineWidth;
-	            ctx.globalCompositeOperation = "source-over";
-	            //ctx.globalCompositeOperation = "screen";
+	            //ctx.globalCompositeOperation = "source-over";
+	            ctx.globalCompositeOperation = "screen";
 	            ctx.lineCap = 'square';
 	
 	            var startTime = new Date().getTime();
@@ -46606,11 +46635,13 @@
 	            this.particleSystem.setOptions({
 	                getColor: newProps.color,
 	                xDomain: this.xDomain,
-	                yDomain: this.yDomain
+	                yDomain: this.yDomain,
+	                particleCount: newProps.particleCount
 	            });
 	
 	            // clear screen on new screenId
 	            if (_lodash2.default.has(newProps, 'screenId') && newProps.screenId !== this.props.screenId) {
+	                this.particleSystem.reset();
 	                this.ctx.clearRect(0, 0, this.props.width, this.props.height);
 	            }
 	
@@ -46933,7 +46964,7 @@
 	            var age = randomAge();
 	
 	            // arrays still faster than objects :(
-	            return particle ? particle.splice(0, 6, x, y, r, theta, age, color) : [x, y, r, theta, age, color];
+	            return particle ? particle.splice(0, 8, x, y, r, theta, age, color, 0, 0) : [x, y, r, theta, age, color, 0, 0];
 	        };
 	
 	        this._getTime = function () {
@@ -46997,7 +47028,7 @@
 	
 	            // return an array of particle translations which are used to draw lines
 	            return particles.map(function (particle) {
-	                var _particle = _slicedToArray(particle, 6);
+	                var _particle = _slicedToArray(particle, 8);
 	
 	                var x = _particle[0];
 	                var y = _particle[1];
@@ -47005,9 +47036,15 @@
 	                var theta = _particle[3];
 	                var age = _particle[4];
 	                var color = _particle[5];
+	                var vxLast = _particle[6];
+	                var vyLast = _particle[7];
 	
-	                var vectorArgs = [x, y, r, theta, time, ticks];
-	                var x1 = undefined,
+	                var vectorArgs = [x, y, r, theta, time, ticks, vxLast, vyLast];
+	                var vx = undefined,
+	                    vy = undefined,
+	                    vr = undefined,
+	                    vTheta = undefined,
+	                    x1 = undefined,
 	                    y1 = undefined,
 	                    r1 = undefined,
 	                    theta1 = undefined;
@@ -47017,25 +47054,32 @@
 	
 	                    var _getVector$apply2 = _slicedToArray(_getVector$apply, 2);
 	
-	                    var vr = _getVector$apply2[0];
-	                    var vTheta = _getVector$apply2[1];
+	                    vr = _getVector$apply2[0];
+	                    vTheta = _getVector$apply2[1];
+	
+	                    var _polarToCartesian3 = polarToCartesian(vr, vTheta);
+	
+	                    var _polarToCartesian4 = _slicedToArray(_polarToCartesian3, 2);
+	
+	                    vx = _polarToCartesian4[0];
+	                    vy = _polarToCartesian4[1];
 	
 	                    r1 = r + vr * dt;
 	                    theta1 = theta + vTheta * dt;
 	
-	                    var _polarToCartesian3 = polarToCartesian(r1, theta1);
+	                    var _polarToCartesian5 = polarToCartesian(r1, theta1);
 	
-	                    var _polarToCartesian4 = _slicedToArray(_polarToCartesian3, 2);
+	                    var _polarToCartesian6 = _slicedToArray(_polarToCartesian5, 2);
 	
-	                    x1 = _polarToCartesian4[0];
-	                    y1 = _polarToCartesian4[1];
+	                    x1 = _polarToCartesian6[0];
+	                    y1 = _polarToCartesian6[1];
 	                } else {
 	                    var _getVector$apply3 = getVector.apply(null, vectorArgs);
 	
 	                    var _getVector$apply4 = _slicedToArray(_getVector$apply3, 2);
 	
-	                    var vx = _getVector$apply4[0];
-	                    var vy = _getVector$apply4[1];
+	                    vx = _getVector$apply4[0];
+	                    vy = _getVector$apply4[1];
 	
 	                    x1 = x + vx * dt;
 	                    y1 = y + vy * dt;
@@ -47053,7 +47097,7 @@
 	                    _this3._createParticle(particle);
 	                } else {
 	                    // update the particle with its new position and age
-	                    particle.splice(0, 5, x1, y1, r1, theta1, age + 1);
+	                    particle.splice(0, 8, x1, y1, r1, theta1, age + 1, color, vx, vy);
 	                }
 	
 	                return [x, y, x1, y1, color];
@@ -47119,7 +47163,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var tipContent = {
-	    save: "Save these settings in your history, so you can access them again with the 'back' button",
+	    stash: "Stash these settings in your browser history, so you can access them again with the 'back' button",
 	    particleCount: "Total number of particles to draw simultaneously",
 	    lineWidth: "Thickness of the particle trail line",
 	    fadeAmount: 'Amount to fade out particle trails every frame.        Zero fade is always fastest, fading affects performance especially at high resolutions.',
@@ -47227,7 +47271,7 @@
 	
 	            return _react2.default.createElement(
 	                'div',
-	                { className: 'control-panel' },
+	                { className: 'control-panel', style: { width: this.props.width } },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'panel head-panel' },
@@ -47260,10 +47304,10 @@
 	                    { className: 'panel' },
 	                    _react2.default.createElement(
 	                        _TippedComponent2.default,
-	                        { tipContent: "" },
+	                        { tipContent: "Randomize parameters for the vector field" },
 	                        _react2.default.createElement(
 	                            'button',
-	                            null,
+	                            { onClick: this.props.onShuffleOptions },
 	                            'Shuffle'
 	                        )
 	                    ),
@@ -47274,11 +47318,11 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _TippedComponent2.default,
-	                        { tipContent: tipContent.save },
+	                        { tipContent: tipContent.stash },
 	                        _react2.default.createElement(
 	                            'button',
 	                            { onClick: this._onPushHistory },
-	                            'Save'
+	                            'Stash'
 	                        )
 	                    ),
 	                    _react2.default.createElement(
@@ -47372,14 +47416,14 @@
 	                _react2.default.createElement(FunctionPanel, {
 	                    label: (isPolar ? "R" : "X") + ' velocity',
 	                    value: this.props.vA,
-	                    funcParams: ['x', 'y', 'r', 'theta', 't', 'fr'],
+	                    funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
 	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vA'),
 	                    checkValid: checkValidVectorFunc
 	                }),
 	                _react2.default.createElement(FunctionPanel, {
 	                    label: (isPolar ? "Theta" : "Y") + ' velocity',
 	                    value: this.props.vB,
-	                    funcParams: ['x', 'y', 'r', 'theta', 't', 'fr'],
+	                    funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
 	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vB'),
 	                    checkValid: checkValidVectorFunc
 	                }),
@@ -47398,7 +47442,9 @@
 	}(_react2.default.Component);
 	
 	ControlPanel.propTypes = _lodash2.default.assign({}, _App.optionPropTypes, {
+	    width: _react2.default.PropTypes.number,
 	    onChangeOption: _react2.default.PropTypes.func,
+	    onShuffleOptions: _react2.default.PropTypes.func,
 	    onPushHistory: _react2.default.PropTypes.func
 	});
 	exports.default = ControlPanel;
@@ -47464,11 +47510,11 @@
 	};
 	
 	function checkValidVectorFunc(func) {
-	    return _lodash2.default.isFinite(func(1, 1, 1, 1, 1, 1));
+	    return _lodash2.default.isFinite(func(1, 1, 1, 1, 1, 1, 1, 1));
 	}
 	function checkValidColorFunc(func) {
 	    // hard to check valid color, just make sure it doesn't barf
-	    func(1, 1, 1, 1, 1, 1);
+	    func(1, 1, 1, 1, 1, 1, 1, 1);
 	    return true;
 	}
 
@@ -48325,6 +48371,143 @@
 	    onValidChange: _lodash2.default.noop
 	};
 	exports.default = NumberInput;
+
+/***/ },
+/* 186 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _lodash = __webpack_require__(167);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function negPosRange(n) {
+	    // returns a range array like [-5, 5], given 5
+	    return [-Math.abs(n), Math.abs(n)];
+	}
+	function makeYRanges(boundaries) {
+	    boundaries = _lodash2.default.isArray(boundaries) ? boundaries : [boundaries];
+	    return boundaries.map(function (boundary) {
+	        return { y: negPosRange(boundary) };
+	    });
+	}
+	
+	var vectorFuncs = [function (x, y, r, theta, t) {
+	    return (Math.cos(r) + Math.cos(theta)) * 10;
+	}, function (x, y, r, theta, t) {
+	    return Math.sin(r) * Math.cos(theta) * 10;
+	}, function (x, y, r, theta, t) {
+	    return (Math.cos(r / theta) + Math.cos(theta)) * 10;
+	}, function (x, y, r, theta, t) {
+	    return (Math.cos(r * theta) + Math.sin(theta)) * 10;
+	}, function (x, y, r, theta, t) {
+	    return (Math.cos(x) + Math.cos(y)) * 10;
+	}, function (x, y, r, theta, t) {
+	    return Math.sin(x) * Math.cos(y) * 10;
+	}, function (x, y, r, theta, t) {
+	    return Math.sin(x) * Math.cos(y / x) * 10;
+	}, function (x, y, r, theta, t) {
+	    return Math.sin(y & theta) * 10;
+	}, function (x, y, r, theta, t) {
+	    return Math.cos(x * y) * 10;
+	}, function (x, y, r, theta, t) {
+	    return x;
+	}, function (x, y, r, theta, t) {
+	    return y;
+	}, function (x, y, r, theta, t) {
+	    return r;
+	}, function (x, y, r, theta, t) {
+	    return theta;
+	}, function (x, y, r, theta, t) {
+	    return r / theta;
+	}];
+	
+	var colorFuncs = [function (x, y, r, theta, t) {
+	    return window.d3.lab(80 - r * 13, y * 20 * Math.random(), x * 20 * Math.random()).toString();
+	}, function (x, y, r, theta, t) {
+	    return window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(Math.sin(y))).toString();
+	}, function (x, y, r, theta, t) {
+	    return window.d3.lab(r * 13, y * 2 * Math.random(), x * 20 * Math.random()).toString();
+	}];
+	
+	exports.default = {
+	    // list of possible initial starting states
+	    // any settings which can be chosen randomly have a "choices" property which is an array of possible choices
+	    presets: [{
+	        isPolar: { choices: [true, false] },
+	        // first velocity function, X (cartesian) or R (polar)
+	        vA: vectorFuncs[0],
+	        // second velocity function, Y (cartesian) or Theta (polar)
+	        vB: vectorFuncs[1],
+	        // shuffle desired Y domains, X will be auto-created from aspect ratio
+	        domain: { choices: makeYRanges([3, 5, 7, 9]) },
+	        color: colorFuncs[0],
+	        particleCount: 1000,
+	        fadeAmount: 0,
+	        lineWidth: 1
+	    }, {
+	        isPolar: true,
+	        // first velocity function, X (cartesian) or R (polar)
+	        vA: function vA(x, y, r, theta, t) {
+	            return y & t;
+	        },
+	        vB: function vB(x, y, r, theta, t) {
+	            return (Math.cos(r * theta) + Math.sin(theta)) * 10;
+	        },
+	        domain: { y: negPosRange(5) },
+	        color: colorFuncs[0],
+	        particleCount: 1000,
+	        fadeAmount: 0,
+	        lineWidth: 1
+	    }, {
+	        isPolar: true,
+	        particleCount: 3000,
+	        fadeAmount: 0,
+	        lineWidth: 0.3,
+	        domain: { y: negPosRange(5) },
+	        // first velocity function, X (cartesian) or R (polar)
+	        vA: function vA(x, y, r, theta, t) {
+	            return (Math.cos(r * theta) + Math.sin(theta)) * 10;;
+	        },
+	        vB: function vB(x, y, r, theta, t) {
+	            return (Math.cos(x) + Math.cos(y)) * 10;
+	        },
+	        color: colorFuncs[0]
+	    }, {
+	        isPolar: false,
+	        particleCount: 3000,
+	        fadeAmount: 0,
+	        lineWidth: 0.1,
+	        domain: { y: negPosRange(7) },
+	        // first velocity function, X (cartesian) or R (polar)
+	        vA: function vA(x, y, r, theta, t) {
+	            return (Math.cos(r) + Math.floor(theta)) * 10;
+	        },
+	        vB: function vB(x, y, r, theta, t) {
+	            return Math.round(y) * Math.cos(theta) + Math.sin(x) * 10;
+	        },
+	        color: colorFuncs[2]
+	    }],
+	    shuffleAll: {
+	        isPolar: true,
+	        vA: { choices: vectorFuncs },
+	        vB: { choices: vectorFuncs },
+	        domain: { choices: makeYRanges([2, 3, 4, 5, 6, 8, 10]) },
+	        color: { choices: colorFuncs },
+	        particleCount: { choices: [100, 300, 500, 1000, 2000, 3000] },
+	        fadeAmount: 0,
+	        lineWidth: { choices: [0.1, 0.3, 0.5, 0.8, 1, 2, 3] }
+	    }
+	};
+
+	// http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0LGZyLHZ4LHZ5XG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovKSB7XG5yZXR1cm4geSAmIHRcbn0iLCJ2QiI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0LGZyLHZ4LHZ5XG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovKSB7XG5yZXR1cm4gKE1hdGguY29zKHIgKiB0aGV0YSkgKyBNYXRoLnNpbih0aGV0YSkpICogMTA7XG59IiwiZG9tYWluIjp7IngiOlstOSw5XSwieSI6Wy01LDVdfSwiY29sb3IiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdCxmclxuLyoqL1xuLyoqLykge1xucmV0dXJuIHdpbmRvdy5kMy5oc2woTWF0aC5hYnMoeCo0KSArIDE5MCwgTWF0aC5hYnMoMS9NYXRoLmNvcyh5KSksIF8uY2xhbXAoTWF0aC5hYnMoTWF0aC5zaW4oTWF0aC5wb3cociwgMikpKSwgMC4xLCAwLjgpKS50b1N0cmluZygpXG59IiwicGFydGljbGVDb3VudCI6MTAwMCwiZmFkZUFtb3VudCI6MCwibGluZVdpZHRoIjoxLCJzY3JlZW5JZCI6MTQ1NTc4MDI4MzA4OSwiZnVuY1N0cnMiOlsidkEiLCJ2QiIsImNvbG9yIl19
 
 /***/ }
 /******/ ]);

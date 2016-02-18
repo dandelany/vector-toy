@@ -87,17 +87,18 @@ export default class ParticleFlowSystem {
 
         // return an array of particle translations which are used to draw lines
         return particles.map((particle) => {
-            const [x, y, r, theta, age, color] = particle;
-            const vectorArgs = [x, y, r, theta, time, ticks];
-            let x1, y1, r1, theta1;
+            const [x, y, r, theta, age, color, vxLast, vyLast] = particle;
+            const vectorArgs = [x, y, r, theta, time, ticks, vxLast, vyLast];
+            let vx, vy, vr, vTheta, x1, y1, r1, theta1;
 
             if(polar) {
-                let [vr, vTheta] = getVector.apply(null, vectorArgs);
+                [vr, vTheta] = getVector.apply(null, vectorArgs);
+                [vx, vy] = polarToCartesian(vr, vTheta);
                 r1 = r + (vr * dt);
                 theta1 = theta + (vTheta * dt);
                 [x1, y1] = polarToCartesian(r1, theta1);
             } else {
-                let [vx, vy] = getVector.apply(null, vectorArgs);
+                [vx, vy] = getVector.apply(null, vectorArgs);
                 x1 = x + (vx * dt);
                 y1 = y + (vy * dt);
                 [r1, theta1] = cartesianToPolar(x1, y1);
@@ -108,7 +109,7 @@ export default class ParticleFlowSystem {
                 this._createParticle(particle);
             } else {
                 // update the particle with its new position and age
-                particle.splice(0, 5, x1, y1, r1, theta1, age + 1);
+                particle.splice(0, 8, x1, y1, r1, theta1, age + 1, color, vx, vy);
             }
 
             return [x, y, x1, y1, color];
@@ -137,8 +138,8 @@ export default class ParticleFlowSystem {
 
         // arrays still faster than objects :(
         return particle ?
-            particle.splice(0, 6, x, y, r, theta, age, color) :
-            [x, y, r, theta, age, color];
+            particle.splice(0, 8, x, y, r, theta, age, color, 0, 0) :
+            [x, y, r, theta, age, color, 0, 0];
     };
 
     _getTime = () => {

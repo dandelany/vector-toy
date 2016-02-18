@@ -9,7 +9,7 @@ import FunctionInput from 'components/FunctionInput';
 import NumberInput from 'components/NumberInput';
 
 const tipContent = {
-    save: "Save these settings in your history, so you can access them again with the 'back' button",
+    stash: "Stash these settings in your browser history, so you can access them again with the 'back' button",
     particleCount: "Total number of particles to draw simultaneously",
     lineWidth: "Thickness of the particle trail line",
     fadeAmount: `Amount to fade out particle trails every frame.\
@@ -33,7 +33,9 @@ const tipContent = {
 
 export default class ControlPanel extends React.Component {
     static propTypes = _.assign({}, optionPropTypes, {
+        width: React.PropTypes.number,
         onChangeOption: React.PropTypes.func,
+        onShuffleOptions: React.PropTypes.func,
         onPushHistory: React.PropTypes.func,
     });
     state = {
@@ -61,9 +63,10 @@ export default class ControlPanel extends React.Component {
         const domain = _.assign({}, this.props.domain, {[key]: keyDomain});
         this.props.onChangeOption('domain', domain, event);
     };
+
     render() {
         const {onChangeOption, isPolar} = this.props;
-        return <div className="control-panel">
+        return <div className="control-panel" style={{width: this.props.width}}>
             <div className="panel head-panel">
                 <div className="panel-left">
                     <h3>Vector Toy</h3>
@@ -75,8 +78,8 @@ export default class ControlPanel extends React.Component {
             </div>
 
             <div className="panel">
-                <TippedComponent {...{tipContent: ""}}>
-                    <button>
+                <TippedComponent {...{tipContent: "Randomize parameters for the vector field"}}>
+                    <button onClick={this.props.onShuffleOptions}>
                         Shuffle
                     </button>
                 </TippedComponent>
@@ -85,9 +88,9 @@ export default class ControlPanel extends React.Component {
                     Clear
                 </button>
 
-                <TippedComponent {...{tipContent: tipContent.save}}>
+                <TippedComponent {...{tipContent: tipContent.stash}}>
                     <button onClick={this._onPushHistory}>
-                        Save
+                        Stash
                     </button>
                 </TippedComponent>
 
@@ -166,7 +169,7 @@ export default class ControlPanel extends React.Component {
             <FunctionPanel {...{
                 label: `${isPolar ? "R" : "X"} velocity`,
                 value: this.props.vA,
-                funcParams: ['x', 'y', 'r', 'theta', 't', 'fr'],
+                funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
                 onValidChange: _.partial(onChangeOption, 'vA'),
                 checkValid: checkValidVectorFunc
             }} />
@@ -174,7 +177,7 @@ export default class ControlPanel extends React.Component {
             <FunctionPanel {...{
                 label: `${isPolar ? "Theta" : "Y"} velocity`,
                 value: this.props.vB,
-                funcParams: ['x', 'y', 'r', 'theta', 't', 'fr'],
+                funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
                 onValidChange: _.partial(onChangeOption, 'vB'),
                 checkValid: checkValidVectorFunc
             }} />
@@ -225,10 +228,10 @@ const NumberRangePanel = (props) => {
 };
 
 function checkValidVectorFunc(func) {
-    return _.isFinite(func(1, 1, 1, 1, 1, 1));
+    return _.isFinite(func(1, 1, 1, 1, 1, 1, 1, 1));
 }
 function checkValidColorFunc(func) {
     // hard to check valid color, just make sure it doesn't barf
-    func(1, 1, 1, 1, 1, 1);
+    func(1, 1, 1, 1, 1, 1, 1, 1);
     return true;
 }

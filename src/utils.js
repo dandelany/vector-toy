@@ -16,15 +16,14 @@ export function urlify(obj, preserveWhitespace = true) {
     objCopy.funcStrs = [];
     _.forEach(objCopy, (val, key) => {
         if(!_.isFunction(val)) return;
-        let str = val.toString()
-            .replace(/(\{)\n\t(\s+)/g, '{\n ')
-            .replace(/\n\t(\s+)(\})/g, '\n }');
+        let str = val.toString();
+            //.replace(/(\{)\n\t(\s+)/g, '{\n ')
+            //.replace(/\n\t(\s+)(\})/g, '\n }');
         objCopy[key] = preserveWhitespace ? str : str.replace(/\s+/g, ' ');
         objCopy.funcStrs.push(key); // save functions as strings, and note which so we can undo
     });
 
     const objStr = JSON.stringify(objCopy);
-    //const qStr = qs.stringify(savedState);
     // base64 encode it, shorter than query string encoding
     return btoa(objStr);
 }
@@ -34,7 +33,7 @@ export function deurlify(str) {
     const obj = JSON.parse(objStr);
 
     _.forEach(obj.funcStrs || [], funcStrKey => {
-        // slightly nicer way to make a function from a string than eval(). only slightly. that regex is badbad
+        // slightly nicer way to make a function from a string than eval(). only slightly.
         try {
             var funcStr = obj[funcStrKey];
             var argsMatch = funcStr.match(funcBeginRegEx);

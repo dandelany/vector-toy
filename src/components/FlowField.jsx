@@ -112,8 +112,8 @@ export default class FlowField extends React.Component {
 
         if(useSimpleFade) ctx.fillStyle = simpleFadeColor;
         ctx.lineWidth = this.props.lineWidth;
-        ctx.globalCompositeOperation = "source-over";
-        //ctx.globalCompositeOperation = "screen";
+        //ctx.globalCompositeOperation = "source-over";
+        ctx.globalCompositeOperation = "screen";
         ctx.lineCap = 'square';
 
         const startTime = new Date().getTime();
@@ -130,11 +130,13 @@ export default class FlowField extends React.Component {
         this.particleSystem.setOptions({
             getColor: newProps.color,
             xDomain: this.xDomain,
-            yDomain: this.yDomain
+            yDomain: this.yDomain,
+            particleCount: newProps.particleCount
         });
 
         // clear screen on new screenId
         if(_.has(newProps, 'screenId') && newProps.screenId !== this.props.screenId) {
+            this.particleSystem.reset();
             this.ctx.clearRect(0, 0, this.props.width, this.props.height);
         }
 
