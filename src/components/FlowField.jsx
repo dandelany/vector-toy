@@ -112,8 +112,8 @@ export default class FlowField extends React.Component {
 
         if(useSimpleFade) ctx.fillStyle = simpleFadeColor;
         ctx.lineWidth = this.props.lineWidth;
-        //ctx.globalCompositeOperation = "source-over";
-        ctx.globalCompositeOperation = "screen";
+        ctx.globalCompositeOperation = "source-over";
+        //ctx.globalCompositeOperation = "screen";
         ctx.lineCap = 'square';
 
         const startTime = new Date().getTime();

@@ -46615,8 +46615,8 @@
 	
 	            if (useSimpleFade) ctx.fillStyle = simpleFadeColor;
 	            ctx.lineWidth = this.props.lineWidth;
-	            //ctx.globalCompositeOperation = "source-over";
-	            ctx.globalCompositeOperation = "screen";
+	            ctx.globalCompositeOperation = "source-over";
+	            //ctx.globalCompositeOperation = "screen";
 	            ctx.lineCap = 'square';
 	
 	            var startTime = new Date().getTime();
