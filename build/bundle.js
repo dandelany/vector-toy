@@ -44825,6 +44825,7 @@
 	exports.deurlify = deurlify;
 	exports.shortenUrl = shortenUrl;
 	exports.getWindowSize = getWindowSize;
+	exports.isTouchDevice = isTouchDevice;
 	
 	var _lodash = __webpack_require__(168);
 	
@@ -44906,6 +44907,10 @@
 	        width: window.innerWidth * dpiMult,
 	        height: window.innerHeight * dpiMult
 	    };
+	}
+	
+	function isTouchDevice() {
+	    return !!("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
 	}
 
 /***/ },
@@ -47983,6 +47988,10 @@
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
+	function isTouchDevice() {
+	    return !!("ontouchstart" in window || window.DocumentTouch && document instanceof DocumentTouch);
+	}
+	
 	var TippedComponent = function (_React$Component) {
 	    _inherits(TippedComponent, _React$Component);
 	
@@ -48009,6 +48018,10 @@
 	    _createClass(TippedComponent, [{
 	        key: 'render',
 	        value: function render() {
+	            // disable for mobile devices, it just gets in the way :(
+	            // todo: figure out a solution for mobile tooltips
+	            if (isTouchDevice()) return this.props.children;
+	
 	            var child = _react2.default.Children.only(this.props.children);
 	            var tooltip = this.state.isActive && this.props.tipContent ? _react2.default.createElement(
 	                _SimpleTooltip2.default,
