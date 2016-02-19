@@ -24,7 +24,7 @@ export default class LandscapeAlert extends React.Component {
         if(this.state.dismissed || window.innerHeight <= window.innerWidth)
             return null;
 
-        return <Portal isOpened={true}>
+        return <Portal isOpened={true} closeOnOutsideClick>
             <div className="landscape-alert" style={alertStyle} onClick={() => this.setState({dismissed: true})}>
                 Turn your phone sideways
                 <h1>{"\uD83C\uDCA0 \u2935"}</h1>
