@@ -2,7 +2,7 @@
   "name": "vector-toy",
   "description": "Playing with vector fields",
   "author": "Dan Delany <dan.delany@gmail.com>",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "src/index.js",
   "scripts": {
     "dev": "webpack-dev-server --config webpack.config.dev.js",

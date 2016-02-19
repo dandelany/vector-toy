@@ -74,11 +74,13 @@ export default class ControlPanel extends React.Component {
         return <div className="control-panel" style={{width: this.props.width, height: window.innerHeight}}>
             <div className="panel head-panel">
                 <div className="panel-left">
-                    <h3>Vector Toy</h3>
-                    <span className="subtitle">v1.0</span>
+                    <h3><a href="http://dandelany.github.io/vector-toy">Vector Toy</a></h3>
+                    <span className="subtitle"><a href="https://github.com/dandelany/vector-toy" target="_blank">v1.0</a></span>
                 </div>
                 <div className="panel-right">
-                    <span className="byline">by dandelany</span>
+                    <span className="byline">
+                        <a href="https://github.com/dandelany/vector-toy" target="_blank">by dandelany</a>
+                    </span>
                 </div>
             </div>
 
