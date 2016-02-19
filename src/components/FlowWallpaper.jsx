@@ -22,6 +22,24 @@ export default class FlowWallpaper extends React.Component {
         screenId: 0
     };
 
+    constructor(props) {
+        super(props);
+        this._throttledScrollHandler =  _.throttle(this._scrollHandler.bind(this), 30);
+    }
+    componentDidMount() {
+        //document.addEventListener('mousewheel', this._throttledScrollHandler);
+        //document.addEventListener('DOMMouseScroll', this._throttledScrollHandler);
+    }
+    componentWillUnmount() {
+        //document.removeEventListener('mousewheel', this._throttledScrollHandler);
+        //document.removeEventListener('DOMMouseScroll', this._throttledScrollHandler);
+    }
+
+    _scrollHandler = (e) => {
+        console.log(e);
+        return e;
+    };
+
     render() {
         const {
             panelWidth, domain, vx, vy, vr, vTheta, color, particleCount, fadeAmount, lineWidth, screenId
