@@ -41,6 +41,15 @@ const colorFuncs = [
     },
     function(x, y, r, th, t) {
         return window.d3.lab(r * 13, y * 2 * Math.random(), x * 20 * Math.random()).toString();
+    },
+    function(x, y, r, th, t) {
+        return window.d3.hsl(Math.abs(x*4) + 190, Math.abs(1/Math.cos(y)), _.clamp(Math.abs(Math.sin(Math.pow(r, 2))), 0.1, 0.8)).toString()
+    },
+    function(x, y, r, th, t) {
+        return window.d3.lab((1/r) * 50, ((1/r) * 1000) % 50, r * 20 * Math.random() - 60).toString();
+    },
+    function(x, y, r, th, t) {
+        return window.d3.lab(80 - r*10, 30, x * 10 * Math.random()).toString();
     }
 ];
 
@@ -98,7 +107,7 @@ export default {
             vB: function(x, y, r, th, t) {
                 return (Math.cos(r * th) + Math.sin(th)) * 10;
             },
-            color: colorFuncs[0],
+            color: colorFuncs[3],
             //birthplace: birthplaceFuncs.uniformXY
         },
         {
@@ -131,6 +140,70 @@ export default {
             },
             color: colorFuncs[2],
             //birthplace: birthplaceFuncs.uniformXY
+        },
+        {
+            isPolar: true,
+            particleCount: 5000,
+            fadeAmount: 0,
+            lineWidth: 0.1,
+            domain: {y: negPosRange(6)},
+            // first velocity function, X (cartesian) or R (polar)
+            vA: function(x, y, r, th, t) {
+                return Math.sin(r) * Math.cos(th) * 10;
+            },
+            vB: function(x, y, r, th, t) {
+                return (Math.cos(x) + Math.cos(y)) * 10;
+            },
+            color: colorFuncs[4],
+            //birthplace: birthplaceFuncs.uniformXY
+        },
+        {
+            // heart
+            isPolar: true,
+            particleCount: 4000,
+            fadeAmount: 0,
+            lineWidth: 0.5,
+            domain: {y: negPosRange(9)},
+            // first velocity function, X (cartesian) or R (polar)
+            vA: function(x, y, r, th, t) {
+                return (y-x)* 5
+            },
+            vB: function(x, y, r, th, t) {
+                return (Math.sin(x)+Math.cos(y*th)) * 5;
+            },
+            color: colorFuncs[5]
+        },
+        {
+            // rainbow faces
+            isPolar: true,
+            particleCount: 2000,
+            fadeAmount: 0,
+            lineWidth: 0.5,
+            domain: {y: negPosRange(5)},
+            // first velocity function, X (cartesian) or R (polar)
+            vA: function(x, y, r, th, t) {
+                return (Math.cos(r / th)) * 10;
+            },
+            vB: function(x, y, r, th, t) {
+                return Math.cos(r) * Math.cos(th) * 10;
+            },
+            color: colorFuncs[0]
+        },
+        {
+            // gear thing
+            isPolar: true,
+            particleCount: 1500,
+            fadeAmount: 0,
+            lineWidth: 0.5,
+            domain: {y: negPosRange(3)},
+            // first velocity function, X (cartesian) or R (polar)
+            vA: function(x, y, r, th, t) {
+                return Math.sin(y & th) * 10;
+            },
+            vB: function(x, y, r, th, t) {
+                return Math.cos(x * y) * 10;
+            },
+            color: colorFuncs[0]
         }
     ],
     stateChoices: {
@@ -146,9 +219,6 @@ export default {
     }
 };
 
-// http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0LGZyLHZ4LHZ5XG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovKSB7XG5yZXR1cm4geSAmIHRcbn0iLCJ2QiI6ImZ1bmN0aW9uIGFub255bW91cyh4LHkscix0aGV0YSx0LGZyLHZ4LHZ5XG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovXG4vKiovKSB7XG5yZXR1cm4gKE1hdGguY29zKHIgKiB0aGV0YSkgKyBNYXRoLnNpbih0aGV0YSkpICogMTA7XG59IiwiZG9tYWluIjp7IngiOlstOSw5XSwieSI6Wy01LDVdfSwiY29sb3IiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdCxmclxuLyoqL1xuLyoqLykge1xucmV0dXJuIHdpbmRvdy5kMy5oc2woTWF0aC5hYnMoeCo0KSArIDE5MCwgTWF0aC5hYnMoMS9NYXRoLmNvcyh5KSksIF8uY2xhbXAoTWF0aC5hYnMoTWF0aC5zaW4oTWF0aC5wb3cociwgMikpKSwgMC4xLCAwLjgpKS50b1N0cmluZygpXG59IiwicGFydGljbGVDb3VudCI6MTAwMCwiZmFkZUFtb3VudCI6MCwibGluZVdpZHRoIjoxLCJzY3JlZW5JZCI6MTQ1NTc4MDI4MzA4OSwiZnVuY1N0cnMiOlsidkEiLCJ2QiIsImNvbG9yIl19
-
-// http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIE1hdGguc2luKHIpICogTWF0aC5jb3ModGhldGEpICogMTA7XG5cdH0iLCJ2QiI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIChNYXRoLmNvcyh4KSArIE1hdGguY29zKHkpKSAqIDEwO1xuXHR9IiwiZG9tYWluIjp7InkiOlstNCw0XSwieCI6Wy02LDZdfSwiY29sb3IiOiJmdW5jdGlvbiBhbm9ueW1vdXMoeCx5LHIsdGhldGEsdCxmclxuLyoqLykge1xucmV0dXJuIHdpbmRvdy5kMy5sYWIoKDEvcikgKiA1MCwgKCgxL3IpICogMTAwMCkgJSA1MCwgciAqIDIwICogTWF0aC5yYW5kb20oKSAtIDYwKS50b1N0cmluZygpO1xufSIsInBhcnRpY2xlQ291bnQiOjUwMDAsImZhZGVBbW91bnQiOjAsImxpbmVXaWR0aCI6MC4xLCJzY3JlZW5JZCI6MTQ1NTg0NzgzMjA5NiwiZnVuY1N0cnMiOlsidkEiLCJ2QiIsImNvbG9yIl19
 
 // http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIChNYXRoLmNvcyhyIC8gdGhldGEpICsgTWF0aC5jb3ModGhldGEpKSAqIDEwO1xuXHR9IiwidkIiOiJmdW5jdGlvbiAoeCwgeSwgciwgdGhldGEsIHQpIHtcblx0ICAgIHJldHVybiAoTWF0aC5jb3MociAqIHRoZXRhKSArIE1hdGguc2luKHRoZXRhKSkgKiAxMDtcblx0fSIsImRvbWFpbiI6eyJ5IjpbLTgsOF0sIngiOlstMTIuMTUsMTIuMTVdfSwiY29sb3IiOiJmdW5jdGlvbiAoeCwgeSwgciwgdGhldGEsIHQpIHtcblx0ICAgIHJldHVybiB3aW5kb3cuZDMubGFiKDgwIC0gciAqIDEzLCB5ICogMjAgKiBNYXRoLnJhbmRvbSgpLCB4ICogMjAgKiBNYXRoLnJhbmRvbSgpKS50b1N0cmluZygpO1xuXHR9IiwicGFydGljbGVDb3VudCI6MTAwMCwiZmFkZUFtb3VudCI6MCwibGluZVdpZHRoIjowLjUsInNjcmVlbklkIjoxNDU1ODQ3OTc2NTM3LCJmdW5jU3RycyI6WyJ2QSIsInZCIiwiY29sb3IiXX0=
 
