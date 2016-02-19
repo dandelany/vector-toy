@@ -68,6 +68,7 @@ export default class FlowField extends React.Component {
         vr: React.PropTypes.func,
         vTheta: React.PropTypes.func,
         color: React.PropTypes.func,
+        birthplace: React.PropTypes.func,
         particleCount: React.PropTypes.number,
         lineWidth: React.PropTypes.number,
 
@@ -105,10 +106,12 @@ export default class FlowField extends React.Component {
     };
 
     componentDidMount() {
-        const {particleCount, color, useSimpleFade, simpleFadeColor} = this.props;
+        const {particleCount, color, birthplace, useSimpleFade, simpleFadeColor} = this.props;
 
         const {ctx, getVector, xDomain, yDomain, isPolar} = this._initFlow(this.props);
-        const particleSystem = new ParticleFlowSystem({xDomain, yDomain, particleCount, getColor: color});
+        const particleSystem = new ParticleFlowSystem(
+            {xDomain, yDomain, particleCount, getColor: color, getBirthplace: birthplace}
+        );
 
         if(useSimpleFade) ctx.fillStyle = simpleFadeColor;
         ctx.lineWidth = this.props.lineWidth;

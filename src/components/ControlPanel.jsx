@@ -9,24 +9,28 @@ import FunctionInput from 'components/FunctionInput';
 import NumberInput from 'components/NumberInput';
 
 const tipContent = {
-    stash: "Stash these settings in your browser history, so you can access them again with the 'back' button",
+    shuffle: "Shuffle random values and functions for all settings",
+    clear: "Clear the screen and reset time variables to zero",
+    stash: "Stash the current settings in your browser history, so you can access them again with the 'back' button",
+    autoStash: "Automatically stash old settings in your browser history every time you change any of them",
+    shorten: "Make a short URL for these settings, so you can share them easily with others",
+    mode: "Whether the vector field should be represented in a polar (R, θ) or cartesian (X, Y) coordinate system",
     particleCount: "Total number of particles to draw simultaneously",
     lineWidth: "Thickness of the particle trail line",
-    fadeAmount: `Amount to fade out particle trails every frame.\
+    fadeAmount: `Amount to fade out particle trails every frame (positive number).\
         Zero fade is always fastest, fading affects performance especially at high resolutions.`,
-
     xRange: "Visible range of X values; increase/decrease to zoom out/in",
     yRange: "Visible range of Y values; increase/decrease to zoom out/in",
 
     vectorFunc: (props) => {
         return <div>
-            Javascript function which controls each particle's {props.label}. Click to edit. Parameters: <br/>
+            Editable Javascript function which controls each particle's {props.label}. Parameters: <br/>
             <ul>
                 <li><strong>x, y</strong>: particle X & Y coordinates</li>
-                <li><strong>r, theta</strong>: particle R & θ (polar) coordinates</li>
-                <li><strong>t</strong>: time since start in seconds</li>
-                <li><strong>fr</strong>: index of the current frame</li>
+                <li><strong>r, th</strong>: particle R & θ (polar) coordinates</li>
+                <li><strong>t, fr</strong>: time since start, in seconds and # of frames</li>
             </ul>
+            Globals: <strong>mouseX</strong>, <strong>mouseY</strong>, <strong>d3</strong>, <strong>_</strong>
         </div>;
     }
 };
@@ -79,15 +83,17 @@ export default class ControlPanel extends React.Component {
             </div>
 
             <div className="panel">
-                <TippedComponent {...{tipContent: "Randomize parameters for the vector field"}}>
-                    <button onClick={this.props.onShuffleOptions}>
+                <TippedComponent {...{tipContent: tipContent.shuffle}}>
+                    <button className="special" onClick={this.props.onShuffleOptions}>
                         Shuffle
                     </button>
                 </TippedComponent>
 
-                <button onClick={this._onClearScreen}>
-                    Clear
-                </button>
+                <TippedComponent {...{tipContent: tipContent.clear}}>
+                    <button onClick={this._onClearScreen}>
+                        Clear
+                    </button>
+                </TippedComponent>
 
                 <TippedComponent {...{tipContent: tipContent.stash}}>
                     <button onClick={this._onPushHistory}>
@@ -95,29 +101,42 @@ export default class ControlPanel extends React.Component {
                     </button>
                 </TippedComponent>
 
-                <TippedComponent {...{tipContent: ""}}>
-                    <button>
-                        Autosave
+                <TippedComponent {...{tipContent: tipContent.autoStash}}>
+                    <button
+                        className={`${this.props.autosave ? 'active' : 'inactive'}`}
+                        onClick={_.partial(onChangeOption, 'autosave', !this.props.autosave)}
+                    >
+                        Auto-stash
                     </button>
                 </TippedComponent>
             </div>
 
             <div className="panel">
-                <button onClick={this._onShortenUrl}>
-                    Shorten URL
-                </button>
+                <TippedComponent {...{tipContent: tipContent.shorten}}>
+                    <button onClick={this._onShortenUrl}>
+                        Shorten URL
+                    </button>
+                </TippedComponent>
+
                 <div className="panel-right">
                     <input type="text" ref="shortUrl" value={this.state.shortUrl} />
                 </div>
             </div>
 
             <div className="panel">
-                <RadioGroup {...{
-                    name: 'isPolar',
-                    value: this.props.isPolar ? 'polar' : 'cartesian',
-                    items: ['polar', 'cartesian'],
-                    onChange: this._onChangePolar
-                }} />
+                <TippedComponent {...{tipContent: tipContent.mode}}>
+                    <div className="panel-left">
+                        Mode
+                    </div>
+                </TippedComponent>
+                <div className="panel-right">
+                    <RadioGroup {...{
+                        name: 'isPolar',
+                        value: this.props.isPolar ? 'polar' : 'cartesian',
+                        items: ['polar', 'cartesian'],
+                        onChange: this._onChangePolar
+                    }} />
+                </div>
             </div>
 
             <NumberPanel {...{
@@ -170,7 +189,7 @@ export default class ControlPanel extends React.Component {
             <FunctionPanel {...{
                 label: `${isPolar ? "R" : "X"} velocity`,
                 value: this.props.vA,
-                funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
+                funcParams: ['x', 'y', 'r', 'th', 't', 'fr', 'vx', 'vy'],
                 onValidChange: _.partial(onChangeOption, 'vA'),
                 checkValid: checkValidVectorFunc,
                 onShuffle: _.partial(onShuffleOption, 'vA')
@@ -179,7 +198,7 @@ export default class ControlPanel extends React.Component {
             <FunctionPanel {...{
                 label: `${isPolar ? "Theta" : "Y"} velocity`,
                 value: this.props.vB,
-                funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
+                funcParams: ['x', 'y', 'r', 'th', 't', 'fr', 'vx', 'vy'],
                 onValidChange: _.partial(onChangeOption, 'vB'),
                 checkValid: checkValidVectorFunc,
                 onShuffle: _.partial(onShuffleOption, 'vB')
@@ -188,11 +207,22 @@ export default class ControlPanel extends React.Component {
             <FunctionPanel {...{
                 label: "Color",
                 value: this.props.color,
-                funcParams: ['x', 'y', 'r', 'theta', 't', 'fr'],
+                funcParams: ['x', 'y', 'r', 'th', 't', 'fr'],
                 onValidChange: _.partial(onChangeOption, 'color'),
                 checkValid: checkValidColorFunc,
                 onShuffle: _.partial(onShuffleOption, 'color')
             }} />
+
+            {/*
+            <FunctionPanel {...{
+                label: "Particle birthplace",
+                value: this.props.birthplace,
+                funcParams: ['xRange', 'yRange'],
+                onValidChange: _.partial(onChangeOption, 'birthplace'),
+                checkValid: checkValidBirthplaceFunc,
+                onShuffle: _.partial(onShuffleOption, 'birthplace')
+            }} />
+            */}
         </div>
     }
 }
@@ -246,4 +276,9 @@ function checkValidColorFunc(func) {
     // hard to check valid color, just make sure it doesn't barf
     func(1, 1, 1, 1, 1, 1, 1, 1);
     return true;
+}
+function checkValidBirthplaceFunc(func) {
+    // hard to check valid color, just make sure it doesn't barf
+    const coord = func([0, 10], [0, 10]);
+    return _.isFinite(coord.x) && _.isFinite(coord.y);
 }

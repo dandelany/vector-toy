@@ -113,7 +113,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #101010;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n}\nbody * {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.tooltip {\n  position: fixed;\n}\n.tooltip .tooltip-content {\n  background: rgba(255, 255, 255, 0.8);\n  padding: 6px;\n  font-size: 9pt;\n  -webkit-border-radius: 4px 0 4px 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px 0 4px 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px 0 4px 4px;\n  background-clip: padding-box;\n}\n.tooltip .tooltip-content ul {\n  margin: 0;\n  padding-left: 15px;\n}\n.tooltip .tooltip-triangle-right {\n  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);\n}\n.landscape-alert {\n  padding: 10px;\n  text-align: center;\n  -webkit-border-radius: 6px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 6px;\n  -moz-background-clip: padding;\n  border-radius: 6px;\n  background-clip: padding-box;\n  font-size: 14pt;\n}\n.landscape-alert h1 {\n  font-size: 38px;\n  line-height: 28px;\n}\n.control-input-text-style {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.valid-input-style {\n  outline: none;\n  color: lightgreen;\n}\n.valid-input-style:focus {\n  border: 1px solid lightgreen;\n}\n.invalid-input-style {\n  outline: none;\n  color: lightcoral;\n}\n.invalid-input-style:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel {\n  position: fixed;\n  height: 100%;\n  overflow-y: scroll;\n  -webkit-overflow-scrolling: touch;\n  right: 0;\n  top: 0;\n  padding: 0;\n  background: #494949;\n  color: #f0f0f0;\n  font-size: 10pt;\n}\n.control-panel button {\n  display: inline-block;\n  background: transparent;\n  line-height: 10px;\n  padding: 3px 6px;\n  font-size: 8pt;\n  color: #f0f0f0;\n  border: 1px solid #f0f0f0;\n  -webkit-border-radius: 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px;\n  background-clip: padding-box;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n  cursor: pointer;\n}\n.control-panel button:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.control-panel button:active {\n  outline: none;\n  background-color: #292929;\n  border-color: #898989;\n}\n.control-panel button:focus {\n  outline: none;\n}\n.control-panel input[type=\"text\"] {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n  line-height: 13pt;\n  text-align: right;\n}\n.control-panel .panel {\n  display: block;\n  position: relative;\n  overflow: auto;\n  padding: 4px 15px;\n  background-color: #333;\n}\n.control-panel .panel:nth-child(odd) {\n  background-color: #404040;\n}\n.control-panel .panel button {\n  margin-left: 6px;\n}\n.control-panel .panel button:first-of-type {\n  margin-left: 0;\n}\n.control-panel .panel-left {\n  float: left;\n}\n.control-panel .panel-right {\n  float: right;\n}\n.control-panel .panel-left,\n.control-panel .panel-right {\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel-left .number-input,\n.control-panel .panel-right .number-input,\n.control-panel .panel-left span,\n.control-panel .panel-right span {\n  display: inline-block;\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel.head-panel {\n  background-color: #18183a;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .panel-left,\n.control-panel .panel.head-panel .panel-right {\n  line-height: 20pt;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .subtitle,\n.control-panel .panel.head-panel .byline {\n  vertical-align: baseline;\n  display: inline-block;\n  font-size: 8pt;\n  font-weight: normal;\n}\n.control-panel .panel.head-panel h3 {\n  display: inline-block;\n  vertical-align: baseline;\n  margin: 0;\n  font-size: 13pt;\n  font-weight: 700;\n  color: #f6f6f6;\n  text-shadow: 0 1px 0 #040404;\n}\n.control-panel .panel.head-panel .subtitle {\n  margin-left: 4px;\n}\n.control-panel .panel.head-panel .byline {\n  color: #a0a0a0;\n}\n.control-panel .panel.number-range-panel .number-input input {\n  width: 4em;\n}\n.control-panel .panel.number-range-panel .range-delimiter {\n  margin: 0 5px;\n  font-size: 8pt;\n}\n.control-panel .number-input input {\n  float: right;\n  width: 6em;\n}\n.control-panel .number-input label {\n  display: block;\n  position: relative;\n  overflow: auto;\n}\n.control-panel .number-input label :first-child {\n  float: left;\n}\n.control-panel .number-input.number-input-valid input {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .number-input.number-input-valid input:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .number-input.number-input-invalid input {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .number-input.number-input-invalid input:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel .function-input .function-signature {\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n}\n.control-panel .function-input textarea {\n  width: 100%;\n  height: 25pt;\n  -webkit-transition: height 0.35s;\n  -moz-transition: height 0.35s;\n  -o-transition: height 0.35s;\n  transition: height 0.35s;\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.control-panel .function-input textarea:focus {\n  height: 80pt;\n  outline: none;\n  -webkit-box-shadow: 0 0 4px #b0b0b0;\n  -moz-box-shadow: 0 0 4px #b0b0b0;\n  box-shadow: 0 0 4px #b0b0b0;\n}\n.control-panel .function-input.function-input-valid textarea {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .function-input.function-input-valid textarea:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .function-input.function-input-invalid textarea {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .function-input.function-input-invalid textarea:focus {\n  border: 1px solid lightcoral;\n}\n", ""]);
+	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #101010;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n}\nbody * {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.tooltip {\n  position: fixed;\n}\n.tooltip .tooltip-content {\n  background: rgba(255, 255, 255, 0.8);\n  padding: 6px;\n  font-size: 9pt;\n  -webkit-border-radius: 4px 0 4px 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px 0 4px 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px 0 4px 4px;\n  background-clip: padding-box;\n}\n.tooltip .tooltip-content ul {\n  margin: 0;\n  padding-left: 15px;\n}\n.tooltip .tooltip-triangle-right {\n  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);\n}\n.landscape-alert {\n  padding: 10px;\n  text-align: center;\n  -webkit-border-radius: 6px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 6px;\n  -moz-background-clip: padding;\n  border-radius: 6px;\n  background-clip: padding-box;\n  font-size: 14pt;\n}\n.landscape-alert h1 {\n  font-size: 38px;\n  line-height: 28px;\n}\n.control-input-text-style {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.valid-input-style {\n  outline: none;\n  color: lightgreen;\n}\n.valid-input-style:focus {\n  border: 1px solid lightgreen;\n}\n.invalid-input-style {\n  outline: none;\n  color: lightcoral;\n}\n.invalid-input-style:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel {\n  position: fixed;\n  height: 100%;\n  overflow-y: scroll;\n  -webkit-overflow-scrolling: touch;\n  right: 0;\n  top: 0;\n  padding: 0;\n  background: #494949;\n  color: #f0f0f0;\n  font-size: 10pt;\n}\n.control-panel button {\n  display: inline-block;\n  background: transparent;\n  line-height: 10px;\n  padding: 3px 6px;\n  font-size: 8pt;\n  color: #f0f0f0;\n  border: 1px solid #f0f0f0;\n  -webkit-border-radius: 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px;\n  background-clip: padding-box;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n  cursor: pointer;\n}\n.control-panel button:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.control-panel button:active {\n  outline: none;\n  background-color: #292929;\n  border-color: #898989;\n}\n.control-panel button:focus {\n  outline: none;\n}\n.control-panel button.special {\n  background-color: #18183a;\n}\n.control-panel button.inactive::before {\n  content: \"\\25CB   \";\n}\n.control-panel button.active::before {\n  content: \"\\25CF   \";\n}\n.control-panel input[type=\"text\"] {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n  line-height: 13pt;\n  text-align: right;\n}\n.control-panel input[type=\"radio\"] {\n  margin-left: 7px;\n}\n.control-panel .panel {\n  display: block;\n  position: relative;\n  overflow: auto;\n  padding: 4px 15px;\n  background-color: #333;\n}\n.control-panel .panel:nth-child(odd) {\n  background-color: #404040;\n}\n.control-panel .panel button {\n  margin-left: 8px;\n}\n.control-panel .panel button:first-of-type {\n  margin-left: 0;\n}\n.control-panel .panel-left {\n  float: left;\n}\n.control-panel .panel-right {\n  float: right;\n}\n.control-panel .panel-left,\n.control-panel .panel-right {\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel-left .number-input,\n.control-panel .panel-right .number-input,\n.control-panel .panel-left span,\n.control-panel .panel-right span {\n  display: inline-block;\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel.head-panel {\n  background-color: #18183a;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .panel-left,\n.control-panel .panel.head-panel .panel-right {\n  line-height: 20pt;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .subtitle,\n.control-panel .panel.head-panel .byline {\n  vertical-align: baseline;\n  display: inline-block;\n  font-size: 8pt;\n  font-weight: normal;\n}\n.control-panel .panel.head-panel h3 {\n  display: inline-block;\n  vertical-align: baseline;\n  margin: 0;\n  font-size: 13pt;\n  font-weight: 700;\n  color: #f6f6f6;\n  text-shadow: 0 1px 0 #040404;\n}\n.control-panel .panel.head-panel .subtitle {\n  margin-left: 4px;\n}\n.control-panel .panel.head-panel .byline {\n  color: #a0a0a0;\n}\n.control-panel .panel.number-range-panel .number-input input {\n  width: 4em;\n}\n.control-panel .panel.number-range-panel .range-delimiter {\n  margin: 0 5px;\n  font-size: 8pt;\n}\n.control-panel .number-input input {\n  float: right;\n  width: 6em;\n}\n.control-panel .number-input label {\n  display: block;\n  position: relative;\n  overflow: auto;\n}\n.control-panel .number-input label :first-child {\n  float: left;\n}\n.control-panel .number-input.number-input-valid input {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .number-input.number-input-valid input:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .number-input.number-input-invalid input {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .number-input.number-input-invalid input:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel .function-input .function-signature {\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n}\n.control-panel .function-input textarea {\n  width: 100%;\n  height: 25pt;\n  -webkit-transition: height 0.35s;\n  -moz-transition: height 0.35s;\n  -o-transition: height 0.35s;\n  transition: height 0.35s;\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.control-panel .function-input textarea:focus {\n  height: 80pt;\n  outline: none;\n  -webkit-box-shadow: 0 0 4px #b0b0b0;\n  -moz-box-shadow: 0 0 4px #b0b0b0;\n  box-shadow: 0 0 4px #b0b0b0;\n}\n.control-panel .function-input.function-input-valid textarea {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .function-input.function-input-valid textarea:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .function-input.function-input-invalid textarea {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .function-input.function-input-invalid textarea:focus {\n  border: 1px solid lightcoral;\n}\n", ""]);
 	
 	// exports
 
@@ -20091,15 +20091,16 @@
 	window.d3 = _d2.default;
 	
 	var optionPropTypes = exports.optionPropTypes = {
+	    particleCount: _react2.default.PropTypes.number,
+	    fadeAmount: _react2.default.PropTypes.number,
+	    lineWidth: _react2.default.PropTypes.number,
 	    domain: _react2.default.PropTypes.shape({ x: _react2.default.PropTypes.array, y: _react2.default.PropTypes.array }),
 	    vx: _react2.default.PropTypes.func,
 	    vy: _react2.default.PropTypes.func,
 	    vr: _react2.default.PropTypes.func,
 	    vTheta: _react2.default.PropTypes.func,
 	    color: _react2.default.PropTypes.func,
-	    particleCount: _react2.default.PropTypes.number,
-	    fadeAmount: _react2.default.PropTypes.number,
-	    lineWidth: _react2.default.PropTypes.number,
+	    birthplace: _react2.default.PropTypes.func,
 	    screenId: _react2.default.PropTypes.any
 	};
 	
@@ -20133,7 +20134,7 @@
 	// UI settings only control interface options,
 	// and are therefore not saved to the URL like the rest of the state
 	var defaultUISettings = {
-	    autosave: true
+	    autosave: false
 	};
 	var uiSettingKeys = _lodash2.default.keys(defaultUISettings);
 	
@@ -20149,7 +20150,9 @@
 	        var _this = _possibleConstructorReturn(this, Object.getPrototypeOf(App).call(this, props));
 	
 	        _this._getRandomState = function () {
-	            var state = getRandomState();
+	            var getRandom = arguments.length <= 0 || arguments[0] === undefined ? getRandomState : arguments[0];
+	
+	            var state = getRandom();
 	            state.domain.x = state.domain.x || _this._xDomainFromYDomain(state.domain.y);
 	            return state;
 	        };
@@ -20168,9 +20171,8 @@
 	            });
 	        };
 	
-	        _this._saveStateToUrl = function () {
-	            var pushState = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
-	
+	        _this._saveStateToUrl = function (pushState) {
+	            if (_lodash2.default.isUndefined(pushState)) pushState = _this.state.autosave;
 	            // urlify this.state, except for the parts which are UI settings
 	            var saveStr = (0, _utils.urlify)(_lodash2.default.omit(_this.state, uiSettingKeys));
 	            // pushState or replaceState the new URL
@@ -20183,10 +20185,10 @@
 	            var newState = _defineProperty({}, key, value);
 	
 	            // if no fade, clear screen on settings change
-	            if (_this.state.fadeAmount === 0) _lodash2.default.assign(newState, { screenId: +new Date() });
+	            if (_this.state.fadeAmount === 0 && !_lodash2.default.has(uiSettingKeys, key)) _lodash2.default.assign(newState, { screenId: +new Date() });
 	
 	            _this.setState(newState, function () {
-	                return _this._saveStateToUrl(false);
+	                return _this._saveStateToUrl();
 	            });
 	        };
 	
@@ -20205,25 +20207,25 @@
 	            _this._onChangeOption('screenId', +new Date());
 	        };
 	
-	        _this.state = _lodash2.default.assign(getStateFromUrl() || _this._getRandomState(), defaultUISettings);
+	        _this.state = _lodash2.default.assign(getStateFromUrl() || _this._getRandomState(getRandomPreset), defaultUISettings);
+	        window.onpopstate = function () {
+	            _this.setState(_lodash2.default.assign({}, getStateFromUrl() || _this._getRandomState(getRandomPreset), { screenId: +new Date() }));
+	        };
 	        return _this;
 	    }
 	
 	    _createClass(App, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            var _this2 = this;
-	
-	            window.onpopstate = function () {
-	                return _this2.setState(getStateFromUrl());
-	            };
+	            if (!getStateFromUrl()) history.pushState({}, 'state', document.location.pathname);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            var _this3 = this;
+	            var _this2 = this;
 	
-	            var options = _lodash2.default.pick(this.state, ['color', 'particleCount', 'domain', 'fadeAmount', 'lineWidth', 'screenId', 'isPolar']);
+	            var options = _lodash2.default.pick(this.state, ['color', 'particleCount', 'domain', /* 'birthplace', */
+	            'fadeAmount', 'lineWidth', 'screenId', 'isPolar']);
 	            var uiOptions = _lodash2.default.pick(this.state, uiSettingKeys);
 	
 	            var _state = this.state;
@@ -20246,7 +20248,7 @@
 	                    onShuffleOption: this._onShuffleOption,
 	                    onShuffleOptions: this._onShuffleOptions,
 	                    onPushHistory: function onPushHistory() {
-	                        return _this3._saveStateToUrl(true);
+	                        return _this2._saveStateToUrl(true);
 	                    }
 	                }, options, { vA: vA, vB: vB }, uiOptions))
 	            );
@@ -46461,16 +46463,17 @@
 	            var _props = this.props;
 	            var minWidth = _props.minWidth;
 	            var panelWidth = _props.panelWidth;
+	            var particleCount = _props.particleCount;
+	            var fadeAmount = _props.fadeAmount;
+	            var lineWidth = _props.lineWidth;
+	            var screenId = _props.screenId;
 	            var domain = _props.domain;
 	            var vx = _props.vx;
 	            var vy = _props.vy;
 	            var vr = _props.vr;
 	            var vTheta = _props.vTheta;
 	            var color = _props.color;
-	            var particleCount = _props.particleCount;
-	            var fadeAmount = _props.fadeAmount;
-	            var lineWidth = _props.lineWidth;
-	            var screenId = _props.screenId;
+	            var birthplace = _props.birthplace;
 	            var height = this.height;
 	            var width = this.width;
 	            var scale = this.scale;
@@ -46500,7 +46503,7 @@
 	                    _react2.default.createElement(_FlowField2.default, {
 	                        height: height, width: width, scale: scale,
 	                        particleCount: particleCount, fadeAmount: fadeAmount, lineWidth: lineWidth, screenId: screenId,
-	                        vx: vx, vy: vy, vr: vr, vTheta: vTheta, color: color
+	                        vx: vx, vy: vy, vr: vr, vTheta: vTheta, color: color, birthplace: birthplace
 	                    })
 	                )
 	            );
@@ -46701,6 +46704,7 @@
 	            var _props = this.props;
 	            var particleCount = _props.particleCount;
 	            var color = _props.color;
+	            var birthplace = _props.birthplace;
 	            var useSimpleFade = _props.useSimpleFade;
 	            var simpleFadeColor = _props.simpleFadeColor;
 	
@@ -46712,7 +46716,7 @@
 	            var yDomain = _initFlow2.yDomain;
 	            var isPolar = _initFlow2.isPolar;
 	
-	            var particleSystem = new _ParticleFlowSystem2.default({ xDomain: xDomain, yDomain: yDomain, particleCount: particleCount, getColor: color });
+	            var particleSystem = new _ParticleFlowSystem2.default({ xDomain: xDomain, yDomain: yDomain, particleCount: particleCount, getColor: color, getBirthplace: birthplace });
 	
 	            if (useSimpleFade) ctx.fillStyle = simpleFadeColor;
 	            ctx.lineWidth = this.props.lineWidth;
@@ -46855,6 +46859,7 @@
 	    vr: _react2.default.PropTypes.func,
 	    vTheta: _react2.default.PropTypes.func,
 	    color: _react2.default.PropTypes.func,
+	    birthplace: _react2.default.PropTypes.func,
 	    particleCount: _react2.default.PropTypes.number,
 	    lineWidth: _react2.default.PropTypes.number,
 	
@@ -47014,8 +47019,8 @@
 	    getColor: randomGray,
 	    maxAge: 100,
 	    dt: 0.005,
-	    startCoords: uniformXY
-	    //startCoords: normalXY
+	    getBirthplace: uniformXY
+	    //getBirthplace: normalXY
 	};
 	
 	var ParticleFlowSystem = function () {
@@ -47039,12 +47044,12 @@
 	            //const x = _.random(xDomain[0], xDomain[1], true);
 	            //const y = _.random(yDomain[0], yDomain[1], true);
 	
-	            var _startCoords = _this.startCoords(xDomain, yDomain);
+	            var _getBirthplace = _this.getBirthplace(xDomain, yDomain);
 	
-	            var x = _startCoords.x;
-	            var y = _startCoords.y;
-	            var r = _startCoords.r;
-	            var theta = _startCoords.theta;
+	            var x = _getBirthplace.x;
+	            var y = _getBirthplace.y;
+	            var r = _getBirthplace.r;
+	            var theta = _getBirthplace.theta;
 	
 	            if (_lodash2.default.every([x, y], _lodash2.default.isFinite)) {
 	                var _cartesianToPolar = cartesianToPolar(x, y);
@@ -47266,11 +47271,15 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
 	var tipContent = {
-	    stash: "Stash these settings in your browser history, so you can access them again with the 'back' button",
+	    shuffle: "Shuffle random values and functions for all settings",
+	    clear: "Clear the screen and reset time variables to zero",
+	    stash: "Stash the current settings in your browser history, so you can access them again with the 'back' button",
+	    autoStash: "Automatically stash old settings in your browser history every time you change any of them",
+	    shorten: "Make a short URL for these settings, so you can share them easily with others",
+	    mode: "Whether the vector field should be represented in a polar (R, θ) or cartesian (X, Y) coordinate system",
 	    particleCount: "Total number of particles to draw simultaneously",
 	    lineWidth: "Thickness of the particle trail line",
-	    fadeAmount: 'Amount to fade out particle trails every frame.        Zero fade is always fastest, fading affects performance especially at high resolutions.',
-	
+	    fadeAmount: 'Amount to fade out particle trails every frame (positive number).        Zero fade is always fastest, fading affects performance especially at high resolutions.',
 	    xRange: "Visible range of X values; increase/decrease to zoom out/in",
 	    yRange: "Visible range of Y values; increase/decrease to zoom out/in",
 	
@@ -47278,9 +47287,9 @@
 	        return _react2.default.createElement(
 	            'div',
 	            null,
-	            'Javascript function which controls each particle\'s ',
+	            'Editable Javascript function which controls each particle\'s ',
 	            props.label,
-	            '. Click to edit. Parameters: ',
+	            '. Parameters: ',
 	            _react2.default.createElement('br', null),
 	            _react2.default.createElement(
 	                'ul',
@@ -47301,7 +47310,7 @@
 	                    _react2.default.createElement(
 	                        'strong',
 	                        null,
-	                        'r, theta'
+	                        'r, th'
 	                    ),
 	                    ': particle R & θ (polar) coordinates'
 	                ),
@@ -47311,20 +47320,34 @@
 	                    _react2.default.createElement(
 	                        'strong',
 	                        null,
-	                        't'
+	                        't, fr'
 	                    ),
-	                    ': time since start in seconds'
-	                ),
-	                _react2.default.createElement(
-	                    'li',
-	                    null,
-	                    _react2.default.createElement(
-	                        'strong',
-	                        null,
-	                        'fr'
-	                    ),
-	                    ': index of the current frame'
+	                    ': time since start, in seconds and # of frames'
 	                )
+	            ),
+	            'Globals: ',
+	            _react2.default.createElement(
+	                'strong',
+	                null,
+	                'mouseX'
+	            ),
+	            ', ',
+	            _react2.default.createElement(
+	                'strong',
+	                null,
+	                'mouseY'
+	            ),
+	            ', ',
+	            _react2.default.createElement(
+	                'strong',
+	                null,
+	                'd3'
+	            ),
+	            ', ',
+	            _react2.default.createElement(
+	                'strong',
+	                null,
+	                '_'
 	            )
 	        );
 	    }
@@ -47408,17 +47431,21 @@
 	                    { className: 'panel' },
 	                    _react2.default.createElement(
 	                        _TippedComponent2.default,
-	                        { tipContent: "Randomize parameters for the vector field" },
+	                        { tipContent: tipContent.shuffle },
 	                        _react2.default.createElement(
 	                            'button',
-	                            { onClick: this.props.onShuffleOptions },
+	                            { className: 'special', onClick: this.props.onShuffleOptions },
 	                            'Shuffle'
 	                        )
 	                    ),
 	                    _react2.default.createElement(
-	                        'button',
-	                        { onClick: this._onClearScreen },
-	                        'Clear'
+	                        _TippedComponent2.default,
+	                        { tipContent: tipContent.clear },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { onClick: this._onClearScreen },
+	                            'Clear'
+	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        _TippedComponent2.default,
@@ -47431,11 +47458,14 @@
 	                    ),
 	                    _react2.default.createElement(
 	                        _TippedComponent2.default,
-	                        { tipContent: "" },
+	                        { tipContent: tipContent.autoStash },
 	                        _react2.default.createElement(
 	                            'button',
-	                            null,
-	                            'Autosave'
+	                            {
+	                                className: '' + (this.props.autosave ? 'active' : 'inactive'),
+	                                onClick: _lodash2.default.partial(onChangeOption, 'autosave', !this.props.autosave)
+	                            },
+	                            'Auto-stash'
 	                        )
 	                    )
 	                ),
@@ -47443,9 +47473,13 @@
 	                    'div',
 	                    { className: 'panel' },
 	                    _react2.default.createElement(
-	                        'button',
-	                        { onClick: this._onShortenUrl },
-	                        'Shorten URL'
+	                        _TippedComponent2.default,
+	                        { tipContent: tipContent.shorten },
+	                        _react2.default.createElement(
+	                            'button',
+	                            { onClick: this._onShortenUrl },
+	                            'Shorten URL'
+	                        )
 	                    ),
 	                    _react2.default.createElement(
 	                        'div',
@@ -47456,12 +47490,25 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'panel' },
-	                    _react2.default.createElement(_reactRadio2.default, {
-	                        name: 'isPolar',
-	                        value: this.props.isPolar ? 'polar' : 'cartesian',
-	                        items: ['polar', 'cartesian'],
-	                        onChange: this._onChangePolar
-	                    })
+	                    _react2.default.createElement(
+	                        _TippedComponent2.default,
+	                        { tipContent: tipContent.mode },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'panel-left' },
+	                            'Mode'
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'panel-right' },
+	                        _react2.default.createElement(_reactRadio2.default, {
+	                            name: 'isPolar',
+	                            value: this.props.isPolar ? 'polar' : 'cartesian',
+	                            items: ['polar', 'cartesian'],
+	                            onChange: this._onChangePolar
+	                        })
+	                    )
 	                ),
 	                _react2.default.createElement(NumberPanel, {
 	                    label: _react2.default.createElement(
@@ -47520,7 +47567,7 @@
 	                _react2.default.createElement(FunctionPanel, {
 	                    label: (isPolar ? "R" : "X") + ' velocity',
 	                    value: this.props.vA,
-	                    funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
+	                    funcParams: ['x', 'y', 'r', 'th', 't', 'fr', 'vx', 'vy'],
 	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vA'),
 	                    checkValid: checkValidVectorFunc,
 	                    onShuffle: _lodash2.default.partial(onShuffleOption, 'vA')
@@ -47528,7 +47575,7 @@
 	                _react2.default.createElement(FunctionPanel, {
 	                    label: (isPolar ? "Theta" : "Y") + ' velocity',
 	                    value: this.props.vB,
-	                    funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
+	                    funcParams: ['x', 'y', 'r', 'th', 't', 'fr', 'vx', 'vy'],
 	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vB'),
 	                    checkValid: checkValidVectorFunc,
 	                    onShuffle: _lodash2.default.partial(onShuffleOption, 'vB')
@@ -47536,7 +47583,7 @@
 	                _react2.default.createElement(FunctionPanel, {
 	                    label: "Color",
 	                    value: this.props.color,
-	                    funcParams: ['x', 'y', 'r', 'theta', 't', 'fr'],
+	                    funcParams: ['x', 'y', 'r', 'th', 't', 'fr'],
 	                    onValidChange: _lodash2.default.partial(onChangeOption, 'color'),
 	                    checkValid: checkValidColorFunc,
 	                    onShuffle: _lodash2.default.partial(onShuffleOption, 'color')
@@ -47634,6 +47681,11 @@
 	    // hard to check valid color, just make sure it doesn't barf
 	    func(1, 1, 1, 1, 1, 1, 1, 1);
 	    return true;
+	}
+	function checkValidBirthplaceFunc(func) {
+	    // hard to check valid color, just make sure it doesn't barf
+	    var coord = func([0, 10], [0, 10]);
+	    return _lodash2.default.isFinite(coord.x) && _lodash2.default.isFinite(coord.y);
 	}
 
 /***/ },
@@ -48379,7 +48431,9 @@
 	                this.props.funcParams.join(', '),
 	                ') =>'
 	            ),
-	            _react2.default.createElement('textarea', _extends({ value: this.state.inputValue, onChange: this.onChange }, otherProps))
+	            _react2.default.createElement('textarea', _extends({
+	                spellCheck: false,
+	                value: this.state.inputValue, onChange: this.onChange }, otherProps))
 	        );
 	    }
 	});
@@ -48620,102 +48674,144 @@
 	    });
 	}
 	
-	var vectorFuncs = [function (x, y, r, theta, t) {
-	    return (Math.cos(r) + Math.cos(theta)) * 10;
-	}, function (x, y, r, theta, t) {
-	    return Math.sin(r) * Math.cos(theta) * 10;
-	}, function (x, y, r, theta, t) {
-	    return (Math.cos(r / theta) + Math.cos(theta)) * 10;
-	}, function (x, y, r, theta, t) {
-	    return (Math.cos(r * theta) + Math.sin(theta)) * 10;
-	}, function (x, y, r, theta, t) {
+	var vectorFuncs = [function (x, y, r, th, t) {
+	    return (Math.cos(r) + Math.cos(th)) * 10;
+	}, function (x, y, r, th, t) {
+	    return Math.sin(r) * Math.cos(th) * 10;
+	}, function (x, y, r, th, t) {
+	    return (Math.cos(r / th) + Math.cos(th)) * 10;
+	}, function (x, y, r, th, t) {
+	    return (Math.cos(r * th) + Math.sin(th)) * 10;
+	}, function (x, y, r, th, t) {
 	    return (Math.cos(x) + Math.cos(y)) * 10;
-	}, function (x, y, r, theta, t) {
+	}, function (x, y, r, th, t) {
 	    return Math.sin(x) * Math.cos(y) * 10;
-	}, function (x, y, r, theta, t) {
+	}, function (x, y, r, th, t) {
 	    return Math.sin(x) * Math.cos(y / x) * 10;
-	}, function (x, y, r, theta, t) {
-	    return Math.sin(y & theta) * 10;
-	}, function (x, y, r, theta, t) {
+	}, function (x, y, r, th, t) {
+	    return Math.sin(y & th) * 10;
+	}, function (x, y, r, th, t) {
 	    return Math.cos(x * y) * 10;
-	}, function (x, y, r, theta, t) {
+	}, function (x, y, r, th, t) {
 	    return x;
-	}, function (x, y, r, theta, t) {
+	}, function (x, y, r, th, t) {
 	    return y;
-	}, function (x, y, r, theta, t) {
+	}, function (x, y, r, th, t) {
 	    return r;
-	}, function (x, y, r, theta, t) {
-	    return theta;
-	}, function (x, y, r, theta, t) {
-	    return r / theta;
+	}, function (x, y, r, th, t) {
+	    return th;
+	}, function (x, y, r, th, t) {
+	    return r / th;
+	}, function (x, y, r, th, t) {
+	    return (Math.cos(mouseX) + Math.cos(y)) * 10;
+	}, function (x, y, r, th, t) {
+	    return Math.sin(x) * Math.cos(mouseY) * 10;
+	}, function (x, y, r, th, t) {
+	    return Math.sin(mouseX) * Math.cos(mouseY / x) * 10;
+	}, function (x, y, r, th, t) {
+	    return mouseX - x;
+	}, function (x, y, r, th, t) {
+	    return mouseY - y;
+	}, function (x, y, r, th, t) {
+	    return mouseX - mouseY;
+	}, function (x, y, r, th, t) {
+	    return r / mouseX;
 	}];
 	
-	var colorFuncs = [function (x, y, r, theta, t) {
+	var colorFuncs = [function (x, y, r, th, t) {
 	    return window.d3.lab(80 - r * 13, y * 20 * Math.random(), x * 20 * Math.random()).toString();
-	}, function (x, y, r, theta, t) {
-	    return window.d3.hsl(x * t, Math.abs(y * 20), Math.abs(Math.sin(y))).toString();
-	}, function (x, y, r, theta, t) {
+	}, function (x, y, r, th, t) {
+	    return window.d3.hsl(x * t * 3, Math.abs(y * 20), Math.abs(Math.sin(y))).toString();
+	}, function (x, y, r, th, t) {
 	    return window.d3.lab(r * 13, y * 2 * Math.random(), x * 20 * Math.random()).toString();
 	}];
 	
+	var birthplaceFuncs = {
+	    uniformXY: function uniformXY(xDomain, yDomain) {
+	        var x = window._.random(xDomain[0], xDomain[1], true);
+	        var y = window._.random(yDomain[0], yDomain[1], true);
+	        return { x: x, y: y };
+	    },
+	    uniformGrid: function uniformGrid(xDomain, yDomain) {
+	        var gridPrecision = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+	
+	        var x = +window._.random(xDomain[0], xDomain[1], true).toFixed(gridPrecision);
+	        var y = +window._.random(yDomain[0], yDomain[1], true).toFixed(gridPrecision);
+	        return { x: x, y: y };
+	    },
+	    normalXY: function normalXY(xDomain, yDomain) {
+	        var means = [xDomain, yDomain].map(_lodash2.default.mean);
+	        var devs = [xDomain, yDomain].map(function (d) {
+	            return Math.abs(d[1] - d[0]) / 4;
+	        });
+	        return {
+	            x: window.d3.random.normal(means[0], devs[0])(),
+	            y: window.d3.random.normal(means[1], devs[1])()
+	        };
+	    }
+	};
+	
 	exports.default = {
+	    default: {},
 	    // list of possible initial starting states
 	    // any settings which can be chosen randomly have a "choices" property which is an array of possible choices
 	    presets: [{
 	        isPolar: { choices: [true, false] },
+	        particleCount: 1000,
+	        fadeAmount: 0,
+	        lineWidth: 1,
+	        domain: { choices: makeYRanges([3, 5, 7, 9]) },
 	        // first velocity function, X (cartesian) or R (polar)
 	        vA: vectorFuncs[0],
 	        // second velocity function, Y (cartesian) or Theta (polar)
 	        vB: vectorFuncs[1],
 	        // shuffle desired Y domains, X will be auto-created from aspect ratio
-	        domain: { choices: makeYRanges([3, 5, 7, 9]) },
-	        color: colorFuncs[0],
+	        color: colorFuncs[0]
+	    }, //birthplace: birthplaceFuncs.uniformXY
+	    {
+	        isPolar: true,
 	        particleCount: 1000,
 	        fadeAmount: 0,
-	        lineWidth: 1
-	    }, {
-	        isPolar: true,
-	        // first velocity function, X (cartesian) or R (polar)
-	        vA: function vA(x, y, r, theta, t) {
+	        lineWidth: 1,
+	        domain: { y: negPosRange(8) },
+	        vA: function vA(x, y, r, th, t) {
 	            return y & t;
 	        },
-	        vB: function vB(x, y, r, theta, t) {
-	            return (Math.cos(r * theta) + Math.sin(theta)) * 10;
+	        vB: function vB(x, y, r, th, t) {
+	            return (Math.cos(r * th) + Math.sin(th)) * 10;
 	        },
-	        domain: { y: negPosRange(5) },
-	        color: colorFuncs[0],
-	        particleCount: 1000,
-	        fadeAmount: 0,
-	        lineWidth: 1
-	    }, {
+	        color: colorFuncs[0]
+	    }, //birthplace: birthplaceFuncs.uniformXY
+	    {
 	        isPolar: true,
 	        particleCount: 3000,
 	        fadeAmount: 0,
 	        lineWidth: 0.3,
 	        domain: { y: negPosRange(5) },
-	        // first velocity function, X (cartesian) or R (polar)
-	        vA: function vA(x, y, r, theta, t) {
-	            return (Math.cos(r * theta) + Math.sin(theta)) * 10;;
+	        vA: function vA(x, y, r, th, t) {
+	            return (Math.cos(r * th) + Math.sin(th)) * 10;;
 	        },
-	        vB: function vB(x, y, r, theta, t) {
+	        vB: function vB(x, y, r, th, t) {
 	            return (Math.cos(x) + Math.cos(y)) * 10;
 	        },
 	        color: colorFuncs[0]
-	    }, {
+	    }, //birthplace: birthplaceFuncs.uniformXY
+	    {
 	        isPolar: false,
 	        particleCount: 3000,
 	        fadeAmount: 0,
 	        lineWidth: 0.1,
 	        domain: { y: negPosRange(7) },
 	        // first velocity function, X (cartesian) or R (polar)
-	        vA: function vA(x, y, r, theta, t) {
-	            return (Math.cos(r) + Math.floor(theta)) * 10;
+	        vA: function vA(x, y, r, th, t) {
+	            return (Math.cos(r) + Math.floor(th)) * 10;
 	        },
-	        vB: function vB(x, y, r, theta, t) {
-	            return Math.round(y) * Math.cos(theta) + Math.sin(x) * 10;
+	        vB: function vB(x, y, r, th, t) {
+	            return Math.round(y) * Math.cos(th) + Math.sin(x) * 10;
 	        },
 	        color: colorFuncs[2]
 	    }],
+	    //birthplace: birthplaceFuncs.uniformXY
 	    stateChoices: {
 	        isPolar: { choices: [true, false] },
 	        vA: { choices: vectorFuncs },

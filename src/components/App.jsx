@@ -13,15 +13,16 @@ import DEFAULTS from 'defaults';
 window.d3 = d3;
 
 export const optionPropTypes = {
+    particleCount: React.PropTypes.number,
+    fadeAmount: React.PropTypes.number,
+    lineWidth: React.PropTypes.number,
     domain: React.PropTypes.shape({x: React.PropTypes.array, y: React.PropTypes.array}),
     vx: React.PropTypes.func,
     vy: React.PropTypes.func,
     vr: React.PropTypes.func,
     vTheta: React.PropTypes.func,
     color: React.PropTypes.func,
-    particleCount: React.PropTypes.number,
-    fadeAmount: React.PropTypes.number,
-    lineWidth: React.PropTypes.number,
+    birthplace: React.PropTypes.func,
     screenId: React.PropTypes.any
 };
 
@@ -54,7 +55,7 @@ function getRandomState() {
 // UI settings only control interface options,
 // and are therefore not saved to the URL like the rest of the state
 const defaultUISettings = {
-    autosave: true
+    autosave: false
 };
 const uiSettingKeys = _.keys(defaultUISettings);
 
@@ -69,17 +70,24 @@ export default class App extends React.Component {
         // try to load state from the URL,
         // otherwise shuffle a random initial state from the default settings
         this.state = _.assign(
-            getStateFromUrl() || this._getRandomState(),
+            getStateFromUrl() || this._getRandomState(getRandomPreset),
             defaultUISettings
         );
+        window.onpopstate = () => {
+            this.setState(_.assign({},
+                getStateFromUrl() || this._getRandomState(getRandomPreset),
+                {screenId: +(new Date())}
+            ));
+        }
     }
 
     componentDidMount() {
-        window.onpopstate = () => this.setState(getStateFromUrl());
+        if(!getStateFromUrl())
+            history.pushState({}, 'state', document.location.pathname);
     }
 
-    _getRandomState = () => {
-        const state = getRandomState();
+    _getRandomState = (getRandom = getRandomState) => {
+        const state = getRandom();
         state.domain.x = state.domain.x || this._xDomainFromYDomain(state.domain.y);
         return state;
     };
@@ -96,7 +104,8 @@ export default class App extends React.Component {
         return yDomain.map((n) => +(n * aspectRatio).toFixed(2));
     };
 
-    _saveStateToUrl = (pushState = false) => {
+    _saveStateToUrl = (pushState) => {
+        if(_.isUndefined(pushState)) pushState = this.state.autosave;
         // urlify this.state, except for the parts which are UI settings
         const saveStr = urlify(_.omit(this.state, uiSettingKeys));
         // pushState or replaceState the new URL
@@ -109,10 +118,10 @@ export default class App extends React.Component {
         const newState = {[key]: value};
 
         // if no fade, clear screen on settings change
-        if(this.state.fadeAmount === 0)
+        if(this.state.fadeAmount === 0 && !_.has(uiSettingKeys, key))
             _.assign(newState, {screenId: +(new Date())});
 
-        this.setState(newState, () => this._saveStateToUrl(false));
+        this.setState(newState, () => this._saveStateToUrl());
     };
 
     _onShuffleOption = (key) => {
@@ -136,11 +145,9 @@ export default class App extends React.Component {
         this._onChangeOption('screenId', +(new Date()));
     };
 
-
-
     render() {
         const options = _.pick(this.state, [
-            'color', 'particleCount', 'domain',
+            'color', 'particleCount', 'domain', /* 'birthplace', */
             'fadeAmount', 'lineWidth', 'screenId', 'isPolar'
         ]);
         const uiOptions = _.pick(this.state, uiSettingKeys);

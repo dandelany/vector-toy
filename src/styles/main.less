@@ -105,12 +105,24 @@ body {
     &:focus {
       outline: none;
     }
+    &.special {
+      background-color: #18183a;
+    }
+    &.inactive::before {
+      content: "○ "
+    }
+    &.active::before {
+      content: "● "
+    }
   }
 
   input[type="text"] {
     .control-input-text-style;
     line-height: 13pt;
     text-align: right;
+  }
+  input[type="radio"] {
+    margin-left: 7px;
   }
 
   .panel {
@@ -124,7 +136,7 @@ body {
       background-color: #404040;
     }
     button {
-      margin-left: 6px;
+      margin-left: 8px;
       &:first-of-type {
         margin-left: 0;
       }

@@ -79,7 +79,8 @@ export default class FlowWallpaper extends React.Component {
     render() {
         const {
             minWidth, panelWidth,
-            domain, vx, vy, vr, vTheta, color, particleCount, fadeAmount, lineWidth, screenId
+            particleCount, fadeAmount, lineWidth, screenId,
+            domain, vx, vy, vr, vTheta, color, birthplace
         } = this.props;
         const {height, width, scale} = this;
 
@@ -106,7 +107,7 @@ export default class FlowWallpaper extends React.Component {
                 <FlowField {...{
                     height, width, scale,
                     particleCount, fadeAmount, lineWidth, screenId,
-                    vx, vy, vr, vTheta, color
+                    vx, vy, vr, vTheta, color, birthplace
                 }} />
             </div>
         </Portal>;

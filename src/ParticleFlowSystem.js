@@ -47,8 +47,8 @@ const defaultOptions = {
     getColor: randomGray,
     maxAge: 100,
     dt: 0.005,
-    startCoords: uniformXY
-    //startCoords: normalXY
+    getBirthplace: uniformXY
+    //getBirthplace: normalXY
 };
 
 export default class ParticleFlowSystem {
@@ -124,7 +124,7 @@ export default class ParticleFlowSystem {
 
         //const x = _.random(xDomain[0], xDomain[1], true);
         //const y = _.random(yDomain[0], yDomain[1], true);
-        let {x, y, r, theta} = this.startCoords(xDomain, yDomain);
+        let {x, y, r, theta} = this.getBirthplace(xDomain, yDomain);
         if(_.every([x, y], _.isFinite)) {
             ([r, theta] = cartesianToPolar(x, y));
         } else {

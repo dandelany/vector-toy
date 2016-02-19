@@ -84,7 +84,10 @@ const FunctionInput = React.createClass({
                 <div className="function-signature">
                     ({this.props.funcParams.join(', ')}) =>
                 </div>
-                <textarea value={this.state.inputValue} onChange={this.onChange} {...otherProps} />
+                <textarea
+                    spellCheck={false}
+                    value={this.state.inputValue} onChange={this.onChange} {...otherProps}
+                />
             </div>
         );
     }
