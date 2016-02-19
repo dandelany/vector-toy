@@ -148,8 +148,9 @@ export default class FlowField extends React.Component {
         else if(newCount < oldCount)
             this.particleSystem.limit(newCount);
     }
-    shouldComponentUpdate() {
-        return false;
+    shouldComponentUpdate(newProps) {
+        // only re-render canvas element if size changes
+        return newProps.width !== this.props.width || newProps.height !== this.props.height;
     }
 
     _initFlow(props) {
@@ -223,16 +224,12 @@ export default class FlowField extends React.Component {
 
     render() {
         const {margin, width, height} = this.props;
-        return <g>
-            <foreignObject>
-                <canvas
-                    ref="canvas"
-                    style={{marginLeft: margin.left, marginTop: margin.top}}
-                    width={width}
-                    height={height}
-                />
-            </foreignObject>
-        </g>;
+        return <canvas
+            ref="canvas"
+            style={{marginLeft: margin.left, marginTop: margin.top}}
+            width={width}
+            height={height}
+        />;
     }
 }
 
@@ -242,6 +239,10 @@ class FlowFieldChart extends React.Component {
         const dimensions = {width: this.props.scaleWidth, height: this.props.scaleHeight};
         const flowProps = _.assign({}, this.props, dimensions);
 
-        return <FlowField {...flowProps} />;
+        return <g>
+            <foreignObject>
+                <FlowField {...flowProps} />;
+            </foreignObject>
+        </g>;
     }
 }

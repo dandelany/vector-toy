@@ -10,44 +10,55 @@ import FlowField from 'components/FlowField';
 
 export default class FlowWallpaper extends React.Component {
     static propTypes = _.assign({}, optionPropTypes, {
-        width: React.PropTypes.number,
-        height: React.PropTypes.number
+        panelWidth: React.PropTypes.number,
+        useDPI: React.PropTypes.bool,
+        onClearScreen: React.PropTypes.func
     });
     static defaultProps = {
+        minWidth: 400,
         panelWidth: 0,
         useDPI: true,
-        width: 800,
-        height: 600,
         domain: {x: [-10, 10], y: [-10, 10]},
-        screenId: 0
+        screenId: 0,
+        onClearScreen: _.noop
     };
 
     constructor(props) {
         super(props);
-        this._throttledScrollHandler =  _.throttle(this._scrollHandler.bind(this), 30);
+        this._throttledScrollHandler =  _.throttle(this._scrollHandler, 30);
+        this._throttledResizeHandler =  _.debounce(this._resizeHandler, 200);
     }
     componentDidMount() {
         //document.addEventListener('mousewheel', this._throttledScrollHandler);
         //document.addEventListener('DOMMouseScroll', this._throttledScrollHandler);
+        window.addEventListener('resize', this._throttledResizeHandler);
     }
     componentWillUnmount() {
         //document.removeEventListener('mousewheel', this._throttledScrollHandler);
         //document.removeEventListener('DOMMouseScroll', this._throttledScrollHandler);
+        window.removeEventListener('resize', this._throttledResizeHandler);
     }
 
     _scrollHandler = (e) => {
         console.log(e);
         return e;
     };
+    _resizeHandler = (e) => {
+        console.log(e);
+        this.props.onClearScreen();
+        return e;
+    };
 
     render() {
         const {
-            panelWidth, domain, vx, vy, vr, vTheta, color, particleCount, fadeAmount, lineWidth, screenId
+            minWidth, panelWidth,
+            domain, vx, vy, vr, vTheta, color, particleCount, fadeAmount, lineWidth, screenId
         } = this.props;
         const windowSize = getWindowSize(true);
         const dpiMult = (this.props.useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
         const height = windowSize.height;
-        const width = windowSize.width - (panelWidth * dpiMult);
+        const width = Math.max(windowSize.width - (panelWidth * dpiMult), minWidth);
+        console.log(windowSize, width);
 
         const wallpaperStyle = {
             position: 'fixed',

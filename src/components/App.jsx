@@ -103,6 +103,10 @@ export default class App extends React.Component {
         this.setState(newState, () => this._saveStateToUrl(false));
     };
 
+    _onClearScreen = () => {
+        this._onChangeOption('screenId', +(new Date()));
+    };
+
     _onShuffleOptions = () => {
         this.setState(
             _.assign(this._getRandomState(), {screenId: +(new Date())}),
@@ -124,6 +128,7 @@ export default class App extends React.Component {
 
         return <div>
             <FlowWallpaper
+                onClearScreen={this._onClearScreen}
                 {...{useDPI: true, panelWidth: this.props.panelWidth}}
                 {...options} {...vectorOptions}
             />

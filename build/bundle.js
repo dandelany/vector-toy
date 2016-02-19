@@ -20171,6 +20171,10 @@
 	            });
 	        };
 	
+	        _this._onClearScreen = function () {
+	            _this._onChangeOption('screenId', +new Date());
+	        };
+	
 	        _this._onShuffleOptions = function () {
 	            _this.setState(_lodash2.default.assign(_this._getRandomState(), { screenId: +new Date() }), _this._saveStateToUrl);
 	        };
@@ -20206,7 +20210,9 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_FlowWallpaper2.default, _extends({ useDPI: true, panelWidth: this.props.panelWidth }, options, vectorOptions)),
+	                _react2.default.createElement(_FlowWallpaper2.default, _extends({
+	                    onClearScreen: this._onClearScreen
+	                }, { useDPI: true, panelWidth: this.props.panelWidth }, options, vectorOptions)),
 	                _react2.default.createElement(_ControlPanel2.default, _extends({
 	                    width: this.props.panelWidth,
 	                    onChangeOption: this._onChangeOption,
@@ -46363,7 +46369,14 @@
 	            return e;
 	        };
 	
-	        _this._throttledScrollHandler = _lodash2.default.throttle(_this._scrollHandler.bind(_this), 30);
+	        _this._resizeHandler = function (e) {
+	            console.log(e);
+	            _this.props.onClearScreen();
+	            return e;
+	        };
+	
+	        _this._throttledScrollHandler = _lodash2.default.throttle(_this._scrollHandler, 30);
+	        _this._throttledResizeHandler = _lodash2.default.debounce(_this._resizeHandler, 200);
 	        return _this;
 	    }
 	
@@ -46372,17 +46385,20 @@
 	        value: function componentDidMount() {
 	            //document.addEventListener('mousewheel', this._throttledScrollHandler);
 	            //document.addEventListener('DOMMouseScroll', this._throttledScrollHandler);
+	            window.addEventListener('resize', this._throttledResizeHandler);
 	        }
 	    }, {
 	        key: 'componentWillUnmount',
 	        value: function componentWillUnmount() {
 	            //document.removeEventListener('mousewheel', this._throttledScrollHandler);
 	            //document.removeEventListener('DOMMouseScroll', this._throttledScrollHandler);
+	            window.removeEventListener('resize', this._throttledResizeHandler);
 	        }
 	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var _props = this.props;
+	            var minWidth = _props.minWidth;
 	            var panelWidth = _props.panelWidth;
 	            var domain = _props.domain;
 	            var vx = _props.vx;
@@ -46398,7 +46414,8 @@
 	            var windowSize = (0, _utils.getWindowSize)(true);
 	            var dpiMult = this.props.useDPI && window.devicePixelRatio >= 2 ? 2 : 1;
 	            var height = windowSize.height;
-	            var width = windowSize.width - panelWidth * dpiMult;
+	            var width = Math.max(windowSize.width - panelWidth * dpiMult, minWidth);
+	            console.log(windowSize, width);
 	
 	            var wallpaperStyle = {
 	                position: 'fixed',
@@ -46437,16 +46454,17 @@
 	}(_react2.default.Component);
 	
 	FlowWallpaper.propTypes = _lodash2.default.assign({}, _App.optionPropTypes, {
-	    width: _react2.default.PropTypes.number,
-	    height: _react2.default.PropTypes.number
+	    panelWidth: _react2.default.PropTypes.number,
+	    useDPI: _react2.default.PropTypes.bool,
+	    onClearScreen: _react2.default.PropTypes.func
 	});
 	FlowWallpaper.defaultProps = {
+	    minWidth: 400,
 	    panelWidth: 0,
 	    useDPI: true,
-	    width: 800,
-	    height: 600,
 	    domain: { x: [-10, 10], y: [-10, 10] },
-	    screenId: 0
+	    screenId: 0,
+	    onClearScreen: _lodash2.default.noop
 	};
 	exports.default = FlowWallpaper;
 
@@ -46678,8 +46696,9 @@
 	        }
 	    }, {
 	        key: 'shouldComponentUpdate',
-	        value: function shouldComponentUpdate() {
-	            return false;
+	        value: function shouldComponentUpdate(newProps) {
+	            // only re-render canvas element if size changes
+	            return newProps.width !== this.props.width || newProps.height !== this.props.height;
 	        }
 	    }, {
 	        key: '_initFlow',
@@ -46755,20 +46774,12 @@
 	            var width = _props2.width;
 	            var height = _props2.height;
 	
-	            return _react2.default.createElement(
-	                'g',
-	                null,
-	                _react2.default.createElement(
-	                    'foreignObject',
-	                    null,
-	                    _react2.default.createElement('canvas', {
-	                        ref: 'canvas',
-	                        style: { marginLeft: margin.left, marginTop: margin.top },
-	                        width: width,
-	                        height: height
-	                    })
-	                )
-	            );
+	            return _react2.default.createElement('canvas', {
+	                ref: 'canvas',
+	                style: { marginLeft: margin.left, marginTop: margin.top },
+	                width: width,
+	                height: height
+	            });
 	        }
 	    }]);
 	
@@ -46841,7 +46852,16 @@
 	            var dimensions = { width: this.props.scaleWidth, height: this.props.scaleHeight };
 	            var flowProps = _lodash2.default.assign({}, this.props, dimensions);
 	
-	            return _react2.default.createElement(FlowField, flowProps);
+	            return _react2.default.createElement(
+	                'g',
+	                null,
+	                _react2.default.createElement(
+	                    'foreignObject',
+	                    null,
+	                    _react2.default.createElement(FlowField, flowProps),
+	                    ';'
+	                )
+	            );
 	        }
 	    }]);
 	
