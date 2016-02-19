@@ -44,9 +44,7 @@ export default class FlowWallpaper extends React.Component {
         return e;
     };
     _resizeHandler = (e) => {
-        console.log(e);
         this.props.onClearScreen();
-        return e;
     };
 
     render() {
@@ -58,7 +56,6 @@ export default class FlowWallpaper extends React.Component {
         const dpiMult = (this.props.useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
         const height = windowSize.height;
         const width = Math.max(windowSize.width - (panelWidth * dpiMult), minWidth);
-        console.log(windowSize, width);
 
         const wallpaperStyle = {
             position: 'fixed',
