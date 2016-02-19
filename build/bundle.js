@@ -48719,15 +48719,9 @@
 	}, function (x, y, r, th, t) {
 	    return Math.sin(x) * Math.cos(mouseY) * 10;
 	}, function (x, y, r, th, t) {
-	    return Math.sin(mouseX) * Math.cos(mouseY / x) * 10;
-	}, function (x, y, r, th, t) {
 	    return mouseX - x;
 	}, function (x, y, r, th, t) {
 	    return mouseY - y;
-	}, function (x, y, r, th, t) {
-	    return mouseX - mouseY;
-	}, function (x, y, r, th, t) {
-	    return r / mouseX;
 	}];
 	
 	var colorFuncs = [function (x, y, r, th, t) {
