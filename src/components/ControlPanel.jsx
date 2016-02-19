@@ -66,7 +66,7 @@ export default class ControlPanel extends React.Component {
 
     render() {
         const {onChangeOption, isPolar} = this.props;
-        return <div className="control-panel" style={{width: this.props.width}}>
+        return <div className="control-panel" style={{width: this.props.width, height: window.innerHeight}}>
             <div className="panel head-panel">
                 <div className="panel-left">
                     <h3>Vector Toy</h3>
