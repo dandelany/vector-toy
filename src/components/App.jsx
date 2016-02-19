@@ -7,6 +7,7 @@ import Portal from 'react-portal';
 import {urlify, deurlify, shortenUrl} from 'utils';
 import FlowWallpaper from 'components/FlowWallpaper';
 import ControlPanel from 'components/ControlPanel';
+import LandscapeAlert from 'components/LandscapeAlert';
 import DEFAULTS from 'defaults';
 
 window.d3 = d3;
@@ -127,6 +128,7 @@ export default class App extends React.Component {
             {vx: vA, vy: vB};
 
         return <div>
+            <LandscapeAlert />
             <FlowWallpaper
                 onClearScreen={this._onClearScreen}
                 {...{useDPI: true, panelWidth: this.props.panelWidth}}

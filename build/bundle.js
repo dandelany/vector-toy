@@ -108,7 +108,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #101010;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n}\nbody * {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.tooltip {\n  position: fixed;\n}\n.tooltip .tooltip-content {\n  background: rgba(255, 255, 255, 0.8);\n  padding: 6px;\n  font-size: 9pt;\n  -webkit-border-radius: 4px 0 4px 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px 0 4px 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px 0 4px 4px;\n  background-clip: padding-box;\n}\n.tooltip .tooltip-content ul {\n  margin: 0;\n  padding-left: 15px;\n}\n.tooltip .tooltip-triangle-right {\n  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);\n}\n.control-input-text-style {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.valid-input-style {\n  outline: none;\n  color: lightgreen;\n}\n.valid-input-style:focus {\n  border: 1px solid lightgreen;\n}\n.invalid-input-style {\n  outline: none;\n  color: lightcoral;\n}\n.invalid-input-style:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel {\n  position: fixed;\n  height: 100%;\n  overflow-y: scroll;\n  -webkit-overflow-scrolling: touch;\n  right: 0;\n  top: 0;\n  padding: 0;\n  background: #494949;\n  color: #f0f0f0;\n  font-size: 10pt;\n}\n.control-panel button {\n  display: inline-block;\n  background: transparent;\n  line-height: 10px;\n  font-size: 8pt;\n  color: #f0f0f0;\n  border: 1px solid #f0f0f0;\n  -webkit-border-radius: 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px;\n  background-clip: padding-box;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n  cursor: pointer;\n}\n.control-panel button:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.control-panel button:active {\n  outline: none;\n  background-color: #292929;\n  border-color: #898989;\n}\n.control-panel button:focus {\n  outline: none;\n}\n.control-panel input[type=\"text\"] {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n  line-height: 13pt;\n  text-align: right;\n}\n.control-panel .panel {\n  display: block;\n  position: relative;\n  overflow: auto;\n  padding: 4px 15px;\n  background-color: #333;\n}\n.control-panel .panel:nth-child(odd) {\n  background-color: #404040;\n}\n.control-panel .panel button {\n  margin-left: 6px;\n}\n.control-panel .panel button:first-of-type {\n  margin-left: 0;\n}\n.control-panel .panel-left {\n  float: left;\n}\n.control-panel .panel-right {\n  float: right;\n}\n.control-panel .panel-left,\n.control-panel .panel-right {\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel-left .number-input,\n.control-panel .panel-right .number-input,\n.control-panel .panel-left span,\n.control-panel .panel-right span {\n  display: inline-block;\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel.head-panel {\n  background-color: #18183a;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .panel-left,\n.control-panel .panel.head-panel .panel-right {\n  line-height: 20pt;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .subtitle,\n.control-panel .panel.head-panel .byline {\n  vertical-align: baseline;\n  display: inline-block;\n  font-size: 8pt;\n  font-weight: normal;\n}\n.control-panel .panel.head-panel h3 {\n  display: inline-block;\n  vertical-align: baseline;\n  margin: 0;\n  font-size: 13pt;\n  font-weight: 700;\n  color: #f6f6f6;\n  text-shadow: 0 1px 0 #040404;\n}\n.control-panel .panel.head-panel .subtitle {\n  margin-left: 4px;\n}\n.control-panel .panel.head-panel .byline {\n  color: #a0a0a0;\n}\n.control-panel .panel.number-range-panel .number-input input {\n  width: 4em;\n}\n.control-panel .panel.number-range-panel .range-delimiter {\n  margin: 0 5px;\n  font-size: 8pt;\n}\n.control-panel .number-input input {\n  float: right;\n  width: 6em;\n}\n.control-panel .number-input label {\n  display: block;\n  position: relative;\n  overflow: auto;\n}\n.control-panel .number-input label :first-child {\n  float: left;\n}\n.control-panel .number-input.number-input-valid input {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .number-input.number-input-valid input:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .number-input.number-input-invalid input {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .number-input.number-input-invalid input:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel .function-input .function-signature {\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n}\n.control-panel .function-input textarea {\n  width: 100%;\n  height: 25pt;\n  -webkit-transition: height 0.35s;\n  -moz-transition: height 0.35s;\n  -o-transition: height 0.35s;\n  transition: height 0.35s;\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.control-panel .function-input textarea:focus {\n  height: 80pt;\n  outline: none;\n  -webkit-box-shadow: 0 0 4px #b0b0b0;\n  -moz-box-shadow: 0 0 4px #b0b0b0;\n  box-shadow: 0 0 4px #b0b0b0;\n}\n.control-panel .function-input.function-input-valid textarea {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .function-input.function-input-valid textarea:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .function-input.function-input-invalid textarea {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .function-input.function-input-invalid textarea:focus {\n  border: 1px solid lightcoral;\n}\n", ""]);
+	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #101010;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n}\nbody * {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.tooltip {\n  position: fixed;\n}\n.tooltip .tooltip-content {\n  background: rgba(255, 255, 255, 0.8);\n  padding: 6px;\n  font-size: 9pt;\n  -webkit-border-radius: 4px 0 4px 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px 0 4px 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px 0 4px 4px;\n  background-clip: padding-box;\n}\n.tooltip .tooltip-content ul {\n  margin: 0;\n  padding-left: 15px;\n}\n.tooltip .tooltip-triangle-right {\n  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);\n}\n.landscape-alert {\n  padding: 10px;\n  text-align: center;\n  -webkit-border-radius: 6px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 6px;\n  -moz-background-clip: padding;\n  border-radius: 6px;\n  background-clip: padding-box;\n  font-size: 14pt;\n}\n.landscape-alert h1 {\n  font-size: 38px;\n  line-height: 28px;\n}\n.control-input-text-style {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.valid-input-style {\n  outline: none;\n  color: lightgreen;\n}\n.valid-input-style:focus {\n  border: 1px solid lightgreen;\n}\n.invalid-input-style {\n  outline: none;\n  color: lightcoral;\n}\n.invalid-input-style:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel {\n  position: fixed;\n  height: 100%;\n  overflow-y: scroll;\n  -webkit-overflow-scrolling: touch;\n  right: 0;\n  top: 0;\n  padding: 0;\n  background: #494949;\n  color: #f0f0f0;\n  font-size: 10pt;\n}\n.control-panel button {\n  display: inline-block;\n  background: transparent;\n  line-height: 10px;\n  font-size: 8pt;\n  color: #f0f0f0;\n  border: 1px solid #f0f0f0;\n  -webkit-border-radius: 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px;\n  background-clip: padding-box;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n  cursor: pointer;\n}\n.control-panel button:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.control-panel button:active {\n  outline: none;\n  background-color: #292929;\n  border-color: #898989;\n}\n.control-panel button:focus {\n  outline: none;\n}\n.control-panel input[type=\"text\"] {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n  line-height: 13pt;\n  text-align: right;\n}\n.control-panel .panel {\n  display: block;\n  position: relative;\n  overflow: auto;\n  padding: 4px 15px;\n  background-color: #333;\n}\n.control-panel .panel:nth-child(odd) {\n  background-color: #404040;\n}\n.control-panel .panel button {\n  margin-left: 6px;\n}\n.control-panel .panel button:first-of-type {\n  margin-left: 0;\n}\n.control-panel .panel-left {\n  float: left;\n}\n.control-panel .panel-right {\n  float: right;\n}\n.control-panel .panel-left,\n.control-panel .panel-right {\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel-left .number-input,\n.control-panel .panel-right .number-input,\n.control-panel .panel-left span,\n.control-panel .panel-right span {\n  display: inline-block;\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel.head-panel {\n  background-color: #18183a;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .panel-left,\n.control-panel .panel.head-panel .panel-right {\n  line-height: 20pt;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .subtitle,\n.control-panel .panel.head-panel .byline {\n  vertical-align: baseline;\n  display: inline-block;\n  font-size: 8pt;\n  font-weight: normal;\n}\n.control-panel .panel.head-panel h3 {\n  display: inline-block;\n  vertical-align: baseline;\n  margin: 0;\n  font-size: 13pt;\n  font-weight: 700;\n  color: #f6f6f6;\n  text-shadow: 0 1px 0 #040404;\n}\n.control-panel .panel.head-panel .subtitle {\n  margin-left: 4px;\n}\n.control-panel .panel.head-panel .byline {\n  color: #a0a0a0;\n}\n.control-panel .panel.number-range-panel .number-input input {\n  width: 4em;\n}\n.control-panel .panel.number-range-panel .range-delimiter {\n  margin: 0 5px;\n  font-size: 8pt;\n}\n.control-panel .number-input input {\n  float: right;\n  width: 6em;\n}\n.control-panel .number-input label {\n  display: block;\n  position: relative;\n  overflow: auto;\n}\n.control-panel .number-input label :first-child {\n  float: left;\n}\n.control-panel .number-input.number-input-valid input {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .number-input.number-input-valid input:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .number-input.number-input-invalid input {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .number-input.number-input-invalid input:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel .function-input .function-signature {\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n}\n.control-panel .function-input textarea {\n  width: 100%;\n  height: 25pt;\n  -webkit-transition: height 0.35s;\n  -moz-transition: height 0.35s;\n  -o-transition: height 0.35s;\n  transition: height 0.35s;\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.control-panel .function-input textarea:focus {\n  height: 80pt;\n  outline: none;\n  -webkit-box-shadow: 0 0 4px #b0b0b0;\n  -moz-box-shadow: 0 0 4px #b0b0b0;\n  box-shadow: 0 0 4px #b0b0b0;\n}\n.control-panel .function-input.function-input-valid textarea {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .function-input.function-input-valid textarea:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .function-input.function-input-invalid textarea {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .function-input.function-input-invalid textarea:focus {\n  border: 1px solid lightcoral;\n}\n", ""]);
 	
 	// exports
 
@@ -20065,7 +20065,11 @@
 	
 	var _ControlPanel2 = _interopRequireDefault(_ControlPanel);
 	
-	var _defaults = __webpack_require__(187);
+	var _LandscapeAlert = __webpack_require__(187);
+	
+	var _LandscapeAlert2 = _interopRequireDefault(_LandscapeAlert);
+	
+	var _defaults = __webpack_require__(188);
 	
 	var _defaults2 = _interopRequireDefault(_defaults);
 	
@@ -20210,6 +20214,7 @@
 	            return _react2.default.createElement(
 	                'div',
 	                null,
+	                _react2.default.createElement(_LandscapeAlert2.default, null),
 	                _react2.default.createElement(_FlowWallpaper2.default, _extends({
 	                    onClearScreen: this._onClearScreen
 	                }, { useDPI: true, panelWidth: this.props.panelWidth }, options, vectorOptions)),
@@ -48425,6 +48430,101 @@
 
 /***/ },
 /* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(8);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _lodash = __webpack_require__(168);
+	
+	var _lodash2 = _interopRequireDefault(_lodash);
+	
+	var _reactPortal = __webpack_require__(170);
+	
+	var _reactPortal2 = _interopRequireDefault(_reactPortal);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var alertStyle = {
+	    position: 'absolute',
+	    top: '50%',
+	    left: '50%',
+	    transform: 'translate(-50%, -50%)',
+	    WebkitTransform: 'translate(-50%, -50%)',
+	    background: '#e9e9e9',
+	    width: 200,
+	    height: 200
+	};
+	
+	var LandscapeAlert = function (_React$Component) {
+	    _inherits(LandscapeAlert, _React$Component);
+	
+	    function LandscapeAlert() {
+	        var _Object$getPrototypeO;
+	
+	        var _temp, _this, _ret;
+	
+	        _classCallCheck(this, LandscapeAlert);
+	
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+	
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_Object$getPrototypeO = Object.getPrototypeOf(LandscapeAlert)).call.apply(_Object$getPrototypeO, [this].concat(args))), _this), _this.state = {
+	            dismissed: false
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+	
+	    _createClass(LandscapeAlert, [{
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+	
+	            // only show if height is greater than width
+	            if (this.state.dismissed || window.innerHeight <= window.innerWidth) return null;
+	
+	            return _react2.default.createElement(
+	                _reactPortal2.default,
+	                { isOpened: true },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'landscape-alert', style: alertStyle, onClick: function onClick() {
+	                            return _this2.setState({ dismissed: true });
+	                        } },
+	                    'Turn your phone sideways',
+	                    _react2.default.createElement(
+	                        'h1',
+	                        null,
+	                        '🂠 ⤵'
+	                    ),
+	                    'It\'s better I promise'
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return LandscapeAlert;
+	}(_react2.default.Component);
+	
+	exports.default = LandscapeAlert;
+
+/***/ },
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
