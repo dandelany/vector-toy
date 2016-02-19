@@ -36,6 +36,7 @@ export default class ControlPanel extends React.Component {
         width: React.PropTypes.number,
         onChangeOption: React.PropTypes.func,
         onShuffleOptions: React.PropTypes.func,
+        onShuffleOption: React.PropTypes.func,
         onPushHistory: React.PropTypes.func,
     });
     state = {
@@ -65,7 +66,7 @@ export default class ControlPanel extends React.Component {
     };
 
     render() {
-        const {onChangeOption, isPolar} = this.props;
+        const {onChangeOption, onShuffleOption, isPolar} = this.props;
         return <div className="control-panel" style={{width: this.props.width, height: window.innerHeight}}>
             <div className="panel head-panel">
                 <div className="panel-left">
@@ -171,7 +172,8 @@ export default class ControlPanel extends React.Component {
                 value: this.props.vA,
                 funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
                 onValidChange: _.partial(onChangeOption, 'vA'),
-                checkValid: checkValidVectorFunc
+                checkValid: checkValidVectorFunc,
+                onShuffle: _.partial(onShuffleOption, 'vA')
             }} />
 
             <FunctionPanel {...{
@@ -179,7 +181,8 @@ export default class ControlPanel extends React.Component {
                 value: this.props.vB,
                 funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
                 onValidChange: _.partial(onChangeOption, 'vB'),
-                checkValid: checkValidVectorFunc
+                checkValid: checkValidVectorFunc,
+                onShuffle: _.partial(onShuffleOption, 'vB')
             }} />
 
             <FunctionPanel {...{
@@ -187,7 +190,8 @@ export default class ControlPanel extends React.Component {
                 value: this.props.color,
                 funcParams: ['x', 'y', 'r', 'theta', 't', 'fr'],
                 onValidChange: _.partial(onChangeOption, 'color'),
-                checkValid: checkValidColorFunc
+                checkValid: checkValidColorFunc,
+                onShuffle: _.partial(onShuffleOption, 'color')
             }} />
         </div>
     }
@@ -196,7 +200,15 @@ export default class ControlPanel extends React.Component {
 const FunctionPanel = (props) => {
     return <TippedComponent {...{tipContent: tipContent.vectorFunc(props)}}>
         <div className="panel function-panel">
-            <FunctionInput {...props} onMouseOver={(e) => (e.stopPropagation())} />
+            <div className="panel-label" style={{lineHeight: '32px'}}>
+                {props.label}
+                {props.onShuffle ?
+                    <button onClick={props.onShuffle} style={{marginLeft: 6}}>Shuffle</button>
+                    : null
+                }
+            </div>
+
+            <FunctionInput {..._.omit(props, 'label')} onMouseOver={(e) => (e.stopPropagation())} />
         </div>
     </TippedComponent>
 };

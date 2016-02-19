@@ -101,14 +101,14 @@ export default {
             color: colorFuncs[2]
         }
     ],
-    shuffleAll: {
-        isPolar: true,
+    stateChoices: {
+        isPolar: {choices: [true, false]},
         vA: {choices: vectorFuncs},
         vB: {choices: vectorFuncs},
-        domain: {choices: makeYRanges([2, 3, 4, 5, 6, 8,10])},
+        domain: {choices: makeYRanges([2, 3, 4, 5, 6, 8, 10])},
         color: {choices: colorFuncs},
-        particleCount: {choices: [100, 300, 500, 1000, 2000, 3000]},
-        fadeAmount: 0,
+        particleCount: {choices: [300, 500, 1000, 1500, 2000, 3000]},
+        fadeAmount: {choices: [0, 0, 0, 2, 8]},
         lineWidth: {choices: [0.1, 0.3, 0.5, 0.8, 1, 2, 3]}
     }
 };
@@ -120,3 +120,7 @@ export default {
 // http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIChNYXRoLmNvcyhyIC8gdGhldGEpICsgTWF0aC5jb3ModGhldGEpKSAqIDEwO1xuXHR9IiwidkIiOiJmdW5jdGlvbiAoeCwgeSwgciwgdGhldGEsIHQpIHtcblx0ICAgIHJldHVybiAoTWF0aC5jb3MociAqIHRoZXRhKSArIE1hdGguc2luKHRoZXRhKSkgKiAxMDtcblx0fSIsImRvbWFpbiI6eyJ5IjpbLTgsOF0sIngiOlstMTIuMTUsMTIuMTVdfSwiY29sb3IiOiJmdW5jdGlvbiAoeCwgeSwgciwgdGhldGEsIHQpIHtcblx0ICAgIHJldHVybiB3aW5kb3cuZDMubGFiKDgwIC0gciAqIDEzLCB5ICogMjAgKiBNYXRoLnJhbmRvbSgpLCB4ICogMjAgKiBNYXRoLnJhbmRvbSgpKS50b1N0cmluZygpO1xuXHR9IiwicGFydGljbGVDb3VudCI6MTAwMCwiZmFkZUFtb3VudCI6MCwibGluZVdpZHRoIjowLjUsInNjcmVlbklkIjoxNDU1ODQ3OTc2NTM3LCJmdW5jU3RycyI6WyJ2QSIsInZCIiwiY29sb3IiXX0=
 
 // http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIE1hdGguY29zKHggKiB5KSAqIDEwO1xuXHR9IiwidkIiOiJmdW5jdGlvbiAoeCwgeSwgciwgdGhldGEsIHQpIHtcblx0ICAgIHJldHVybiBNYXRoLnNpbih4KSAqIE1hdGguY29zKHkpICogMTA7XG5cdH0iLCJkb21haW4iOnsieSI6Wy0zLDNdLCJ4IjpbLTQuNTYsNC41Nl19LCJjb2xvciI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIHdpbmRvdy5kMy5sYWIoODAgLSByICogMTMsIHkgKiAyMCAqIE1hdGgucmFuZG9tKCksIHggKiAyMCAqIE1hdGgucmFuZG9tKCkpLnRvU3RyaW5nKCk7XG5cdH0iLCJwYXJ0aWNsZUNvdW50IjozMDAwLCJmYWRlQW1vdW50IjowLCJsaW5lV2lkdGgiOjAuNSwic2NyZWVuSWQiOjE0NTU4NDkwNzA1NzcsImZ1bmNTdHJzIjpbInZBIiwidkIiLCJjb2xvciJdfQ==
+
+// http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIE1hdGguc2luKHkgJiB0aGV0YSkgKiAxMDtcblx0fSIsInZCIjoiZnVuY3Rpb24gKHgsIHksIHIsIHRoZXRhLCB0KSB7XG5cdCAgICByZXR1cm4gTWF0aC5jb3MoeCAqIHkpICogMTA7XG5cdH0iLCJkb21haW4iOnsieSI6Wy0zLDNdLCJ4IjpbLTIuNTgsMi41OF19LCJjb2xvciI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIHdpbmRvdy5kMy5sYWIoODAgLSByICogMTMsIHkgKiAyMCAqIE1hdGgucmFuZG9tKCksIHggKiAyMCAqIE1hdGgucmFuZG9tKCkpLnRvU3RyaW5nKCk7XG5cdH0iLCJwYXJ0aWNsZUNvdW50Ijo1MDAsImZhZGVBbW91bnQiOjAsImxpbmVXaWR0aCI6MC41LCJzY3JlZW5JZCI6MTQ1NTg2Nzk3MjE4OSwiZnVuY1N0cnMiOlsidkEiLCJ2QiIsImNvbG9yIl19
+
+

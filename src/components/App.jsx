@@ -37,14 +37,19 @@ function getStateFromUrl() {
     }
 }
 
-function getRandomState() {
-    // 50/50 chance of getting a slightly randomized preset or a completely random mashup
-    const coinFlip = Math.random() > 0.5;
-    const template = coinFlip ? _.sample(DEFAULTS.presets) : DEFAULTS.shuffleAll;
-    return _.mapValues(_.cloneDeep(template), (value) => {
-        return _.isArray(value.choices) ? _.sample(value.choices) : value;
-    });
+function sampleChoices(value) {
+    // in the presets & defaults, parameters can have 'choices' which will be sampled from randomly
+    return _.isArray(value.choices) ? _.sample(value.choices) : value;
 }
+function getRandomPreset() {
+    // get & hydrate one of the preset templates, so you always get a pretty field on first page load
+    return _.mapValues(_.cloneDeep(_.sample(DEFAULTS.presets)), sampleChoices);
+}
+function getRandomState() {
+    // get & hydrate the template which shuffles all the possible choices
+    return _.mapValues(_.cloneDeep(DEFAULTS.stateChoices), sampleChoices);
+}
+
 
 // UI settings only control interface options,
 // and are therefore not saved to the URL like the rest of the state
@@ -78,6 +83,12 @@ export default class App extends React.Component {
         state.domain.x = state.domain.x || this._xDomainFromYDomain(state.domain.y);
         return state;
     };
+    _getRandomOption = (key) => {
+        const option = sampleChoices(DEFAULTS.stateChoices[key]);
+        if(key === 'domain')
+            option.x = option.x || this._xDomainFromYDomain(option.y);
+        return option;
+    };
 
     _xDomainFromYDomain = (yDomain) => {
         const mainWidth = window.innerWidth - this.props.panelWidth;
@@ -104,16 +115,28 @@ export default class App extends React.Component {
         this.setState(newState, () => this._saveStateToUrl(false));
     };
 
-    _onClearScreen = () => {
-        this._onChangeOption('screenId', +(new Date()));
+    _onShuffleOption = (key) => {
+        if(!_.has(DEFAULTS.stateChoices, key)) return;
+        this.setState(
+            {
+                [key]: this._getRandomOption(key),
+                screenId: +(new Date())
+            },
+            this._saveStateToUrl
+        );
     };
-
     _onShuffleOptions = () => {
         this.setState(
             _.assign(this._getRandomState(), {screenId: +(new Date())}),
             this._saveStateToUrl
         );
     };
+
+    _onClearScreen = () => {
+        this._onChangeOption('screenId', +(new Date()));
+    };
+
+
 
     render() {
         const options = _.pick(this.state, [
@@ -137,6 +160,7 @@ export default class App extends React.Component {
             <ControlPanel
                 width={this.props.panelWidth}
                 onChangeOption={this._onChangeOption}
+                onShuffleOption={this._onShuffleOption}
                 onShuffleOptions={this._onShuffleOptions}
                 onPushHistory={() => this._saveStateToUrl(true)}
                 {...options} {...{vA, vB}} {...uiOptions}

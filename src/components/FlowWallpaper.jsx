@@ -25,18 +25,43 @@ export default class FlowWallpaper extends React.Component {
 
     constructor(props) {
         super(props);
+        _.assign(this, this._initScale(props));
         this._throttledScrollHandler =  _.throttle(this._scrollHandler, 30);
         this._throttledResizeHandler =  _.debounce(this._resizeHandler, 200);
+        this._throttledMoveHandler =  _.throttle(this._moveHandler, 20);
     }
+
     componentDidMount() {
         //document.addEventListener('mousewheel', this._throttledScrollHandler);
         //document.addEventListener('DOMMouseScroll', this._throttledScrollHandler);
         window.addEventListener('resize', this._throttledResizeHandler);
+        window.addEventListener('mousemove', this._throttledMoveHandler);
     }
     componentWillUnmount() {
         //document.removeEventListener('mousewheel', this._throttledScrollHandler);
         //document.removeEventListener('DOMMouseScroll', this._throttledScrollHandler);
         window.removeEventListener('resize', this._throttledResizeHandler);
+        window.removeEventListener('mousemove', this._throttledMoveHandler);
+    }
+    componentWillReceiveProps(newProps) {
+        // todo: don't do this every time...
+        _.assign(this, this._initScale(newProps))
+    }
+
+    _initScale(props) {
+        const {minWidth, panelWidth, useDPI} = props;
+
+        const windowSize = getWindowSize(true);
+        const dpiMult = (useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
+
+        const height = windowSize.height;
+        const width = Math.max(windowSize.width - (panelWidth * dpiMult), minWidth);
+        const scale = {
+            x: d3.scale.linear().domain(props.domain.x).range([0, width]),
+            y: d3.scale.linear().domain(props.domain.y).range([height, 0])
+        };
+
+        return {height, width, scale};
     }
 
     _scrollHandler = (e) => {
@@ -46,16 +71,21 @@ export default class FlowWallpaper extends React.Component {
     _resizeHandler = (e) => {
         this.props.onClearScreen();
     };
+    _moveHandler = (e) => {
+        window.mouseX = this.scale.x.invert(e.clientX);
+        window.mouseY = this.scale.y.invert(e.clientY);
+    };
 
     render() {
         const {
             minWidth, panelWidth,
             domain, vx, vy, vr, vTheta, color, particleCount, fadeAmount, lineWidth, screenId
         } = this.props;
+        const {height, width, scale} = this;
+
         const windowSize = getWindowSize(true);
         const dpiMult = (this.props.useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
-        const height = windowSize.height;
-        const width = Math.max(windowSize.width - (panelWidth * dpiMult), minWidth);
+
 
         const wallpaperStyle = {
             position: 'fixed',
@@ -70,11 +100,6 @@ export default class FlowWallpaper extends React.Component {
                 WebkitTransform: 'scale(0.5) translate(-50%, -50%)'
             } : {}
         );
-
-        const scale = {
-            x: d3.scale.linear().domain(domain.x).range([0, width]),
-            y: d3.scale.linear().domain(domain.y).range([height, 0])
-        };
 
         return <Portal isOpened={true}>
             <div style={wallpaperStyle}>

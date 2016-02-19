@@ -71,6 +71,11 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	_.assign(window, {
+	    mouseX: 0,
+	    mouseY: 0
+	});
+	
 	_reactDom2.default.render(_react2.default.createElement(_App2.default, null), document.getElementById('container'));
 
 /***/ },
@@ -108,7 +113,7 @@
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #101010;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n}\nbody * {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.tooltip {\n  position: fixed;\n}\n.tooltip .tooltip-content {\n  background: rgba(255, 255, 255, 0.8);\n  padding: 6px;\n  font-size: 9pt;\n  -webkit-border-radius: 4px 0 4px 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px 0 4px 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px 0 4px 4px;\n  background-clip: padding-box;\n}\n.tooltip .tooltip-content ul {\n  margin: 0;\n  padding-left: 15px;\n}\n.tooltip .tooltip-triangle-right {\n  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);\n}\n.landscape-alert {\n  padding: 10px;\n  text-align: center;\n  -webkit-border-radius: 6px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 6px;\n  -moz-background-clip: padding;\n  border-radius: 6px;\n  background-clip: padding-box;\n  font-size: 14pt;\n}\n.landscape-alert h1 {\n  font-size: 38px;\n  line-height: 28px;\n}\n.control-input-text-style {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.valid-input-style {\n  outline: none;\n  color: lightgreen;\n}\n.valid-input-style:focus {\n  border: 1px solid lightgreen;\n}\n.invalid-input-style {\n  outline: none;\n  color: lightcoral;\n}\n.invalid-input-style:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel {\n  position: fixed;\n  height: 100%;\n  overflow-y: scroll;\n  -webkit-overflow-scrolling: touch;\n  right: 0;\n  top: 0;\n  padding: 0;\n  background: #494949;\n  color: #f0f0f0;\n  font-size: 10pt;\n}\n.control-panel button {\n  display: inline-block;\n  background: transparent;\n  line-height: 10px;\n  font-size: 8pt;\n  color: #f0f0f0;\n  border: 1px solid #f0f0f0;\n  -webkit-border-radius: 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px;\n  background-clip: padding-box;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n  cursor: pointer;\n}\n.control-panel button:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.control-panel button:active {\n  outline: none;\n  background-color: #292929;\n  border-color: #898989;\n}\n.control-panel button:focus {\n  outline: none;\n}\n.control-panel input[type=\"text\"] {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n  line-height: 13pt;\n  text-align: right;\n}\n.control-panel .panel {\n  display: block;\n  position: relative;\n  overflow: auto;\n  padding: 4px 15px;\n  background-color: #333;\n}\n.control-panel .panel:nth-child(odd) {\n  background-color: #404040;\n}\n.control-panel .panel button {\n  margin-left: 6px;\n}\n.control-panel .panel button:first-of-type {\n  margin-left: 0;\n}\n.control-panel .panel-left {\n  float: left;\n}\n.control-panel .panel-right {\n  float: right;\n}\n.control-panel .panel-left,\n.control-panel .panel-right {\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel-left .number-input,\n.control-panel .panel-right .number-input,\n.control-panel .panel-left span,\n.control-panel .panel-right span {\n  display: inline-block;\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel.head-panel {\n  background-color: #18183a;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .panel-left,\n.control-panel .panel.head-panel .panel-right {\n  line-height: 20pt;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .subtitle,\n.control-panel .panel.head-panel .byline {\n  vertical-align: baseline;\n  display: inline-block;\n  font-size: 8pt;\n  font-weight: normal;\n}\n.control-panel .panel.head-panel h3 {\n  display: inline-block;\n  vertical-align: baseline;\n  margin: 0;\n  font-size: 13pt;\n  font-weight: 700;\n  color: #f6f6f6;\n  text-shadow: 0 1px 0 #040404;\n}\n.control-panel .panel.head-panel .subtitle {\n  margin-left: 4px;\n}\n.control-panel .panel.head-panel .byline {\n  color: #a0a0a0;\n}\n.control-panel .panel.number-range-panel .number-input input {\n  width: 4em;\n}\n.control-panel .panel.number-range-panel .range-delimiter {\n  margin: 0 5px;\n  font-size: 8pt;\n}\n.control-panel .number-input input {\n  float: right;\n  width: 6em;\n}\n.control-panel .number-input label {\n  display: block;\n  position: relative;\n  overflow: auto;\n}\n.control-panel .number-input label :first-child {\n  float: left;\n}\n.control-panel .number-input.number-input-valid input {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .number-input.number-input-valid input:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .number-input.number-input-invalid input {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .number-input.number-input-invalid input:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel .function-input .function-signature {\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n}\n.control-panel .function-input textarea {\n  width: 100%;\n  height: 25pt;\n  -webkit-transition: height 0.35s;\n  -moz-transition: height 0.35s;\n  -o-transition: height 0.35s;\n  transition: height 0.35s;\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.control-panel .function-input textarea:focus {\n  height: 80pt;\n  outline: none;\n  -webkit-box-shadow: 0 0 4px #b0b0b0;\n  -moz-box-shadow: 0 0 4px #b0b0b0;\n  box-shadow: 0 0 4px #b0b0b0;\n}\n.control-panel .function-input.function-input-valid textarea {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .function-input.function-input-valid textarea:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .function-input.function-input-invalid textarea {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .function-input.function-input-invalid textarea:focus {\n  border: 1px solid lightcoral;\n}\n", ""]);
+	exports.push([module.id, "body {\n  font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif;\n  margin: 0;\n  padding: 0;\n  background: #f0f0f0;\n  color: #0f0f0f;\n}\nbody #container {\n  margin: 10px;\n}\n.area-heatmap-rect {\n  fill: #ba1111;\n}\n.line-chart,\n.xy-plot {\n  margin-right: 6px;\n}\n.line-chart .chart-background,\n.xy-plot .chart-background {\n  fill: none;\n}\n.line-chart *,\n.xy-plot * {\n  user-select: none;\n  -webkit-user-select: none;\n  -moz-user-select: none;\n}\n.line-chart .chart-line,\n.xy-plot .chart-line {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.line-chart .chart-tick,\n.xy-plot .chart-tick {\n  fill: none;\n  stroke: #666;\n  stroke-width: 1px;\n}\n.line-chart .chart-grid,\n.xy-plot .chart-grid {\n  stroke: #ccc;\n}\n.line-chart .chart-zero-line,\n.xy-plot .chart-zero-line {\n  stroke: #888;\n  stroke-width: 1.5px;\n}\n.line-chart .chart-axis-value-label,\n.xy-plot .chart-axis-value-label {\n  font-size: 8pt;\n}\n.line-chart .chart-axis-value-label-x,\n.xy-plot .chart-axis-value-label-x {\n  text-anchor: middle;\n}\n.line-chart .chart-axis-value-label-y,\n.xy-plot .chart-axis-value-label-y {\n  text-anchor: end;\n}\n.line-chart .chart-selected-range,\n.xy-plot .chart-selected-range {\n  fill: #eeeef6;\n}\n.line-chart .chart-axis-label,\n.xy-plot .chart-axis-label {\n  font-size: 16pt;\n  font-weight: bold;\n}\n.bar-chart {\n  background: #f0f0f0;\n}\n.bar-chart .chart-bar {\n  fill: steelblue;\n}\n.marker-line-chart line {\n  stroke: black;\n  stroke-width: 2px;\n}\n.pie-chart path {\n  stroke: none;\n}\n.pie-chart .pie-slice-0 {\n  fill: steelblue;\n}\n.pie-chart .pie-slice-1 {\n  fill: darkred;\n}\n.pie-chart .pie-slice-2 {\n  fill: orange;\n}\n.pie-chart .pie-slice-empty {\n  fill: #ddd;\n}\n.pie-chart .pie-label-center {\n  font-size: 26pt;\n}\n.pie-chart .marker-line {\n  stroke: black;\n  stroke-width: 2px;\n}\npath {\n  fill: none;\n  stroke: steelblue;\n  stroke-width: 1.5px;\n  stroke-linejoin: bevel;\n}\n.chart-series-0 path {\n  stroke: steelblue;\n}\n.chart-series-1 path {\n  stroke: darkred;\n}\n.chart-series-2 path {\n  stroke: orange;\n}\nbody {\n  background: #101010;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n}\nbody * {\n  -webkit-box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  box-sizing: border-box;\n}\n.tooltip {\n  position: fixed;\n}\n.tooltip .tooltip-content {\n  background: rgba(255, 255, 255, 0.8);\n  padding: 6px;\n  font-size: 9pt;\n  -webkit-border-radius: 4px 0 4px 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px 0 4px 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px 0 4px 4px;\n  background-clip: padding-box;\n}\n.tooltip .tooltip-content ul {\n  margin: 0;\n  padding-left: 15px;\n}\n.tooltip .tooltip-triangle-right {\n  border-color: transparent transparent transparent rgba(255, 255, 255, 0.8);\n}\n.landscape-alert {\n  padding: 10px;\n  text-align: center;\n  -webkit-border-radius: 6px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 6px;\n  -moz-background-clip: padding;\n  border-radius: 6px;\n  background-clip: padding-box;\n  font-size: 14pt;\n}\n.landscape-alert h1 {\n  font-size: 38px;\n  line-height: 28px;\n}\n.control-input-text-style {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.valid-input-style {\n  outline: none;\n  color: lightgreen;\n}\n.valid-input-style:focus {\n  border: 1px solid lightgreen;\n}\n.invalid-input-style {\n  outline: none;\n  color: lightcoral;\n}\n.invalid-input-style:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel {\n  position: fixed;\n  height: 100%;\n  overflow-y: scroll;\n  -webkit-overflow-scrolling: touch;\n  right: 0;\n  top: 0;\n  padding: 0;\n  background: #494949;\n  color: #f0f0f0;\n  font-size: 10pt;\n}\n.control-panel button {\n  display: inline-block;\n  background: transparent;\n  line-height: 10px;\n  padding: 3px 6px;\n  font-size: 8pt;\n  color: #f0f0f0;\n  border: 1px solid #f0f0f0;\n  -webkit-border-radius: 4px;\n  -webkit-background-clip: padding-box;\n  -moz-border-radius: 4px;\n  -moz-background-clip: padding;\n  border-radius: 4px;\n  background-clip: padding-box;\n  font-family: \"Titillium Web\", \"Helvetica Neue\", Helvetica, sans-serif;\n  cursor: pointer;\n}\n.control-panel button:hover {\n  background-color: rgba(255, 255, 255, 0.1);\n}\n.control-panel button:active {\n  outline: none;\n  background-color: #292929;\n  border-color: #898989;\n}\n.control-panel button:focus {\n  outline: none;\n}\n.control-panel input[type=\"text\"] {\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n  line-height: 13pt;\n  text-align: right;\n}\n.control-panel .panel {\n  display: block;\n  position: relative;\n  overflow: auto;\n  padding: 4px 15px;\n  background-color: #333;\n}\n.control-panel .panel:nth-child(odd) {\n  background-color: #404040;\n}\n.control-panel .panel button {\n  margin-left: 6px;\n}\n.control-panel .panel button:first-of-type {\n  margin-left: 0;\n}\n.control-panel .panel-left {\n  float: left;\n}\n.control-panel .panel-right {\n  float: right;\n}\n.control-panel .panel-left,\n.control-panel .panel-right {\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel-left .number-input,\n.control-panel .panel-right .number-input,\n.control-panel .panel-left span,\n.control-panel .panel-right span {\n  display: inline-block;\n  line-height: 12pt;\n  vertical-align: middle;\n}\n.control-panel .panel.head-panel {\n  background-color: #18183a;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .panel-left,\n.control-panel .panel.head-panel .panel-right {\n  line-height: 20pt;\n  vertical-align: baseline;\n}\n.control-panel .panel.head-panel .subtitle,\n.control-panel .panel.head-panel .byline {\n  vertical-align: baseline;\n  display: inline-block;\n  font-size: 8pt;\n  font-weight: normal;\n}\n.control-panel .panel.head-panel h3 {\n  display: inline-block;\n  vertical-align: baseline;\n  margin: 0;\n  font-size: 13pt;\n  font-weight: 700;\n  color: #f6f6f6;\n  text-shadow: 0 1px 0 #040404;\n}\n.control-panel .panel.head-panel .subtitle {\n  margin-left: 4px;\n}\n.control-panel .panel.head-panel .byline {\n  color: #a0a0a0;\n}\n.control-panel .panel.number-range-panel .number-input input {\n  width: 4em;\n}\n.control-panel .panel.number-range-panel .range-delimiter {\n  margin: 0 5px;\n  font-size: 8pt;\n}\n.control-panel .number-input input {\n  float: right;\n  width: 6em;\n}\n.control-panel .number-input label {\n  display: block;\n  position: relative;\n  overflow: auto;\n}\n.control-panel .number-input label :first-child {\n  float: left;\n}\n.control-panel .number-input.number-input-valid input {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .number-input.number-input-valid input:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .number-input.number-input-invalid input {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .number-input.number-input-invalid input:focus {\n  border: 1px solid lightcoral;\n}\n.control-panel .function-input .function-signature {\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n}\n.control-panel .function-input textarea {\n  width: 100%;\n  height: 25pt;\n  -webkit-transition: height 0.35s;\n  -moz-transition: height 0.35s;\n  -o-transition: height 0.35s;\n  transition: height 0.35s;\n  color: #f0f0f0;\n  font-family: \"Inconsolata\", monospace;\n  font-size: 9pt;\n  background: #181818;\n  border: 1px solid #232323;\n  -webkit-box-shadow: inset 0 0 3px #000000;\n  -moz-box-shadow: inset 0 0 3px #000000;\n  box-shadow: inset 0 0 3px #000000;\n}\n.control-panel .function-input textarea:focus {\n  height: 80pt;\n  outline: none;\n  -webkit-box-shadow: 0 0 4px #b0b0b0;\n  -moz-box-shadow: 0 0 4px #b0b0b0;\n  box-shadow: 0 0 4px #b0b0b0;\n}\n.control-panel .function-input.function-input-valid textarea {\n  outline: none;\n  color: lightgreen;\n}\n.control-panel .function-input.function-input-valid textarea:focus {\n  border: 1px solid lightgreen;\n}\n.control-panel .function-input.function-input-invalid textarea {\n  outline: none;\n  color: lightcoral;\n}\n.control-panel .function-input.function-input-invalid textarea:focus {\n  border: 1px solid lightcoral;\n}\n", ""]);
 	
 	// exports
 
@@ -20112,13 +20117,17 @@
 	    }
 	}
 	
+	function sampleChoices(value) {
+	    // in the presets & defaults, parameters can have 'choices' which will be sampled from randomly
+	    return _lodash2.default.isArray(value.choices) ? _lodash2.default.sample(value.choices) : value;
+	}
+	function getRandomPreset() {
+	    // get & hydrate one of the preset templates, so you always get a pretty field on first page load
+	    return _lodash2.default.mapValues(_lodash2.default.cloneDeep(_lodash2.default.sample(_defaults2.default.presets)), sampleChoices);
+	}
 	function getRandomState() {
-	    // 50/50 chance of getting a slightly randomized preset or a completely random mashup
-	    var coinFlip = Math.random() > 0.5;
-	    var template = coinFlip ? _lodash2.default.sample(_defaults2.default.presets) : _defaults2.default.shuffleAll;
-	    return _lodash2.default.mapValues(_lodash2.default.cloneDeep(template), function (value) {
-	        return _lodash2.default.isArray(value.choices) ? _lodash2.default.sample(value.choices) : value;
-	    });
+	    // get & hydrate the template which shuffles all the possible choices
+	    return _lodash2.default.mapValues(_lodash2.default.cloneDeep(_defaults2.default.stateChoices), sampleChoices);
 	}
 	
 	// UI settings only control interface options,
@@ -20143,6 +20152,12 @@
 	            var state = getRandomState();
 	            state.domain.x = state.domain.x || _this._xDomainFromYDomain(state.domain.y);
 	            return state;
+	        };
+	
+	        _this._getRandomOption = function (key) {
+	            var option = sampleChoices(_defaults2.default.stateChoices[key]);
+	            if (key === 'domain') option.x = option.x || _this._xDomainFromYDomain(option.y);
+	            return option;
 	        };
 	
 	        _this._xDomainFromYDomain = function (yDomain) {
@@ -20175,12 +20190,19 @@
 	            });
 	        };
 	
-	        _this._onClearScreen = function () {
-	            _this._onChangeOption('screenId', +new Date());
+	        _this._onShuffleOption = function (key) {
+	            var _this$setState;
+	
+	            if (!_lodash2.default.has(_defaults2.default.stateChoices, key)) return;
+	            _this.setState((_this$setState = {}, _defineProperty(_this$setState, key, _this._getRandomOption(key)), _defineProperty(_this$setState, 'screenId', +new Date()), _this$setState), _this._saveStateToUrl);
 	        };
 	
 	        _this._onShuffleOptions = function () {
 	            _this.setState(_lodash2.default.assign(_this._getRandomState(), { screenId: +new Date() }), _this._saveStateToUrl);
+	        };
+	
+	        _this._onClearScreen = function () {
+	            _this._onChangeOption('screenId', +new Date());
 	        };
 	
 	        _this.state = _lodash2.default.assign(getStateFromUrl() || _this._getRandomState(), defaultUISettings);
@@ -20221,6 +20243,7 @@
 	                _react2.default.createElement(_ControlPanel2.default, _extends({
 	                    width: this.props.panelWidth,
 	                    onChangeOption: this._onChangeOption,
+	                    onShuffleOption: this._onShuffleOption,
 	                    onShuffleOptions: this._onShuffleOptions,
 	                    onPushHistory: function onPushHistory() {
 	                        return _this3._saveStateToUrl(true);
@@ -46378,8 +46401,15 @@
 	            _this.props.onClearScreen();
 	        };
 	
+	        _this._moveHandler = function (e) {
+	            window.mouseX = _this.scale.x.invert(e.clientX);
+	            window.mouseY = _this.scale.y.invert(e.clientY);
+	        };
+	
+	        _lodash2.default.assign(_this, _this._initScale(props));
 	        _this._throttledScrollHandler = _lodash2.default.throttle(_this._scrollHandler, 30);
 	        _this._throttledResizeHandler = _lodash2.default.debounce(_this._resizeHandler, 200);
+	        _this._throttledMoveHandler = _lodash2.default.throttle(_this._moveHandler, 20);
 	        return _this;
 	    }
 	
@@ -46389,6 +46419,7 @@
 	            //document.addEventListener('mousewheel', this._throttledScrollHandler);
 	            //document.addEventListener('DOMMouseScroll', this._throttledScrollHandler);
 	            window.addEventListener('resize', this._throttledResizeHandler);
+	            window.addEventListener('mousemove', this._throttledMoveHandler);
 	        }
 	    }, {
 	        key: 'componentWillUnmount',
@@ -46396,6 +46427,33 @@
 	            //document.removeEventListener('mousewheel', this._throttledScrollHandler);
 	            //document.removeEventListener('DOMMouseScroll', this._throttledScrollHandler);
 	            window.removeEventListener('resize', this._throttledResizeHandler);
+	            window.removeEventListener('mousemove', this._throttledMoveHandler);
+	        }
+	    }, {
+	        key: 'componentWillReceiveProps',
+	        value: function componentWillReceiveProps(newProps) {
+	            // todo: don't do this every time...
+	            _lodash2.default.assign(this, this._initScale(newProps));
+	        }
+	    }, {
+	        key: '_initScale',
+	        value: function _initScale(props) {
+	            var minWidth = props.minWidth;
+	            var panelWidth = props.panelWidth;
+	            var useDPI = props.useDPI;
+	
+	
+	            var windowSize = (0, _utils.getWindowSize)(true);
+	            var dpiMult = useDPI && window.devicePixelRatio >= 2 ? 2 : 1;
+	
+	            var height = windowSize.height;
+	            var width = Math.max(windowSize.width - panelWidth * dpiMult, minWidth);
+	            var scale = {
+	                x: _d2.default.scale.linear().domain(props.domain.x).range([0, width]),
+	                y: _d2.default.scale.linear().domain(props.domain.y).range([height, 0])
+	            };
+	
+	            return { height: height, width: width, scale: scale };
 	        }
 	    }, {
 	        key: 'render',
@@ -46413,11 +46471,13 @@
 	            var fadeAmount = _props.fadeAmount;
 	            var lineWidth = _props.lineWidth;
 	            var screenId = _props.screenId;
+	            var height = this.height;
+	            var width = this.width;
+	            var scale = this.scale;
+	
 	
 	            var windowSize = (0, _utils.getWindowSize)(true);
 	            var dpiMult = this.props.useDPI && window.devicePixelRatio >= 2 ? 2 : 1;
-	            var height = windowSize.height;
-	            var width = Math.max(windowSize.width - panelWidth * dpiMult, minWidth);
 	
 	            var wallpaperStyle = {
 	                position: 'fixed',
@@ -46430,11 +46490,6 @@
 	                transform: 'scale(0.5) translate(-50%, -50%)',
 	                WebkitTransform: 'scale(0.5) translate(-50%, -50%)'
 	            } : {});
-	
-	            var scale = {
-	                x: _d2.default.scale.linear().domain(domain.x).range([0, width]),
-	                y: _d2.default.scale.linear().domain(domain.y).range([height, 0])
-	            };
 	
 	            return _react2.default.createElement(
 	                _reactPortal2.default,
@@ -47315,6 +47370,7 @@
 	        value: function render() {
 	            var _props = this.props;
 	            var onChangeOption = _props.onChangeOption;
+	            var onShuffleOption = _props.onShuffleOption;
 	            var isPolar = _props.isPolar;
 	
 	            return _react2.default.createElement(
@@ -47466,21 +47522,24 @@
 	                    value: this.props.vA,
 	                    funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
 	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vA'),
-	                    checkValid: checkValidVectorFunc
+	                    checkValid: checkValidVectorFunc,
+	                    onShuffle: _lodash2.default.partial(onShuffleOption, 'vA')
 	                }),
 	                _react2.default.createElement(FunctionPanel, {
 	                    label: (isPolar ? "Theta" : "Y") + ' velocity',
 	                    value: this.props.vB,
 	                    funcParams: ['x', 'y', 'r', 'theta', 't', 'fr', 'vx', 'vy'],
 	                    onValidChange: _lodash2.default.partial(onChangeOption, 'vB'),
-	                    checkValid: checkValidVectorFunc
+	                    checkValid: checkValidVectorFunc,
+	                    onShuffle: _lodash2.default.partial(onShuffleOption, 'vB')
 	                }),
 	                _react2.default.createElement(FunctionPanel, {
 	                    label: "Color",
 	                    value: this.props.color,
 	                    funcParams: ['x', 'y', 'r', 'theta', 't', 'fr'],
 	                    onValidChange: _lodash2.default.partial(onChangeOption, 'color'),
-	                    checkValid: checkValidColorFunc
+	                    checkValid: checkValidColorFunc,
+	                    onShuffle: _lodash2.default.partial(onShuffleOption, 'color')
 	                })
 	            );
 	        }
@@ -47493,6 +47552,7 @@
 	    width: _react2.default.PropTypes.number,
 	    onChangeOption: _react2.default.PropTypes.func,
 	    onShuffleOptions: _react2.default.PropTypes.func,
+	    onShuffleOption: _react2.default.PropTypes.func,
 	    onPushHistory: _react2.default.PropTypes.func
 	});
 	exports.default = ControlPanel;
@@ -47505,7 +47565,17 @@
 	        _react2.default.createElement(
 	            'div',
 	            { className: 'panel function-panel' },
-	            _react2.default.createElement(_FunctionInput2.default, _extends({}, props, { onMouseOver: function onMouseOver(e) {
+	            _react2.default.createElement(
+	                'div',
+	                { className: 'panel-label', style: { lineHeight: '32px' } },
+	                props.label,
+	                props.onShuffle ? _react2.default.createElement(
+	                    'button',
+	                    { onClick: props.onShuffle, style: { marginLeft: 6 } },
+	                    'Shuffle'
+	                ) : null
+	            ),
+	            _react2.default.createElement(_FunctionInput2.default, _extends({}, _lodash2.default.omit(props, 'label'), { onMouseOver: function onMouseOver(e) {
 	                    return e.stopPropagation();
 	                } }))
 	        )
@@ -48646,14 +48716,14 @@
 	        },
 	        color: colorFuncs[2]
 	    }],
-	    shuffleAll: {
-	        isPolar: true,
+	    stateChoices: {
+	        isPolar: { choices: [true, false] },
 	        vA: { choices: vectorFuncs },
 	        vB: { choices: vectorFuncs },
 	        domain: { choices: makeYRanges([2, 3, 4, 5, 6, 8, 10]) },
 	        color: { choices: colorFuncs },
-	        particleCount: { choices: [100, 300, 500, 1000, 2000, 3000] },
-	        fadeAmount: 0,
+	        particleCount: { choices: [300, 500, 1000, 1500, 2000, 3000] },
+	        fadeAmount: { choices: [0, 0, 0, 2, 8] },
 	        lineWidth: { choices: [0.1, 0.3, 0.5, 0.8, 1, 2, 3] }
 	    }
 	};
@@ -48665,6 +48735,8 @@
 	// http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIChNYXRoLmNvcyhyIC8gdGhldGEpICsgTWF0aC5jb3ModGhldGEpKSAqIDEwO1xuXHR9IiwidkIiOiJmdW5jdGlvbiAoeCwgeSwgciwgdGhldGEsIHQpIHtcblx0ICAgIHJldHVybiAoTWF0aC5jb3MociAqIHRoZXRhKSArIE1hdGguc2luKHRoZXRhKSkgKiAxMDtcblx0fSIsImRvbWFpbiI6eyJ5IjpbLTgsOF0sIngiOlstMTIuMTUsMTIuMTVdfSwiY29sb3IiOiJmdW5jdGlvbiAoeCwgeSwgciwgdGhldGEsIHQpIHtcblx0ICAgIHJldHVybiB3aW5kb3cuZDMubGFiKDgwIC0gciAqIDEzLCB5ICogMjAgKiBNYXRoLnJhbmRvbSgpLCB4ICogMjAgKiBNYXRoLnJhbmRvbSgpKS50b1N0cmluZygpO1xuXHR9IiwicGFydGljbGVDb3VudCI6MTAwMCwiZmFkZUFtb3VudCI6MCwibGluZVdpZHRoIjowLjUsInNjcmVlbklkIjoxNDU1ODQ3OTc2NTM3LCJmdW5jU3RycyI6WyJ2QSIsInZCIiwiY29sb3IiXX0=
 
 	// http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIE1hdGguY29zKHggKiB5KSAqIDEwO1xuXHR9IiwidkIiOiJmdW5jdGlvbiAoeCwgeSwgciwgdGhldGEsIHQpIHtcblx0ICAgIHJldHVybiBNYXRoLnNpbih4KSAqIE1hdGguY29zKHkpICogMTA7XG5cdH0iLCJkb21haW4iOnsieSI6Wy0zLDNdLCJ4IjpbLTQuNTYsNC41Nl19LCJjb2xvciI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIHdpbmRvdy5kMy5sYWIoODAgLSByICogMTMsIHkgKiAyMCAqIE1hdGgucmFuZG9tKCksIHggKiAyMCAqIE1hdGgucmFuZG9tKCkpLnRvU3RyaW5nKCk7XG5cdH0iLCJwYXJ0aWNsZUNvdW50IjozMDAwLCJmYWRlQW1vdW50IjowLCJsaW5lV2lkdGgiOjAuNSwic2NyZWVuSWQiOjE0NTU4NDkwNzA1NzcsImZ1bmNTdHJzIjpbInZBIiwidkIiLCJjb2xvciJdfQ==
+
+	// http://localhost:8228/?s=eyJpc1BvbGFyIjp0cnVlLCJ2QSI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIE1hdGguc2luKHkgJiB0aGV0YSkgKiAxMDtcblx0fSIsInZCIjoiZnVuY3Rpb24gKHgsIHksIHIsIHRoZXRhLCB0KSB7XG5cdCAgICByZXR1cm4gTWF0aC5jb3MoeCAqIHkpICogMTA7XG5cdH0iLCJkb21haW4iOnsieSI6Wy0zLDNdLCJ4IjpbLTIuNTgsMi41OF19LCJjb2xvciI6ImZ1bmN0aW9uICh4LCB5LCByLCB0aGV0YSwgdCkge1xuXHQgICAgcmV0dXJuIHdpbmRvdy5kMy5sYWIoODAgLSByICogMTMsIHkgKiAyMCAqIE1hdGgucmFuZG9tKCksIHggKiAyMCAqIE1hdGgucmFuZG9tKCkpLnRvU3RyaW5nKCk7XG5cdH0iLCJwYXJ0aWNsZUNvdW50Ijo1MDAsImZhZGVBbW91bnQiOjAsImxpbmVXaWR0aCI6MC41LCJzY3JlZW5JZCI6MTQ1NTg2Nzk3MjE4OSwiZnVuY1N0cnMiOlsidkEiLCJ2QiIsImNvbG9yIl19
 
 /***/ }
 /******/ ]);
