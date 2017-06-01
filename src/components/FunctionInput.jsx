@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 
-const funcBeginRegEx =  /^\s*function\s*\w*\(([\w,\s]*[\n\/\*]*)\)\s*\{[\s\n]*/, // 'function(a,b,c) { '
+const funcBeginRegEx =  /^\s*function\s*\w*\(([\w,\s]*[\n\/\*\`]*)\)\s*\{[\s\n]*/, // 'function(a,b,c) { '
     funcEndRegEx = /\s*}\s*$/; // ' } '
 
 function unwrapFuncStr(funcStr) {

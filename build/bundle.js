@@ -48343,7 +48343,7 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var funcBeginRegEx = /^\s*function\s*\w*\(([\w,\s]*[\n\/\*]*)\)\s*\{[\s\n]*/,
+	var funcBeginRegEx = /^\s*function\s*\w*\(([\w,\s]*[\n\/\*\`]*)\)\s*\{[\s\n]*/,
 	    // 'function(a,b,c) { '
 	funcEndRegEx = /\s*}\s*$/; // ' } '
 	
