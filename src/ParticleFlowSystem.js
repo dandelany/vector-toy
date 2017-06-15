@@ -1,7 +1,7 @@
 'use strict';
 
 import _ from 'lodash';
-import d3 from 'd3';
+import * as d3 from 'd3';
 
 function cartesianToPolar(x, y) {
     const r = Math.sqrt(Math.pow(x, 2) + Math.pow(y, 2));
@@ -35,10 +35,10 @@ function uniformGrid(xDomain, yDomain, gridPrecision = 1) {
 
 function normalXY(xDomain, yDomain) {
     const [xMean, yMean] = [xDomain, yDomain].map(_.mean);
-    const [xDev, yDev] = [xDomain, yDomain].map(d => Math.abs(d[1] - d[0]) / 4);
+    const [xDev, yDev] = [xDomain, yDomain].map(d => Math.abs(d[1] - d[0]) / 10);
     return {
-        x: d3.random.normal(xMean, xDev)(),
-        y: d3.random.normal(yMean, yDev)()
+        x: d3.randomNormal(xMean, xDev)(),
+        y: d3.randomNormal(yMean, yDev)()
     }
 }
 
@@ -47,8 +47,8 @@ const defaultOptions = {
     getColor: randomGray,
     maxAge: 100,
     dt: 0.005,
-    getBirthplace: uniformXY
-    //getBirthplace: normalXY
+    // getBirthplace: uniformXY
+    getBirthplace: normalXY
 };
 
 export default class ParticleFlowSystem {
@@ -70,7 +70,7 @@ export default class ParticleFlowSystem {
     add(count) {
         // add new particles to system
         const {particles} = this;
-        const newParticles = _.range(count).map(() => this._createParticle());
+        const newParticles = _.range(count).map((i) => this._createParticle(null, i));
         particles.push.apply(particles, newParticles);
     }
     limit(limit) {
@@ -86,9 +86,9 @@ export default class ParticleFlowSystem {
         this.ticks += 1;
 
         // return an array of particle translations which are used to draw lines
-        return particles.map((particle) => {
-            const [x, y, r, theta, age, color, vxLast, vyLast] = particle;
-            const vectorArgs = [x, y, r, theta, time, ticks, vxLast, vyLast];
+        return particles.map((particle, index) => {
+            const [x, y, r, theta, age, color, vxLast, vyLast, vrLast, vThetaLast, indexLast] = particle;
+            const vectorArgs = [x, y, r, theta, time, ticks, vxLast, vyLast, vrLast, vThetaLast, indexLast];
             let vx, vy, vr, vTheta, x1, y1, r1, theta1;
 
             if(polar) {
@@ -104,19 +104,20 @@ export default class ParticleFlowSystem {
                 [r1, theta1] = cartesianToPolar(x1, y1);
             }
 
-            if((age + 1) > maxAge) {
+            // if((age + 1) > maxAge) {
+            if(false) {
                 // kill the old particle and make a new one out of its dead body
-                this._createParticle(particle);
+                this._createParticle(particle, index);
             } else {
                 // update the particle with its new position and age
-                particle.splice(0, 8, x1, y1, r1, theta1, age + 1, color, vx, vy);
+                particle.splice(0, 11, x1, y1, r1, theta1, age + 1, color, vx, vy, vr, vTheta, index);
             }
 
             return [x, y, x1, y1, color];
         });
     }
 
-    _createParticle = (particle) => {
+    _createParticle = (particle, index) => {
         // create a new particle with random starting position and age
         // pass particle arg to reuse obj reference, otherwise created from scratch
         const {xDomain, yDomain, getColor, ticks} = this;
@@ -138,8 +139,8 @@ export default class ParticleFlowSystem {
 
         // arrays still faster than objects :(
         return particle ?
-            particle.splice(0, 8, x, y, r, theta, age, color, 0, 0) :
-            [x, y, r, theta, age, color, 0, 0];
+            particle.splice(0, 8, x, y, r, theta, age, color, 0, 0, 0, 0, index) :
+            [x, y, r, theta, age, color, 0, 0, 0, 0, index];
     };
 
     _getTime = () => {

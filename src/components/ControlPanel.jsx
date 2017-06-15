@@ -191,7 +191,7 @@ export default class ControlPanel extends React.Component {
             <FunctionPanel {...{
                 label: `${isPolar ? "R" : "X"} velocity`,
                 value: this.props.vA,
-                funcParams: ['x', 'y', 'r', 'th', 't', 'fr', 'vx', 'vy'],
+                funcParams: ['x', 'y', 'r', 'th', 't', 'fr', 'vx', 'vy', 'vr', 'vTheta', 'i'],
                 onValidChange: _.partial(onChangeOption, 'vA'),
                 checkValid: checkValidVectorFunc,
                 onShuffle: _.partial(onShuffleOption, 'vA')
@@ -200,7 +200,7 @@ export default class ControlPanel extends React.Component {
             <FunctionPanel {...{
                 label: `${isPolar ? "Theta" : "Y"} velocity`,
                 value: this.props.vB,
-                funcParams: ['x', 'y', 'r', 'th', 't', 'fr', 'vx', 'vy'],
+                funcParams: ['x', 'y', 'r', 'th', 't', 'fr', 'vx', 'vy', 'vr', 'vTheta', 'i'],
                 onValidChange: _.partial(onChangeOption, 'vB'),
                 checkValid: checkValidVectorFunc,
                 onShuffle: _.partial(onShuffleOption, 'vB')
@@ -272,11 +272,11 @@ const NumberRangePanel = (props) => {
 };
 
 function checkValidVectorFunc(func) {
-    return _.isFinite(func(1, 1, 1, 1, 1, 1, 1, 1));
+    return _.isFinite(func(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1));
 }
 function checkValidColorFunc(func) {
     // hard to check valid color, just make sure it doesn't barf
-    func(1, 1, 1, 1, 1, 1, 1, 1);
+    func(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1);
     return true;
 }
 function checkValidBirthplaceFunc(func) {

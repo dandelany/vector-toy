@@ -1,6 +1,6 @@
 'use strict';
 import React from 'react';
-import d3 from 'd3';
+import * as d3 from 'd3';
 import _ from 'lodash';
 import Portal from 'react-portal';
 

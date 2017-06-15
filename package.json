@@ -10,7 +10,7 @@
     "serve": "python -m SimpleHTTPServer"
   },
   "dependencies": {
-    "d3": "^3.5.14",
+    "d3": "^4.9.1",
     "es6-promise": "^3.1.2",
     "lodash": "^4.3.0",
     "react": "^0.14.7",

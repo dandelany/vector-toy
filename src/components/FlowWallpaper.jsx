@@ -1,6 +1,6 @@
 'use strict';
 import React from 'react';
-import d3 from 'd3';
+import * as d3 from 'd3';
 import _ from 'lodash';
 import Portal from 'react-portal';
 
@@ -57,8 +57,8 @@ export default class FlowWallpaper extends React.Component {
         const height = windowSize.height;
         const width = Math.max(windowSize.width - (panelWidth * dpiMult), minWidth);
         const scale = {
-            x: d3.scale.linear().domain(props.domain.x).range([0, width]),
-            y: d3.scale.linear().domain(props.domain.y).range([height, 0])
+            x: d3.scaleLinear().domain(props.domain.x).range([0, width]),
+            y: d3.scaleLinear().domain(props.domain.y).range([height, 0])
         };
 
         return {height, width, scale};

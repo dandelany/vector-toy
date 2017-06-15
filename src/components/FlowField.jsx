@@ -2,7 +2,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
-import d3 from 'd3';
+import * as d3 from 'd3';
 import _ from 'lodash';
 
 import ParticleFlowSystem from 'ParticleFlowSystem';
@@ -198,7 +198,7 @@ export default class FlowField extends React.Component {
         }
     }
     _redraw = () => {
-        const {scale, fadeAmount, useSimpleFade} = this.props;
+        const {scale, fadeAmount, useSimpleFade, lineWidth} = this.props;
         const {ctx, getVector, isPolar} = this;
 
         if(fadeAmount)
@@ -206,11 +206,18 @@ export default class FlowField extends React.Component {
 
         const translations = this.particleSystem.advect(getVector, isPolar);
         _.forEach(translations, function([x, y, x1, y1, color]) {
-            ctx.strokeStyle = color;
+            // ctx.strokeStyle = color;
+            // ctx.beginPath();
+            // ctx.moveTo(scale.x(x), scale.y(y));
+            // ctx.lineTo(scale.x(x1), scale.y(y1));
+            // ctx.stroke();
+
+
             ctx.beginPath();
-            ctx.moveTo(scale.x(x), scale.y(y));
-            ctx.lineTo(scale.x(x1), scale.y(y1));
-            ctx.stroke();
+            ctx.arc(scale.x(x), scale.y(y), lineWidth / 2, 0, 2*Math.PI, false);
+            ctx.closePath();
+            ctx.fillStyle = color;
+            ctx.fill()
         });
 
         if(!(this.curFrame % 20)) {

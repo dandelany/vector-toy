@@ -82,6 +82,25 @@ export default {
     // any settings which can be chosen randomly have a "choices" property which is an array of possible choices
     presets: [
         {
+          isPolar: true,
+          particleCount: 1000,
+          fadeAmount: 1000,
+          lineWidth: 8,
+          domain: {y: negPosRange(8)},
+          vA: function(x, y, r, th, t, ticks, vx, vy, vr, vTheta, i) {
+            // return 0;
+            return Math.sin(t * .3) * 2;
+          },
+          // return ((Math.cos(th * 2 + r)) + 1.2) * (5 + Math.random());
+          // return (Math.cos(th * 2 + r*2) + 2.2) + 0 +(0*d3.randomNormal(1,.41)());
+          vB: function(x, y, r, th, t, ticks, vx, vy, vr, vTheta, i) {
+            return -(Math.cos(th * 2 + -r * 1.5) + 2.0) * 2 + d3.randomNormal(0, 0)();
+          },
+          color: function(x, y, r, theta) {
+            return d3.interpolateViridis(r/7)
+          }
+        }, /*
+        {
             isPolar: {choices: [true, false]},
             particleCount: 1000,
             fadeAmount: 0,
@@ -204,7 +223,7 @@ export default {
                 return Math.cos(x * y) * 10;
             },
             color: colorFuncs[0]
-        }
+        } */
     ],
     stateChoices: {
         isPolar: {choices: [true, false]},
