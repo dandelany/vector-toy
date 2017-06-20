@@ -125,6 +125,16 @@ export default class FlowField extends React.Component {
 
         _.assign(this, {particleSystem, ctx, getVector, xDomain, yDomain, startTime, curFrame, lastFrameTime, isPolar});
 
+        // setup video capturing
+        const captureOptions = {
+            format: 'png',
+            framerate: 60,
+            verbose: true,
+            name: "dita-video-frames"
+        };
+        this.capturer = new CCapture(captureOptions);
+        window.capturer = this.capturer;
+
         // draw loop
         this._redraw();
     }
@@ -201,8 +211,10 @@ export default class FlowField extends React.Component {
         const {scale, fadeAmount, useSimpleFade, lineWidth} = this.props;
         const {ctx, getVector, isPolar} = this;
 
-        if(fadeAmount)
-            useSimpleFade ? this._fadeOutSimple() : this._fadeOut();
+        ctx.fillStyle = "#1A1414";
+        ctx.fillRect(0, 0, this.props.width, this.props.height);
+        // if(fadeAmount)
+        //     useSimpleFade ? this._fadeOutSimple() : this._fadeOut();
 
         const translations = this.particleSystem.advect(getVector, isPolar);
         _.forEach(translations, function([x, y, x1, y1, color]) {
@@ -230,6 +242,7 @@ export default class FlowField extends React.Component {
         this.curFrame++;
 
         requestAnimationFrame(this._redraw);
+        if(window.isRecording) capturer.capture(this.refs.canvas);
     };
 
     render() {

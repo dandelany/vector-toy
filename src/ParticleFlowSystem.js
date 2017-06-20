@@ -15,7 +15,7 @@ function polarToCartesian(r, theta) {
 }
 
 function randomAge() {
-    return Math.round(Math.random() * 100);
+    return Math.round(Math.random() * 1000);
 }
 function randomGray(min=0, max=255) {
     const rgb = _.random(min, max);
@@ -45,7 +45,7 @@ function normalXY(xDomain, yDomain) {
 const defaultOptions = {
     particleCount: 100,
     getColor: randomGray,
-    maxAge: 100,
+    maxAge: 1000,
     dt: 0.005,
     // getBirthplace: uniformXY
     getBirthplace: normalXY

@@ -54,8 +54,10 @@ export default class FlowWallpaper extends React.Component {
         const windowSize = getWindowSize(true);
         const dpiMult = (useDPI && window.devicePixelRatio >= 2) ? 2 : 1;
 
-        const height = windowSize.height;
-        const width = Math.max(windowSize.width - (panelWidth * dpiMult), minWidth);
+        // const height = windowSize.height;
+        const height = 1600;
+        const width = 2400;
+        // const width = Math.max(windowSize.width - (panelWidth * dpiMult), minWidth);
         const scale = {
             x: d3.scaleLinear().domain(props.domain.x).range([0, width]),
             y: d3.scaleLinear().domain(props.domain.y).range([height, 0])

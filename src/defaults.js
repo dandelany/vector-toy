@@ -89,15 +89,15 @@ export default {
           domain: {y: negPosRange(8)},
           vA: function(x, y, r, th, t, ticks, vx, vy, vr, vTheta, i) {
             // return 0;
-            return Math.sin(t * .3) * 2;
+            return Math.sin(t * .3) - Math.cos(t * .2 + 10);
           },
           // return ((Math.cos(th * 2 + r)) + 1.2) * (5 + Math.random());
           // return (Math.cos(th * 2 + r*2) + 2.2) + 0 +(0*d3.randomNormal(1,.41)());
           vB: function(x, y, r, th, t, ticks, vx, vy, vr, vTheta, i) {
-            return -(Math.cos(th * 2 + -r * 1.5) + 2.0) * 2 + d3.randomNormal(0, 0)();
+            return -(Math.cos(th * 2 + -r * 1.5) + 2.0) * .25 + d3.randomNormal(0, 0)();
           },
           color: function(x, y, r, theta) {
-            return d3.interpolateViridis(r/7)
+            return d3.interpolateViridis(r/5.2)
           }
         }, /*
         {
